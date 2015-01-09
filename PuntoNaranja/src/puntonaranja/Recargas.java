@@ -82,7 +82,7 @@ public class Recargas extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        FileOutputStream adrFile = null;
+       /* FileOutputStream adrFile = null;
         try {
             adrFile = new FileOutputStream("test.xml");
             JAXBContext ctx = JAXBContext.newInstance(RootElementClass.class);
@@ -94,7 +94,7 @@ public class Recargas extends javax.swing.JFrame {
         catch(JAXBException exc) {
         }
         finally {
-        }
+        }*/
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
