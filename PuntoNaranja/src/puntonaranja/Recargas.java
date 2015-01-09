@@ -7,9 +7,16 @@ package puntonaranja;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import utils.Message;
+import utils.Utils;
 
 /**
  *
@@ -51,6 +58,11 @@ public class Recargas extends javax.swing.JFrame {
         });
 
         jButton2.setText("leer");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,21 +93,23 @@ public class Recargas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-        FileOutputStream adrFile = null;
         try {
-            adrFile = new FileOutputStream("test.xml");
-            JAXBContext ctx = JAXBContext.newInstance(RootElementClass.class);
-            Marshaller ma = ctx.createMarshaller();
-            ma.marshal(..);
+            Message msg = new Message();
+            Utils utl = new Utils();
+            msg.setEchoTest();
+            Document doc = utl.SendToServer(msg.buildXML());
+            msg.getFromXML(doc);
+            String resp = msg.getEchoResp();
+            JOptionPane.showMessageDialog(null, resp);
+        } catch (Exception ex) {
+            Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch(IOException exc) {
-        }
-        catch(JAXBException exc) {
-        }
-        finally {
-        }
+           
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
