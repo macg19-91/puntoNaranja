@@ -46,7 +46,7 @@ public class auth {
             e2.printStackTrace();
          }
       }
-      return "";
+      return "1234";
    }
     
 public void escribeFichero(String linea) throws IOException
