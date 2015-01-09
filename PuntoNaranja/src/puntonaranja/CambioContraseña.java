@@ -117,7 +117,7 @@ public class CambioContraseña extends javax.swing.JFrame {
             if(txtNew.getText().equals(txtAgain.getText())&&txtOld.getText().equals(file.leerArchivo())&&!txtOld.getText().equals(txtAgain.getText())){
                 file.escribeFichero(txtNew.getText());
             }else{
-            JOptionPane.showMessageDialog(null,"Los datos introducidos son incorrectos", "Error", JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(null,"Los datos introducidos son incorrectos", "Error!", JOptionPane.ERROR_MESSAGE );
                  
             }
         } catch (IOException ex) {
