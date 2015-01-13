@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author Marlon
  */
 public class auth {
-    public String leerArchivo() {
+    public String leerArchivo(String ruta) {
       File archivo = null;
       FileReader fr = null;
       BufferedReader br = null;
@@ -23,7 +23,7 @@ public class auth {
       try {
          // Apertura del fichero y creacion de BufferedReader para poder
          // hacer una lectura comoda (disponer del metodo readLine()).
-         archivo = new File ("Files\\Pass\\archivoPassword.txt");
+         archivo = new File ("Files\\"+ruta);
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
  
@@ -49,12 +49,12 @@ public class auth {
       return "1234"; 
    }
     
-public void escribeFichero(String linea) throws IOException
+public void escribeFichero(String linea,String nombre) throws IOException
     {
-        String ruta = "Files/Pass/archivoPassword.txt";
+        String ruta = "Files/"+nombre;
         File archivo = new File(ruta);
         BufferedWriter bw;
-        if(archivo.exists()) {
+        if(verificaFichero(archivo)) {
             bw = new BufferedWriter(new FileWriter(archivo));
             bw.write(linea);
         } else {
@@ -63,4 +63,16 @@ public void escribeFichero(String linea) throws IOException
         }
         bw.close();
     }
+
+public Boolean firstLogin()
+    {
+        String ruta = "Files/archivoPassword.txt";
+        File archivo = new File(ruta);
+        return verificaFichero(archivo);
+    }
+
+public Boolean verificaFichero(File file){ 
+        return file.exists();
 }
+}
+
