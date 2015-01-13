@@ -16,13 +16,34 @@ import utils.auth;
  */
 public class CambioContraseña extends javax.swing.JFrame {
     auth file;
+    boolean firstTime;
     /**
      * Creates new form CambioContraseña
      */
     public CambioContraseña() {
         initComponents();
         file=new auth();
+    }
+    public CambioContraseña(boolean firstTime) {
+        initComponents();
+        file=new auth();
         //txtOld.setText(file.leerArchivo());
+        this.firstTime = firstTime;
+        if(firstTime){
+            txtOld.setVisible(false);
+            txtUser.setVisible(true);
+            txtId.setVisible(true);            
+            lblOld.setVisible(false);
+            lblUser.setVisible(true);
+            lblId.setVisible(true);
+        }else{
+            txtOld.setVisible(true);
+            txtUser.setVisible(false);
+            txtId.setVisible(false);            
+            lblOld.setVisible(true);
+            lblUser.setVisible(false);
+            lblId.setVisible(false);            
+        }
     }
 
     /**
@@ -34,7 +55,7 @@ public class CambioContraseña extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblOld = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -42,10 +63,20 @@ public class CambioContraseña extends javax.swing.JFrame {
         txtOld = new javax.swing.JPasswordField();
         txtNew = new javax.swing.JPasswordField();
         txtAgain = new javax.swing.JPasswordField();
+        lblUser = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
+        txtUser = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setAlwaysOnTop(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
-        jLabel1.setText("Contraseña antigua:");
+        lblOld.setText("Contraseña antigua:");
 
         jLabel2.setText("Nueva contraseña:");
 
@@ -63,7 +94,21 @@ public class CambioContraseña extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Cancelar");
+        jButton2.setText("Salir");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        lblUser.setText("Usuario:");
+
+        lblId.setText("ID del comercio:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,10 +117,12 @@ public class CambioContraseña extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(lblOld)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUser)
+                    .addComponent(lblId))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtNew, javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,7 +130,9 @@ public class CambioContraseña extends javax.swing.JFrame {
                     .addComponent(txtOld)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 14, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUser)
+                    .addComponent(txtId))
                 .addGap(126, 126, 126))
         );
         layout.setVerticalGroup(
@@ -91,7 +140,7 @@ public class CambioContraseña extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(lblOld)
                     .addComponent(txtOld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -101,33 +150,129 @@ public class CambioContraseña extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtAgain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(lblUser)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblId)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        if(firstTime){
+            createUser();
+        }else{
+            changePass();
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+    
+    private void changePass(){
         try {
             // TODO add your handling code here:
-            if(txtNew.getText().equals(txtAgain.getText())&&txtOld.getText().equals(file.leerArchivo())&&!txtOld.getText().equals(txtAgain.getText())){
-                file.escribeFichero(txtNew.getText());
-            }else{
-            JOptionPane.showMessageDialog(null,"Los datos introducidos son incorrectos", "Error!", JOptionPane.ERROR_MESSAGE );
-                 
-            }
+                                
+            //if((txtNew.getText().isEmpty() || txtAgain.getText().isEmpty()) || txtOld.getText().isEmpty()){
+                if(txtNew.getText().equals(txtAgain.getText())){
+                    if(txtOld.getText().equals(file.leerArchivo("archivoPassword.txt"))){
+                        if(!txtOld.getText().equals(txtAgain.getText())){
+                            //if(txtNew.getText().equals(txtAgain.getText())&&txtOld.getText().equals(file.leerArchivo())&&!txtOld.getText().equals(txtAgain.getText())){
+                            file.escribeFichero(txtNew.getText(),"archivoPassword.txt");
+                            JOptionPane.showMessageDialog(null,"La contraseña ha sido cambiada", "Exito!", JOptionPane.INFORMATION_MESSAGE );
+                            txtNew.setText("");
+                            txtAgain.setText("");
+                            txtOld.setText("");
+                            /*}else{
+                            JOptionPane.showMessageDialog(null,"Los datos introducidos son incorrectos", "Error!", JOptionPane.ERROR_MESSAGE );
+                            txtNew.setText("");
+                            txtAgain.setText("");
+                            txtOld.setText("");
+                            }*/
+                        }else{
+                            JOptionPane.showMessageDialog(null,"La nueva contraseña debe ser diferente a la anterior", "Error!", JOptionPane.ERROR_MESSAGE );
+                            txtNew.setText("");
+                            txtAgain.setText("");
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null,"La contraseña introducida es incorrecta", "Error!", JOptionPane.ERROR_MESSAGE );
+                        txtOld.setText("");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null,"Las nuevas contraseñas no coinciden", "Error!", JOptionPane.ERROR_MESSAGE );
+                    txtNew.setText("");
+                    txtAgain.setText("");
+                }
+           /* }else{
+                JOptionPane.showMessageDialog(null,"Debe llenar todos los espacios", "Error!", JOptionPane.ERROR_MESSAGE );
+                txtNew.setText("");
+                txtAgain.setText("");
+            }*/
         } catch (IOException ex) {
             Logger.getLogger(CambioContraseña.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1MouseClicked
-
+    }
+    private void createUser(){
+        try {
+            // TODO add your handling code here:
+                                
+            //if((txtNew.getText().isEmpty() || txtAgain.getText().isEmpty()) || txtOld.getText().isEmpty()){
+                if(txtNew.getText().equals(txtAgain.getText())){
+                    
+                            //if(txtNew.getText().equals(txtAgain.getText())&&txtOld.getText().equals(file.leerArchivo())&&!txtOld.getText().equals(txtAgain.getText())){
+                            file.escribeFichero(txtUser.getText(),"archivoUser.txt");
+                            file.escribeFichero(txtId.getText(),"archivoId.txt");
+                            file.escribeFichero(txtNew.getText(),"archivoPassword.txt");
+                            JOptionPane.showMessageDialog(null,"Ha ingresado los datos correctamente", "Exito!", JOptionPane.INFORMATION_MESSAGE );
+                            txtNew.setText("");
+                            txtAgain.setText("");
+                            txtUser.setText("");
+                            txtId.setText("");
+                            /*}else{
+                            JOptionPane.showMessageDialog(null,"Los datos introducidos son incorrectos", "Error!", JOptionPane.ERROR_MESSAGE );
+                            txtNew.setText("");
+                            txtAgain.setText("");
+                            txtOld.setText("");
+                            }*/
+                        
+                }else{
+                    JOptionPane.showMessageDialog(null,"Las contraseñas no coinciden", "Error!", JOptionPane.ERROR_MESSAGE );
+                    txtNew.setText("");
+                    txtAgain.setText("");
+                }
+           /* }else{
+                JOptionPane.showMessageDialog(null,"Debe llenar todos los espacios", "Error!", JOptionPane.ERROR_MESSAGE );
+                txtNew.setText("");
+                txtAgain.setText("");
+            }*/
+        } catch (IOException ex) {
+            Logger.getLogger(CambioContraseña.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        this.setVisible(false); 
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -158,6 +303,7 @@ public class CambioContraseña extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new CambioContraseña().setVisible(true);
             }
@@ -167,11 +313,15 @@ public class CambioContraseña extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblOld;
+    private javax.swing.JLabel lblUser;
     private javax.swing.JPasswordField txtAgain;
+    private javax.swing.JTextField txtId;
     private javax.swing.JPasswordField txtNew;
     private javax.swing.JPasswordField txtOld;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
