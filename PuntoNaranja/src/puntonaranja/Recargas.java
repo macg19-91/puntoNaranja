@@ -16,7 +16,7 @@ import javax.xml.bind.Marshaller;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import utils.Message;
-import utils.Utils;
+import utils.Utilities;
 
 /**
  *
@@ -95,7 +95,7 @@ public class Recargas extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         try {
             Message msg = new Message();
-            Utils utl = new Utils();
+            Utilities utl = new Utilities();
             msg.setEchoTest();
             Document doc = utl.SendToServer(msg.buildXML());
             msg.getFromXML(doc);
