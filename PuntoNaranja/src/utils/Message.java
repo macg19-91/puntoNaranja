@@ -42,6 +42,25 @@ public class Message {
     private Map<String, String> codigosMap;
     private String identificador;
     private Document document;
+    private String usuario;
+    private String clave;
+    private String tienda;
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
 
     public Message(String parent, Map<String, String> map, String identificador) {
         this.parent = parent;
@@ -108,7 +127,7 @@ public class Message {
         map.put("62",idTransaccion);
     }  
     
-    public void recargaTiempoAire(String monto,String operador,String producto,String proceso,String celular,String usuario,String clave,String tienda) throws UnknownHostException, SocketException{
+    public void recargaTiempoAire(String monto,String operador,String producto,String proceso,String celular) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
         String recarga = operador + ","+producto+","+celular+","+usuario+","+dispersion(clave)+","+tienda;
         String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
@@ -125,7 +144,7 @@ public class Message {
         map.put("62",extraInfo);
     }  
     
-    public void ventaPines(String monto,String operador,String producto,String usuario,String clave,String tienda) throws UnknownHostException, SocketException{
+    public void ventaPines(String monto,String operador,String producto) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
         String recarga = operador + ","+producto+","+usuario+","+dispersion(clave)+","+tienda;
         String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
@@ -142,7 +161,7 @@ public class Message {
         map.put("61",extraInfo);
     }  
     
-    public void consultaServiciosPublicos(String empresa,String numeroReferencia,String usuario,String clave,String zonaSoloCabletica,String tipoSoloCabletica) throws UnknownHostException, SocketException{
+    public void consultaServiciosPublicos(String empresa,String numeroReferencia,String zonaSoloCabletica,String tipoSoloCabletica) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
         String datos = usuario + "," + dispersion(clave) + ","+empresa+","+numeroReferencia;
         if(empresa.equals("021003")){
@@ -162,7 +181,7 @@ public class Message {
         map.put("61",extraInfo);
     }  
     
-    public void pagarServiciosPublicos(String monto,String consecutivoRecibo,String numeroReferencia,String usuario,String clave,String zonaSoloCabletica) throws UnknownHostException, SocketException{
+    public void pagarServiciosPublicos(String monto,String consecutivoRecibo,String numeroReferencia,String zonaSoloCabletica) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
         String datos = usuario + "," + dispersion(clave) + ","+consecutivoRecibo+","+monto+"00";
         if(!zonaSoloCabletica.equals("")){
@@ -308,6 +327,14 @@ public class Message {
         codigosMap.put("77","Error interno de plataforma. Falta secuenciador de operador.");
         
         return codigosMap;
+    }
+
+    public String getMsgResponse() {
+        return codigosMap.get(map.get("39"));
+    }
+    
+    public String getMsgAprovacion() {
+        return map.get("38");
     }
     
 }
