@@ -232,6 +232,7 @@ public class CambioContraseña extends javax.swing.JFrame {
                             file.escribeFichero(txtId.getText(),"archivoId.txt");
                             file.escribeFichero(txtNew.getText(),"archivoPassword.txt");
                             JOptionPane.showMessageDialog(null,"Ha ingresado los datos correctamente", "Exito!", JOptionPane.INFORMATION_MESSAGE );
+                            this.setVisible(false);
                             txtNew.setText("");
                             txtAgain.setText("");
                             txtUser.setText("");
