@@ -21,9 +21,11 @@ public class home extends javax.swing.JFrame {
      */
     CambioContraseña ventanaPass;  
     Border border = LineBorder.createGrayLineBorder();
+    Recargas recargas;
     public home() {
         initComponents();
         ventanaPass= new CambioContraseña(false);
+        recargas=new Recargas();
     }
 
     /**
@@ -138,8 +140,11 @@ public class home extends javax.swing.JFrame {
         lblKolbi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblKolbi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/kolbi.gif"))); // NOI18N
         lblKolbi.setText("jLabel2");
-        lblKolbi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblKolbi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblKolbi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblKolbiMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblKolbiMouseEntered(evt);
             }
@@ -150,7 +155,7 @@ public class home extends javax.swing.JFrame {
 
         lblIce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/logo-ice-costa-rica.jpg"))); // NOI18N
         lblIce.setText("jLabel2");
-        lblIce.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblIce.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblIce.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblIceMouseEntered(evt);
@@ -162,7 +167,7 @@ public class home extends javax.swing.JFrame {
 
         lblAya.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/brand.gif"))); // NOI18N
         lblAya.setText("jLabel2");
-        lblAya.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAya.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblAya.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblAyaMouseEntered(evt);
@@ -174,7 +179,7 @@ public class home extends javax.swing.JFrame {
 
         lblJPS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/logo_nuevo_jps.png"))); // NOI18N
         lblJPS.setText("jLabel2");
-        lblJPS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblJPS.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblJPS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblJPSMouseEntered(evt);
@@ -186,7 +191,7 @@ public class home extends javax.swing.JFrame {
 
         lblRacsa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/Picture_1_3.png"))); // NOI18N
         lblRacsa.setText("jLabel2");
-        lblRacsa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblRacsa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblRacsa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblRacsaMouseEntered(evt);
@@ -198,8 +203,11 @@ public class home extends javax.swing.JFrame {
 
         lblTuyo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/90-141-thickbox.jpg"))); // NOI18N
         lblTuyo.setText("jLabel2");
-        lblTuyo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblTuyo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblTuyo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblTuyoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblTuyoMouseEntered(evt);
             }
@@ -210,8 +218,11 @@ public class home extends javax.swing.JFrame {
 
         lblFull.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/fullemovil.png"))); // NOI18N
         lblFull.setText("jLabel2");
-        lblFull.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblFull.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblFull.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblFullMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lblFullMouseExited(evt);
             }
@@ -224,7 +235,7 @@ public class home extends javax.swing.JFrame {
 
         lblTicoB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/pslTB203.jpg"))); // NOI18N
         lblTicoB.setText("jLabel2");
-        lblTicoB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblTicoB.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblTicoB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblTicoBMouseEntered(evt);
@@ -246,11 +257,11 @@ public class home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTuyo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFull, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblIce, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblIce, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblFull, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
                         .addComponent(lblAya, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
@@ -265,14 +276,14 @@ public class home extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblKolbi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAya, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblIce, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblJPS, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTuyo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTuyo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFull, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRacsa, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFull, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTicoB, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTicoB, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblIce, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -430,7 +441,7 @@ public class home extends javax.swing.JFrame {
         // TODO add your handling code here:
         //JOptionPane.showMessageDialog(null, "Going out");
         
-        new Recargas().setVisible(true);
+        recargas.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -541,6 +552,26 @@ public class home extends javax.swing.JFrame {
                 print.startPrinter();
                         
     }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void lblTuyoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTuyoMouseClicked
+        // TODO add your handling code here:
+        recargas.cambioOperadora("Recarga TUYO MOVIL",lblTuyo.getIcon());
+        recargas.setVisible(true);
+                
+    }//GEN-LAST:event_lblTuyoMouseClicked
+
+    private void lblKolbiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKolbiMouseClicked
+        // TODO add your handling code here:
+        recargas.cambioOperadora("Recarga Kolbi",lblKolbi.getIcon());
+        recargas.setVisible(true);
+    }//GEN-LAST:event_lblKolbiMouseClicked
+
+    private void lblFullMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFullMouseClicked
+        // TODO add your handling code here
+        recargas.cambioOperadora("Recarga FULLMOVIL",lblFull.getIcon());
+        recargas.setVisible(true);
+        
+    }//GEN-LAST:event_lblFullMouseClicked
 
     /**
      * @param args the command line arguments

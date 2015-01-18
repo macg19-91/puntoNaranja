@@ -5,11 +5,14 @@
  */
 package puntonaranja;
 
+import java.awt.Menu;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -27,6 +30,8 @@ import org.w3c.dom.NamedNodeMap;
 import utils.Message;
 import utils.MyDocumentFilter;
 import utils.Utilities;
+import utils.TextPrinter;
+import utils.auth;
 /**
  *
  * @author rlobo
@@ -37,8 +42,24 @@ public class Recargas extends javax.swing.JFrame {
      * Creates new form Recargas
      */
     Border border = LineBorder.createGrayLineBorder();
+    String operadora;
+    Icon ic;
+    ImageIcon kolbiIcon;
+    ImageIcon tuyoIcon;
+    ImageIcon fullIcon;
+    
     public Recargas() {
         initComponents();
+        lblImg.setIcon(ic);
+        tuyoIcon = new ImageIcon("src/puntonaranja/resurces/90-141-thickbox.jpg");
+        kolbiIcon = new ImageIcon("src/puntonaranja/resurces/kolbi.gif");
+        fullIcon = new ImageIcon("src/puntonaranja/resurces/fullemovil.png");
+        lblImg.setIcon(kolbiIcon);
+    }
+ void cambioOperadora(String operadora,Icon ic){
+        this.operadora=operadora;
+        this.ic=ic;
+        cmbOperadora.setSelectedItem(operadora);    
     }
 
     /**
@@ -51,29 +72,37 @@ public class Recargas extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
+        cmbOperadora = new javax.swing.JComboBox();
+        txtMonto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        lblKolbi = new javax.swing.JLabel();
-        lblTuyo = new javax.swing.JLabel();
-        lblFull = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        txtNumero = new javax.swing.JTextField();
+        lblImg = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Recargas Telefonicas");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recarga ICE", "Recarga TUYO MOVIL", "Recarga FULLMOVIL" }));
+        cmbOperadora.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cmbOperadora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recarga Kolbi", "Recarga TUYO MOVIL", "Recarga FULLMOVIL" }));
+        cmbOperadora.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbOperadoraItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Operadora");
@@ -83,6 +112,11 @@ public class Recargas extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setText("Ejecutar");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -92,49 +126,21 @@ public class Recargas extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Numero celular");
 
-        lblKolbi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblKolbi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/kolbi.gif"))); // NOI18N
-        lblKolbi.setText("jLabel2");
-        lblKolbi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lblKolbi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblKolbiMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblKolbiMouseExited(evt);
-            }
-        });
+        lblImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/kolbi.gif"))); // NOI18N
+        lblImg.setText("jLabel2");
+        lblImg.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        lblTuyo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/90-141-thickbox.jpg"))); // NOI18N
-        lblTuyo.setText("jLabel2");
-        lblTuyo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lblTuyo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblTuyoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblTuyoMouseExited(evt);
-            }
-        });
-
-        lblFull.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/fullemovil.png"))); // NOI18N
-        lblFull.setText("jLabel2");
-        lblFull.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lblFull.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblFullMouseExited(evt);
-            }
-        });
-        lblFull.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                lblFullMouseMoved(evt);
-            }
-        });
-
-        jLabel5.setText("X cerrar");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton4.setText("Salir");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
+                jButton4MouseClicked(evt);
+            }
+        });
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -142,73 +148,62 @@ public class Recargas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(210, 210, 210)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(65, 65, 65)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(lblKolbi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTuyo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFull, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(53, 53, 53))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(153, 153, 153)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(210, 210, 210)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(85, 85, 85)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(65, 65, 65)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtMonto)
+                                    .addComponent(cmbOperadora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(59, 59, 59)
+                                .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 59, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(37, 37, 37)
-                        .addComponent(lblKolbi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(lblTuyo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFull, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(60, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cmbOperadora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(38, 38, 38)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -217,12 +212,12 @@ public class Recargas extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             // TODO add your handling code here:
-            String selected = jComboBox1.getSelectedItem().toString();
+            String selected = cmbOperadora.getSelectedItem().toString();
             String operador = "";
             String producto = "";
             String proceso = "";
-            String monto = jTextField1.getText();
-            String celular = jTextField2.getText();
+            String monto = txtMonto.getText();
+            String celular = txtNumero.getText();
             if(monto.equals("")){
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un monto");
             }
@@ -240,7 +235,7 @@ public class Recargas extends javax.swing.JFrame {
                         }
                         else{
                             switch (selected) {
-                                case "Recarga ICE":  
+                                case "Recarga Kolbi":  
                                     operador = "200";
                                     producto = "11";
                                     proceso = "680000";
@@ -268,14 +263,15 @@ public class Recargas extends javax.swing.JFrame {
                             int dialogResult = JOptionPane.showConfirmDialog (null, "Le gustaria imprimir el comprobante?","Warning",JOptionPane.YES_NO_OPTION);
                             if(dialogResult == JOptionPane.YES_OPTION){
                                 //Manda a imprimir
+                                new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected,"","archivoPrint.txt");
+                                new TextPrinter().startPrinter();
                                 JOptionPane.showMessageDialog(null, resp);
                             }
                             if(dialogResult == JOptionPane.NO_OPTION){
                                 JOptionPane.showMessageDialog(null, "no");
                             }
-                            jTextField1.setText("");
-                            jTextField1.setText("");
-                            jComboBox1.setSelectedIndex(0);
+                            txtMonto.setText("");
+                            txtMonto.setText("");
                         }
                     }
                 }
@@ -285,48 +281,49 @@ public class Recargas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void lblKolbiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKolbiMouseEntered
-        // TODO add your handling code here:
-        lblKolbi.setBorder(border);
-    }//GEN-LAST:event_lblKolbiMouseEntered
-
-    private void lblKolbiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKolbiMouseExited
-        // TODO add your handling code here:
-        lblKolbi.setBorder(null);
-    }//GEN-LAST:event_lblKolbiMouseExited
-
-    private void lblTuyoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTuyoMouseEntered
-        // TODO add your handling code here:
-        lblTuyo.setBorder(border);
-
-    }//GEN-LAST:event_lblTuyoMouseEntered
-
-    private void lblTuyoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTuyoMouseExited
-        // TODO add your handling code here:
-        lblTuyo.setBorder(null);
-    }//GEN-LAST:event_lblTuyoMouseExited
-
-    private void lblFullMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFullMouseExited
-        // TODO add your handling code here:
-        lblFull.setBorder(null);
-    }//GEN-LAST:event_lblFullMouseExited
-
-    private void lblFullMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblFullMouseMoved
-        // TODO add your handling code here:
-        lblFull.setBorder(border);
-    }//GEN-LAST:event_lblFullMouseMoved
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         
-        ((AbstractDocument) jTextField2.getDocument()).setDocumentFilter(new MyDocumentFilter());
-        ((AbstractDocument) jTextField1.getDocument()).setDocumentFilter(new MyDocumentFilter());
+        ((AbstractDocument) txtNumero.getDocument()).setDocumentFilter(new MyDocumentFilter());
+        ((AbstractDocument) txtMonto.getDocument()).setDocumentFilter(new MyDocumentFilter());
     }//GEN-LAST:event_formWindowActivated
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-    }//GEN-LAST:event_jLabel5MouseClicked
+        //new home().setVisible(true);
+    }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        this.setVisible(false);
+       // new home().setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void cmbOperadoraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbOperadoraItemStateChanged
+        // TODO add your handling code here:
+        switch (cmbOperadora.getSelectedItem().toString()) {
+                                case "Recarga Kolbi":  
+                                    lblImg.setIcon(kolbiIcon);
+                                     break;
+
+                                case "Recarga TUYO MOVIL":  
+                                    lblImg.setIcon(tuyoIcon);
+                                     break;
+
+                                case "Recarga FULLMOVIL":  
+                                    lblImg.setIcon(fullIcon);
+                                     break;
+                            }
+    }//GEN-LAST:event_cmbOperadoraItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -365,17 +362,15 @@ public class Recargas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbOperadora;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JLabel lblFull;
-    private javax.swing.JLabel lblKolbi;
-    private javax.swing.JLabel lblTuyo;
+    private javax.swing.JLabel lblImg;
+    private javax.swing.JTextField txtMonto;
+    private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
 }
