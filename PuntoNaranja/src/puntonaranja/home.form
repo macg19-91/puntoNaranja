@@ -281,12 +281,12 @@
                       <EmptySpace pref="27" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblTuyo" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
-                          <Component id="lblFull" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
+                          <Component id="lblIce" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="lblIce" min="-2" pref="80" max="-2" attributes="0"/>
+                              <Component id="lblFull" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                               <Component id="lblAya" min="-2" pref="85" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -305,15 +305,15 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblKolbi" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
                           <Component id="lblAya" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
-                          <Component id="lblIce" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
                           <Component id="lblJPS" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
                           <Component id="lblTuyo" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
+                          <Component id="lblFull" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblRacsa" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
-                          <Component id="lblFull" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
                           <Component id="lblTicoB" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
+                          <Component id="lblIce" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="35" max="32767" attributes="0"/>
                   </Group>
@@ -329,10 +329,11 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Default Cursor"/>
+                  <Color id="Cursor Por defecto"/>
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblKolbiMouseClicked"/>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblKolbiMouseEntered"/>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblKolbiMouseExited"/>
               </Events>
@@ -344,7 +345,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Default Cursor"/>
+                  <Color id="Cursor Por defecto"/>
                 </Property>
               </Properties>
               <Events>
@@ -359,7 +360,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Default Cursor"/>
+                  <Color id="Cursor Por defecto"/>
                 </Property>
               </Properties>
               <Events>
@@ -374,7 +375,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Default Cursor"/>
+                  <Color id="Cursor Por defecto"/>
                 </Property>
               </Properties>
               <Events>
@@ -389,7 +390,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Default Cursor"/>
+                  <Color id="Cursor Por defecto"/>
                 </Property>
               </Properties>
               <Events>
@@ -404,10 +405,11 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Default Cursor"/>
+                  <Color id="Cursor Por defecto"/>
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblTuyoMouseClicked"/>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblTuyoMouseEntered"/>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblTuyoMouseExited"/>
               </Events>
@@ -419,10 +421,11 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Default Cursor"/>
+                  <Color id="Cursor Por defecto"/>
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblFullMouseClicked"/>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblFullMouseExited"/>
                 <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="lblFullMouseMoved"/>
               </Events>
@@ -434,7 +437,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Default Cursor"/>
+                  <Color id="Cursor Por defecto"/>
                 </Property>
               </Properties>
               <Events>
