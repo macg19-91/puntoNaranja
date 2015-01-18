@@ -64,6 +64,27 @@ public void escribeFichero(String linea,String nombre) throws IOException
         bw.close();
     }
 
+public void escribeFicheroPrint(String monto,String num,String empresa,String linea,String nombre) throws IOException
+    {
+        File fout = new File("Files/"+nombre);
+      
+	FileOutputStream fos = new FileOutputStream(fout);
+ 
+	OutputStreamWriter osw = new OutputStreamWriter(fos);
+ 
+	//for (int i = 0; i < 6; i++) {
+		osw.write(empresa);
+		osw.write(System.lineSeparator());
+		osw.write("Numero: "+num);
+		osw.write(System.lineSeparator());
+		osw.write("Monto: "+monto);
+		osw.write(System.lineSeparator());
+		osw.write("Gracias...");
+	//}
+ 
+	osw.close();
+    }
+
 public Boolean firstLogin()
     {
         String ruta = "Files/archivoPassword.txt";
