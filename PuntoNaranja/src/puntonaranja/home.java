@@ -22,10 +22,12 @@ public class home extends javax.swing.JFrame {
     CambioContraseña ventanaPass;  
     Border border = LineBorder.createGrayLineBorder();
     Recargas recargas;
+    ventaPines pines;
     public home() {
         initComponents();
         ventanaPass= new CambioContraseña(false);
         recargas=new Recargas();
+        pines= new ventaPines();
     }
 
     /**
@@ -85,6 +87,11 @@ public class home extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton4.setText("Venta de Pines");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -572,6 +579,11 @@ public class home extends javax.swing.JFrame {
         recargas.setVisible(true);
         
     }//GEN-LAST:event_lblFullMouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+        pines.setVisible(true);
+    }//GEN-LAST:event_jButton4MouseClicked
 
     /**
      * @param args the command line arguments
