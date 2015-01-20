@@ -106,6 +106,7 @@ public class ventaPines extends javax.swing.JFrame {
         });
 
         txtMonto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtMonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
