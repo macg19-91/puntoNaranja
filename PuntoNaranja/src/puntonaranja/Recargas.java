@@ -105,6 +105,8 @@ public class Recargas extends javax.swing.JFrame {
             }
         });
 
+        txtMonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Operadora");
 
