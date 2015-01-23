@@ -8,6 +8,8 @@ package puntonaranja;
 import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utils.TextPrinter;
@@ -29,6 +31,7 @@ public class ventaPines extends javax.swing.JFrame {
         viajeraIcon = new ImageIcon("src/puntonaranja/resurces/90-141-thickbox.jpg");
         kolbiIcon = new ImageIcon("src/puntonaranja/resurces/logo-ice-costa-rica.jpg");
         lblImg.setIcon(kolbiIcon);
+        setComboModel();
     }
 
     /**
@@ -47,7 +50,7 @@ public class ventaPines extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         lblImg = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        txtMonto = new javax.swing.JTextField();
+        cmpMonto = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -57,24 +60,24 @@ public class ventaPines extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Venta de Pines");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Operadora");
 
-        cmbOperadora.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        cmbOperadora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ice Movil", "Ice Viajera" }));
+        cmbOperadora.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        cmbOperadora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Prepago Movil", "Viajera" }));
         cmbOperadora.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbOperadoraItemStateChanged(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel3.setText("Monto");
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton3.setText("Ejecutar");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -92,7 +95,7 @@ public class ventaPines extends javax.swing.JFrame {
         lblImg.setText("jLabel2");
         lblImg.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton4.setText("Salir");
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -105,55 +108,61 @@ public class ventaPines extends javax.swing.JFrame {
             }
         });
 
-        txtMonto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtMonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        cmpMonto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        cmpMonto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmpMontoItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(135, 135, 135)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cmbOperadora, 0, 150, Short.MAX_VALUE)
-                                    .addComponent(txtMonto))
-                                .addGap(30, 30, 30)
-                                .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(53, 53, 53))
+                                .addComponent(jButton3)
+                                .addGap(124, 124, 124)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel1))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(57, 57, 57)
+                                        .addComponent(cmpMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(84, 84, 84))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbOperadora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbOperadora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtMonto)))))
-                .addGap(43, 43, 43)
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cmpMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -163,17 +172,27 @@ public class ventaPines extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setComboModel(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cmpMonto.getModel();
+        // removing old data
+        model.removeAllElements();
+        if(cmbOperadora.getSelectedIndex()==0){
+                model.addElement("2500");
+                model.addElement("5000");
+                model.addElement("10000");
+        }else{
+                model.addElement("500");
+                model.addElement("1000");
+                model.addElement("2000");
+                model.addElement("3000");
+                model.addElement("5000");
+                model.addElement("10000");
+        }
+    
+    }
     private void cmbOperadoraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbOperadoraItemStateChanged
         // TODO add your handling code here:
-       /* switch (cmbOperadora.getSelectedItem().toString()) {
-            case "Ice Movil":
-            lblImg.setIcon(kolbiIcon);
-            break;
-
-            case "Ice Viajera":
-            lblImg.setIcon(viajeraIcon);
-            break;
-        }*/
+        setComboModel();
     }//GEN-LAST:event_cmbOperadoraItemStateChanged
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
@@ -187,7 +206,7 @@ public class ventaPines extends javax.swing.JFrame {
             String operador = "";
             String producto = "";
             String proceso = "";
-            String monto = txtMonto.getText();
+            String monto = cmpMonto.getSelectedItem().toString();
             if(monto.equals("")){
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un monto");
             }
@@ -233,7 +252,7 @@ public class ventaPines extends javax.swing.JFrame {
                             if(dialogResult == JOptionPane.NO_OPTION){
                                 JOptionPane.showMessageDialog(null, "no");
                             }
-                            txtMonto.setText("");
+                            cmpMonto.setSelectedIndex(0);
                         }
             }
                 
@@ -256,6 +275,10 @@ public class ventaPines extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_formWindowClosing
+
+    private void cmpMontoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmpMontoItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmpMontoItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -294,12 +317,12 @@ public class ventaPines extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cmbOperadora;
+    private javax.swing.JComboBox cmpMonto;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblImg;
-    private javax.swing.JTextField txtMonto;
     // End of variables declaration//GEN-END:variables
 }
