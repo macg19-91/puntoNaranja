@@ -4,6 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.print.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
 * Utility class to print some lines of text to
@@ -36,9 +42,29 @@ public class TextPrinter implements Printable {
          */
         Graphics2D g2d = (Graphics2D)g;
         g2d.translate(pf.getImageableX(), pf.getImageableY());
-
+        int place=30;
         /* Now we perform our rendering */
-        g.drawString("Hello world!"+System.lineSeparator()+" ff", 100, 100);
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new FileReader("Files\\Trans"+new auth().leerArchivo("archivoTransacciones.txt")+".txt"));
+        String line;
+        
+        try {
+        while ((line = br.readLine()) != null) {
+           // process the line.
+            
+           g.drawString(line, 10, place); 
+           place+=20;
+        }
+        br.close();
+        } catch (IOException ex) {
+            Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //g.drawString("Hello world!", 10, 30);
+        //g.drawString(" ff", 10, 50);
 
         /* tell the caller that this page is part of the printed document */
         return PAGE_EXISTS;

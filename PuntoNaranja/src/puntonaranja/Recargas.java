@@ -279,7 +279,7 @@ public class Recargas extends javax.swing.JFrame {
                             
                             if(dialogResult == JOptionPane.YES_OPTION){
                                 //Manda a imprimir
-                                new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected,"","archivoPrint.txt");
+                                new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected,"Recargas");
                                 new TextPrinter().startPrinter();
                                 JOptionPane.showMessageDialog(null, resp);
                             }
