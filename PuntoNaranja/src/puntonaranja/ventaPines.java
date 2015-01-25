@@ -12,7 +12,9 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utils.Message;
 import utils.TextPrinter;
+import utils.Utilities;
 import utils.auth;
 
 /**
@@ -67,7 +69,7 @@ public class ventaPines extends javax.swing.JFrame {
         jLabel2.setText("Operadora");
 
         cmbOperadora.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        cmbOperadora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Prepago Movil", "Viajera" }));
+        cmbOperadora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Prepago Movil", "Viajera", "Teletica" }));
         cmbOperadora.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbOperadoraItemStateChanged(evt);
@@ -181,12 +183,19 @@ public class ventaPines extends javax.swing.JFrame {
                 model.addElement("5000");
                 model.addElement("10000");
         }else{
-                model.addElement("500");
-                model.addElement("1000");
-                model.addElement("2000");
-                model.addElement("3000");
-                model.addElement("5000");
-                model.addElement("10000");
+            if(cmbOperadora.getSelectedIndex()==1){
+                    model.addElement("500");
+                    model.addElement("1000");
+                    model.addElement("3000");
+                    model.addElement("5000");
+                    model.addElement("10000");
+            }else{
+                    model.addElement("500");
+                    model.addElement("1000");
+                    model.addElement("2000");
+                    model.addElement("5000");
+                    model.addElement("10000");
+            }
         }
     
     }
@@ -203,40 +212,81 @@ public class ventaPines extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             String selected = cmbOperadora.getSelectedItem().toString();
+            String selected2 = cmpMonto.getSelectedItem().toString();
             String operador = "";
             String producto = "";
             String proceso = "";
             String monto = cmpMonto.getSelectedItem().toString();
-            if(monto.equals("")){
-                JOptionPane.showMessageDialog(null, "Por favor ingrese un monto");
-            }
-            else{
-                if((parseInt(monto) < 0 )||(parseInt(monto) > 10000 )){
-                    JOptionPane.showMessageDialog(null, "Por favor ingrese un monto entre los 0 y los 10000 colones");
-                }
-                        else{
-                           /* switch (selected) {
-                                case "Recarga Kolbi":
-                                operador = "200";
-                                producto = "11";
-                                proceso = "680000";
+                            switch (selected) {
+                                case "Prepago Movil":
+                                    operador = "150";
+                                    switch (selected2) {
+                                        case "2500":
+                                        producto = "6";
+                                        break;
+
+                                        case "5000":
+                                        producto = "3";
+                                        break;
+
+                                        case "10000":
+                                        producto = "4";
+                                        break;
+                                    }
                                 break;
 
-                                case "Recarga TUYO MOVIL":
-                                operador = "18";
-                                producto = "12";
-                                proceso = "690000";
+                                case "Viajera":
+                                    operador = "199";
+                                    switch (selected2) {
+                                        case "1000":
+                                        producto = "1";
+                                        break;
+
+                                        case "3000":
+                                        producto = "2";
+                                        break;
+
+                                        case "5000":
+                                        producto = "3";
+                                        break;
+                                            
+                                        case "10000":
+                                        producto = "4";
+                                        break;
+                                            
+                                        case "500":
+                                        producto = "5";
+                                        break;
+                                    }
                                 break;
 
-                                case "Recarga FULLMOVIL":
-                                operador = "24";
-                                producto = "16";
-                                proceso = "240000";
-                                break;
-                            }*/
+                                case "Teletica":
+                                    operador = "18";
+                                    switch (selected2) {
+                                        case "500":
+                                        producto = "5";
+                                        break;
+                                            
+                                        case "1000":
+                                        producto = "1";
+                                        break;
+
+                                        case "2000":
+                                        producto = "13";
+                                        break;
+
+                                        case "5000":
+                                        producto = "3";
+                                        break;
+                                            
+                                        case "10000":
+                                        producto = "4";
+                                        break;
+                                    }
+                            }
                             //                            Utilities util = new Utilities();
                             //                            Message msg = new Message();
-                            //                            msg.recargaTiempoAire(monto, operador, producto, proceso, celular);
+                            //                            msg.ventaPines(monto, operador, producto);
                             //                            Document doc = util.SendToServer(msg.buildXML());
                             //                            msg.getFromXML(doc);
                             //                            String resp = msg.getMsgResponse();
@@ -245,7 +295,7 @@ public class ventaPines extends javax.swing.JFrame {
 
                             if(dialogResult == JOptionPane.YES_OPTION){
                                 //Manda a imprimir
-                                //new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected,"","archivoPrint.txt");
+                                new auth().escribeFicheroPrint(selected2,"",selected,"Pines");
                                 new TextPrinter().startPrinter();
                                 JOptionPane.showMessageDialog(null, resp);
                             }
@@ -253,8 +303,6 @@ public class ventaPines extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null, "no");
                             }
                             cmpMonto.setSelectedIndex(0);
-                        }
-            }
                 
         } catch (Exception ex) {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);

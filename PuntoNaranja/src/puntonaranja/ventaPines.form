@@ -118,9 +118,10 @@
           <Font name="Tahoma" size="24" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="2">
+          <StringArray count="3">
             <StringItem index="0" value="Prepago Movil"/>
             <StringItem index="1" value="Viajera"/>
+            <StringItem index="2" value="Teletica"/>
           </StringArray>
         </Property>
       </Properties>

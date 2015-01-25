@@ -9,6 +9,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  *
@@ -46,7 +48,7 @@ public class auth {
             e2.printStackTrace();
          }
       }
-      return "1234"; 
+      return "0"; 
    }
     
 public void escribeFichero(String linea,String nombre) throws IOException
@@ -64,23 +66,49 @@ public void escribeFichero(String linea,String nombre) throws IOException
         bw.close();
     }
 
-public void escribeFicheroPrint(String monto,String num,String empresa,String linea,String nombre) throws IOException
+    private String getFecha() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        return Integer.toString(cal.get(Calendar.MONTH)) + Integer.toString(cal.get(Calendar.DAY_OF_MONTH)) + Integer.toString(cal.get(Calendar.YEAR));
+    }
+    
+public void escribeFicheroPrint(String monto,String num,String empresa,String nombre) throws IOException
     {
-        File fout = new File("Files/"+nombre);
+        String fecha= leerArchivo("archivoFecha.txt");
+        if(!fecha.equals(getFecha())){
+            fecha=getFecha();
+            escribeFichero(fecha, "archivoFecha.txt");
+            escribeFichero("0", "archivoTransacciones.txt");
+        }
+        String trans= leerArchivo("archivoTransacciones.txt");
+            int cuantas=Integer.parseInt(trans)+1;
+            escribeFichero(cuantas+"", "archivoTransacciones.txt");
+            
+        File fout = new File("Files/"+"Trans"+cuantas+".txt");
       
 	FileOutputStream fos = new FileOutputStream(fout);
  
 	OutputStreamWriter osw = new OutputStreamWriter(fos);
  
-	//for (int i = 0; i < 6; i++) {
-		osw.write(empresa);
-		osw.write(System.lineSeparator());
-		osw.write("Numero: "+num);
-		osw.write(System.lineSeparator());
-		osw.write("Monto: "+monto);
-		osw.write(System.lineSeparator());
-		osw.write("Gracias...");
-	//}
+	
+            switch (nombre) {
+                case "Recargas":
+                    osw.write(empresa);
+                    osw.write(System.lineSeparator());
+                    osw.write("Numero: "+num);
+                    osw.write(System.lineSeparator());
+                    osw.write("Monto: "+monto);
+                    osw.write(System.lineSeparator());
+                    osw.write("Gracias...");
+                break;
+                    
+                case "Pines":
+                    osw.write("Venta de Pin "+empresa);
+                    osw.write(System.lineSeparator());
+                    osw.write("Monto: "+monto);
+                    osw.write(System.lineSeparator());
+                    osw.write("Gracias...");
+                break;
+            }
  
 	osw.close();
     }
