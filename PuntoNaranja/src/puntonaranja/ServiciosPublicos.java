@@ -5,12 +5,26 @@
  */
 package puntonaranja;
 
+import java.io.IOException;
 import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import org.json.JSONObject;
+import org.w3c.dom.Document;
+import utils.ComboItem;
+import utils.Message;
 import utils.TextPrinter;
+import utils.Utilities;
 import utils.auth;
+import utils.httpCall;
 
 /**
  *
@@ -23,6 +37,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
      */
     public ServiciosPublicos() {
         initComponents();
+        loadCombo();
     }
 
     /**
@@ -43,7 +58,6 @@ public class ServiciosPublicos extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        lblImg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +71,6 @@ public class ServiciosPublicos extends javax.swing.JFrame {
         jLabel2.setText("Servicio");
 
         cmbOperadora.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cmbOperadora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Recarga Kolbi", "Recarga TUYO MOVIL", "Recarga FULLMOVIL" }));
         cmbOperadora.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbOperadoraItemStateChanged(evt);
@@ -88,11 +101,6 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             }
         });
 
-        lblImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/kolbi.gif"))); // NOI18N
-        lblImg.setText("jLabel2");
-        lblImg.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,29 +124,22 @@ public class ServiciosPublicos extends javax.swing.JFrame {
                         .addComponent(cmbOperadora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cmbOperadora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cmbOperadora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -154,8 +155,6 @@ public class ServiciosPublicos extends javax.swing.JFrame {
 
     private void cmbOperadoraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbOperadoraItemStateChanged
         // TODO add your handling code here:
-        switch (cmbOperadora.getSelectedItem().toString()) {
-        }
     }//GEN-LAST:event_cmbOperadoraItemStateChanged
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
@@ -165,26 +164,21 @@ public class ServiciosPublicos extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             // TODO add your handling code here:
-            String selected = cmbOperadora.getSelectedItem().toString();
-            String operador = "";
-            String producto = "";
-            String proceso = "";
-            String monto = txtMonto.getText();
-            String celular = txtNumero.getText();
-            switch (selected) {
-            }
-            //                            Utilities util = new Utilities();
-            //                            Message msg = new Message();
-            //                            msg.recargaTiempoAire(monto, operador, producto, proceso, celular);
-            //                            Document doc = util.SendToServer(msg.buildXML());
-            //                            msg.getFromXML(doc);
-            //                            String resp = msg.getMsgResponse();
-            String resp = "Transaccion Completa";
+            ComboItem selected = (ComboItem) cmbOperadora.getSelectedItem();
+            String identificador = txtNumero.getText();
+            Utilities util = new Utilities();
+            Message msg = new Message();
+            msg.consultaServiciosPublicos(selected.getValue(), identificador, "", "");
+            Document doc = util.SendToServer(msg.buildXML());
+            msg.getFromXML(doc);
+            String resp = msg.getMsgResponse();
+            JOptionPane.showMessageDialog(null, resp);
+            //String resp = "Transaccion Completa";
             int dialogResult = JOptionPane.showConfirmDialog (null, "Le gustaria imprimir el comprobante?","Warning",JOptionPane.YES_NO_OPTION);
 
             if(dialogResult == JOptionPane.YES_OPTION){
                 //Manda a imprimir
-                new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected,"archivoPrint.txt");
+                new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected.getLabel(),"archivoPrint.txt");
                 new TextPrinter().startPrinter();
                 JOptionPane.showMessageDialog(null, resp);
             }
@@ -249,8 +243,25 @@ public class ServiciosPublicos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel lblImg;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
+
+    private void loadCombo() {
+        ArrayList<ComboItem> items = new ArrayList<ComboItem>();
+        Message mg = new Message();
+        mg.pupulateServiciosMap();
+        JSONObject json = mg.getServiciosMap();
+        Set keys = json.keySet();
+        Object[] array = keys.toArray();
+        String key = "";
+        for(int i=0; i<array.length; i++){
+            key = (String) array[i];
+            items.add(new ComboItem(key, (String) json.get(key)));
+        }
+        ComboItem[] ComboItem = new ComboItem[items.size()];
+        ComboItem = items.toArray(ComboItem);
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(ComboItem);
+        cmbOperadora.setModel(model);
+    }
 }

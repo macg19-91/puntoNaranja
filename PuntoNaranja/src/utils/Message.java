@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -45,6 +46,7 @@ public class Message {
     private String usuario;
     private String clave;
     private String tienda;
+    private JSONObject serviciosMap;
 
     public String getUsuario() {
         return usuario;
@@ -52,6 +54,14 @@ public class Message {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public JSONObject getServiciosMap() {
+        return serviciosMap;
+    }
+
+    public void setServiciosMap(JSONObject serviciosMap) {
+        this.serviciosMap = serviciosMap;
     }
 
     public String getClave() {
@@ -66,13 +76,18 @@ public class Message {
         this.parent = parent;
         this.map = map;
         this.identificador = identificador;
+        this.clave = "1234";
+        this.usuario = "user";
     }
     
     public Message() {
         this.parent = "isomsg";
         this.map = new HashMap<String, String>();
+        codigosMap = new HashMap<String, String>();
         identificador = getIdentificador();
-        this.codigosMap = pupulateCodigosMap();
+        pupulateCodigosMap();
+        this.clave = "1234";
+        this.usuario = "user";
     }
 
     public String getParent() {
@@ -289,7 +304,8 @@ public class Message {
         return String.format("%0"+i+"d", Integer.parseInt(monto));
     };
 
-    private Map<String, String> pupulateCodigosMap() {
+    private void pupulateCodigosMap() {
+        codigosMap = new HashMap<String, String>();
         codigosMap.put("00","Transacción aprobada en forma exitosa");
         codigosMap.put("04","Producto no asignado");
         codigosMap.put("1D","Clave invalida");
@@ -325,8 +341,6 @@ public class Message {
         codigosMap.put("93","Reverso: Estado de la transacción original ANULADA.");
         codigosMap.put("70","No existen PINES en el inventario");
         codigosMap.put("77","Error interno de plataforma. Falta secuenciador de operador.");
-        
-        return codigosMap;
     }
 
     public String getMsgResponse() {
@@ -334,7 +348,35 @@ public class Message {
     }
     
     public String getMsgAprovacion() {
-        return map.get("38");
+        String resp = "";
+        if(map.get("39").equals("00")){
+            resp = map.get("38");
+        }
+        else{
+            resp = map.get("39");
+        }
+        
+        return resp;
     }
     
+    public String getMsgMonto() {
+        String resp = "";
+        if(map.get("39").equals("00")){
+            resp = map.get("4");
+        }
+        else{
+            resp = map.get("39");
+        }
+        
+        return resp;
+    }
+    
+    public void pupulateServiciosMap() {
+        
+        try {
+            serviciosMap = new httpCall().call();
+        } catch (IOException ex) {
+            Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
