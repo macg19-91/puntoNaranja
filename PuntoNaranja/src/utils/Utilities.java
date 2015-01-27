@@ -16,8 +16,8 @@ import org.w3c.dom.Document;
  * @author rlobo
  */
 public class Utilities {
-    String host = "localhost";
-    int port = 6789;
+    String host = "190.26.241.209";
+    int port = 7001;
     private ObjectOutputStream outputStream = null;
     private ObjectInputStream inputStream = null;
     Socket socket = null;
@@ -43,6 +43,23 @@ public class Utilities {
             if(socket.getInputStream() != null){
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 docu = (Document) ois.readObject();
+                break;
+            }
+        }
+        return docu;
+    }
+    
+    public String SendToServerXML(String doc) throws Exception{
+        //create output stream attached to socket
+        String docu;
+        outputStream = new ObjectOutputStream(socket.getOutputStream());
+        outputStream.writeObject(doc);
+        //send msg to server
+        socket.shutdownOutput();
+        while(true){
+            if(socket.getInputStream() != null){
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+                docu = (String) ois.readObject();
                 break;
             }
         }
