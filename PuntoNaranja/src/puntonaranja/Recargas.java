@@ -51,7 +51,7 @@ public class Recargas extends javax.swing.JFrame {
     public Recargas() {
         initComponents();
         tuyoIcon = new ImageIcon("src/puntonaranja/resurces/90-141-thickbox.jpg");
-        kolbiIcon = new ImageIcon("src/puntonaranja/resurces/kolbi.gif");
+        kolbiIcon = new ImageIcon("src/puntonaranja/resurces/kolbi.jpg");
         fullIcon = new ImageIcon("src/puntonaranja/resurces/fullemovil.png");
         lblImg.setIcon(kolbiIcon);
     }
@@ -133,7 +133,7 @@ public class Recargas extends javax.swing.JFrame {
         txtNumero.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         lblImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/kolbi.gif"))); // NOI18N
+        lblImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/kolbi.jpg"))); // NOI18N
         lblImg.setText("jLabel2");
         lblImg.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -184,34 +184,38 @@ public class Recargas extends javax.swing.JFrame {
                                 .addComponent(txtNumero, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(cmbOperadora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(29, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cmbOperadora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cmbOperadora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,45 +253,8 @@ public class Recargas extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Por favor ingrese un numero celular valido");
                         }
                         else{
-                            switch (selected) {
-                                case "Recarga Kolbi":  
-                                    operador = "200";
-                                    producto = "11";
-                                    proceso = "680000";
-                                     break;
-
-                                case "Recarga TUYO MOVIL":  
-                                    operador = "18";
-                                    producto = "12";
-                                    proceso = "690000";
-                                     break;
-
-                                case "Recarga FULLMOVIL":  
-                                    operador = "24";
-                                    producto = "16";
-                                    proceso = "240000";
-                                     break;
-                            }
-//                            Utilities util = new Utilities();
-//                            Message msg = new Message();
-//                            msg.recargaTiempoAire(monto, operador, producto, proceso, celular);
-//                            Document doc = util.SendToServer(msg.buildXML());
-//                            msg.getFromXML(doc);
-//                            String resp = msg.getMsgResponse();
-                            String resp = "Transaccion Completa";
-                            int dialogResult = JOptionPane.showConfirmDialog (null, "Le gustaria imprimir el comprobante?","Warning",JOptionPane.YES_NO_OPTION);
-                            
-                            if(dialogResult == JOptionPane.YES_OPTION){
-                                //Manda a imprimir
-                                new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected,"Recargas");
-                                new TextPrinter().startPrinter();
-                                JOptionPane.showMessageDialog(null, resp);
-                            }
-                            if(dialogResult == JOptionPane.NO_OPTION){
-                                JOptionPane.showMessageDialog(null, "no");
-                            }
-                            txtMonto.setText("");
-                            txtNumero.setText("");
+                            new ConfirmaRecarga(txtMonto.getText(),txtNumero.getText(),cmbOperadora.getSelectedItem().toString(),"Recargas").setVisible(true);
+        
                         }
                     }
                 }
