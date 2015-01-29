@@ -1,5 +1,6 @@
 
 package utils;
+import com.sun.corba.se.spi.activation.Server;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -8,8 +9,16 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.jnlp.PrintService;
+import javax.print.DocPrintJob;
+import javax.print.PrintServiceLookup;
+import javax.print.attribute.HashPrintServiceAttributeSet;
+import javax.print.attribute.PrintServiceAttributeSet;
+import javax.print.attribute.standard.PrinterName;
 
 /**
 * Utility class to print some lines of text to
@@ -29,6 +38,7 @@ import java.util.logging.Logger;
 
 public class TextPrinter implements Printable {
 
+                 static PrinterJob pjob = PrinterJob.getPrinterJob();
 
     public int print(Graphics g, PageFormat pf, int page) throws
                                                         PrinterException {
@@ -48,13 +58,17 @@ public class TextPrinter implements Printable {
         try {
             br = new BufferedReader(new FileReader("Files\\Trans"+new auth().leerArchivo("archivoTransacciones.txt")+".txt"));
         String line;
-        
+        int cuenta=0;
         try {
-        while ((line = br.readLine()) != null) {
-           // process the line.
-            
-           g.drawString(line, 10, place); 
-           place+=20;
+        while ((line = br.readLine()) != null) {   
+           if(cuenta==1){
+               g.drawString("Fecha: "+getFecha(), 0, place); 
+                place+=20;
+           }else{         
+                g.drawString(line, 0, place); 
+                place+=20;
+           }
+           cuenta++;
         }
         br.close();
         } catch (IOException ex) {
@@ -63,13 +77,62 @@ public class TextPrinter implements Printable {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //g.drawString("Hello world!", 10, 30);
-        //g.drawString(" ff", 10, 50);
-
+       
         /* tell the caller that this page is part of the printed document */
         return PAGE_EXISTS;
     }
+    private String getFecha() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        return  addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)-1),2) +"/"+ addCero(Integer.toString(cal.get(Calendar.MONTH))+1,2) +"/"+ Integer.toString(cal.get(Calendar.YEAR));
+    }
+    
+    private String addCero(String monto, int i) {
+        return String.format("%0"+i+"d", Integer.parseInt(monto));
+    };
+    public String loadFileToArea(){
+        String reporte="";
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new FileReader("Files\\Trans"+new auth().leerArchivo("archivoTransacciones.txt")+".txt"));
+        String line;
+        int cuenta=0;
+        try {
+        while ((line = br.readLine()) != null) {   
+           if(cuenta==1){
+               reporte+="Fecha: "+getFecha()+"\n";
+           }else{
+            reporte+=line+"\n";
+           }
+           cuenta++;
+        }
+        br.close();
+        } catch (IOException ex) {
+            Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return reporte;
+    }
+    public static void test() throws PrinterException {
+        DocPrintJob docPrintJob=null;
+        String printerNameDesired = new auth().leerArchivo("defaultPrinter.txt");
 
+        javax.print.PrintService[] service = PrinterJob.lookupPrintServices(); // list of printers
+
+    int count = service.length;
+
+    for (int i = 0; i < count; i++) {
+        if (service[i].getName().equalsIgnoreCase(printerNameDesired )) {
+            docPrintJob = service[i].createPrintJob();
+            i = count;
+        }
+    }
+//PrinterJob pjob = PrinterJob.getPrinterJob();
+pjob.setPrintService(docPrintJob.getPrintService());
+pjob.setJobName("job");
+pjob.print();
+    }
     public void actionPerformed(ActionEvent e) {
          PrinterJob job = PrinterJob.getPrinterJob();
          job.setPrintable(this);
@@ -83,17 +146,26 @@ public class TextPrinter implements Printable {
          }
     }
 
+    public void setPrinter() throws IOException { 
+                  //PrinterJob job = PrinterJob.getPrinterJob();
+         pjob.setPrintable(this);
+         boolean ok = pjob.printDialog();
+         if (ok) {
+            new auth().escribeFichero(pjob.getPrintService().getName(),"defaultPrinter.txt");
+              
+         }
+    }
     public void startPrinter() {
  
-                  PrinterJob job = PrinterJob.getPrinterJob();
-         job.setPrintable(this);
-         boolean ok = job.printDialog();
+                  //PrinterJob job = PrinterJob.getPrinterJob();
+         pjob.setPrintable(this);
+        /* boolean ok = job.printDialog();
          if (ok) {
-             try {
-                  job.print();
+             */try {
+                  pjob.print();
              } catch (PrinterException ex) {
               /* The job did not successfully complete */
              }
-         }
+        // }
     }
 }

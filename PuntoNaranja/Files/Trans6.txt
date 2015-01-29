@@ -1,0 +1,5 @@
+Punto de venta: Marlon
+Fecha: 01282015
+Hora: 21:41:02
+Venta de Pin Prepago Movil, Monto: 2500
+Gracias...

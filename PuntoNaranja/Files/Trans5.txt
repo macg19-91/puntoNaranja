@@ -1,0 +1,6 @@
+Punto de venta: Marlon
+Fecha: 01282015
+Hora: 21:40:36
+Recarga automática (Tiempo Aire) Teléfono: 88888888
+Transacción: Recarga Kolbi, Monto: 1500
+Gracias...

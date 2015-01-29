@@ -5,6 +5,10 @@
  */
 package puntonaranja;
 
+import java.awt.print.PrinterException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -23,11 +27,14 @@ public class home extends javax.swing.JFrame {
     Border border = LineBorder.createGrayLineBorder();
     Recargas recargas;
     ventaPines pines;
+    ServiciosPublicos servP;
     public home() {
         initComponents();
+       
         ventanaPass= new CambioContraseña(false);
         recargas=new Recargas();
         pines= new ventaPines();
+        servP=new ServiciosPublicos();
     }
 
     /**
@@ -52,6 +59,8 @@ public class home extends javax.swing.JFrame {
         lblICE = new javax.swing.JLabel();
         lblESPH = new javax.swing.JLabel();
         lblCNFL = new javax.swing.JLabel();
+        lblICETel = new javax.swing.JLabel();
+        lblESPHAgua = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -66,6 +75,7 @@ public class home extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
@@ -150,6 +160,9 @@ public class home extends javax.swing.JFrame {
         lblAya.setText("jLabel2");
         lblAya.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAya.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAyaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblAyaMouseEntered(evt);
             }
@@ -177,6 +190,9 @@ public class home extends javax.swing.JFrame {
         lblESPH.setText("jLabel2");
         lblESPH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblESPH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblESPHMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblESPHMouseEntered(evt);
             }
@@ -189,6 +205,9 @@ public class home extends javax.swing.JFrame {
         lblCNFL.setText("jLabel2");
         lblCNFL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblCNFL.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCNFLMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblCNFLMouseEntered(evt);
             }
@@ -197,35 +216,75 @@ public class home extends javax.swing.JFrame {
             }
         });
 
+        lblICETel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/ICETel.jpg"))); // NOI18N
+        lblICETel.setText("jLabel2");
+        lblICETel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblICETel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblICETelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblICETelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblICETelMouseExited(evt);
+            }
+        });
+
+        lblESPHAgua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/ESPHAgua.jpg"))); // NOI18N
+        lblESPHAgua.setText("jLabel2");
+        lblESPHAgua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblESPHAgua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblESPHAguaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblESPHAguaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblESPHAguaMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblKolbi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblICE, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(lblESPH, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(lblAya, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblCNFL, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblKolbi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(lblICE, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 64, Short.MAX_VALUE)
+                        .addComponent(lblICETel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblESPHAgua, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblCNFL, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(135, 135, 135)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAya, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblESPH, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblKolbi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblICE, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblESPH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblAya)
-                        .addComponent(lblCNFL)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblKolbi)
+                    .addComponent(lblICE, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblICETel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAya))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCNFL)
+                    .addComponent(lblESPH)
+                    .addComponent(lblESPHAgua))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Servicios comunes", jPanel2);
@@ -249,7 +308,7 @@ public class home extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -257,7 +316,7 @@ public class home extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Bitacora", jPanel3);
@@ -330,27 +389,24 @@ public class home extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(15, Short.MAX_VALUE)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jTabbedPane1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21)
                 .addComponent(lblNaranja, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -358,11 +414,8 @@ public class home extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,8 +424,11 @@ public class home extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -459,14 +515,18 @@ public class home extends javax.swing.JFrame {
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
         // TODO add your handling code here:
                 TextPrinter print =new TextPrinter();
-                print.startPrinter();
+        try {
+            print.setPrinter();
+        } catch (IOException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
                         
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void lblICEMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblICEMouseClicked
         // TODO add your handling code here:
-        recargas.cambioOperadora("Recarga TUYO MOVIL",lblICE.getIcon());
-        recargas.setVisible(true);
+        servP.cambioOperadora("ICE - Cobro de servicios de electricidad");
+        servP.setVisible(true);
                 
     }//GEN-LAST:event_lblICEMouseClicked
 
@@ -483,7 +543,7 @@ public class home extends javax.swing.JFrame {
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
-        new ServiciosPublicos().setVisible(true);
+        servP.setVisible(true);
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
@@ -508,6 +568,56 @@ public class home extends javax.swing.JFrame {
         // TODO add your handling code here:
         lblCNFL.setBorder(null);      
     }//GEN-LAST:event_lblCNFLMouseExited
+
+    private void lblICETelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblICETelMouseClicked
+        // TODO add your handling code here:
+        servP.cambioOperadora("ICE - Cobro de servicios telefónicos");
+        servP.setVisible(true);
+    }//GEN-LAST:event_lblICETelMouseClicked
+
+    private void lblICETelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblICETelMouseEntered
+        // TODO add your handling code here:
+        lblICETel.setBorder(border);     
+    }//GEN-LAST:event_lblICETelMouseEntered
+
+    private void lblICETelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblICETelMouseExited
+        // TODO add your handling code here:
+        lblICETel.setBorder(null);     
+    }//GEN-LAST:event_lblICETelMouseExited
+
+    private void lblESPHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblESPHMouseClicked
+        // TODO add your handling code here:
+        servP.cambioOperadora("ESPH - Electricidad");
+        servP.setVisible(true);
+    }//GEN-LAST:event_lblESPHMouseClicked
+
+    private void lblAyaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAyaMouseClicked
+        // TODO add your handling code here:
+        servP.cambioOperadora("AyA - Cobro de servicios de agua");
+        servP.setVisible(true);
+    }//GEN-LAST:event_lblAyaMouseClicked
+
+    private void lblCNFLMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCNFLMouseClicked
+        // TODO add your handling code here:
+        servP.cambioOperadora("CNFL - Cobro de servicios de electricidad");
+        servP.setVisible(true);
+    }//GEN-LAST:event_lblCNFLMouseClicked
+
+    private void lblESPHAguaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblESPHAguaMouseClicked
+        // TODO add your handling code here:
+        servP.cambioOperadora("ESPH - Agua");
+        servP.setVisible(true);
+    }//GEN-LAST:event_lblESPHAguaMouseClicked
+
+    private void lblESPHAguaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblESPHAguaMouseEntered
+        // TODO add your handling code here:
+        lblESPHAgua.setBorder(border);      
+    }//GEN-LAST:event_lblESPHAguaMouseEntered
+
+    private void lblESPHAguaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblESPHAguaMouseExited
+        // TODO add your handling code here:
+        lblESPHAgua.setBorder(null);      
+    }//GEN-LAST:event_lblESPHAguaMouseExited
 
     /**
      * @param args the command line arguments
@@ -567,7 +677,9 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JLabel lblAya;
     private javax.swing.JLabel lblCNFL;
     private javax.swing.JLabel lblESPH;
+    private javax.swing.JLabel lblESPHAgua;
     private javax.swing.JLabel lblICE;
+    private javax.swing.JLabel lblICETel;
     private javax.swing.JLabel lblKolbi;
     private javax.swing.JLabel lblNaranja;
     // End of variables declaration//GEN-END:variables
