@@ -1,4 +1,6 @@
-Recarga FULLMOVIL
-Numero: 56565656
-Monto: 1820
+Punto de venta: Marlon
+Fecha: 01282015
+Hora: 02:49:02
+Recarga automática (Tiempo Aire) Teléfono: 89999999
+Transacción: Recarga Kolbi, Monto: 1400
 Gracias...

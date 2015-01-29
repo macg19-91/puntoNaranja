@@ -232,9 +232,6 @@ public class Recargas extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             String selected = cmbOperadora.getSelectedItem().toString();
-            String operador = "";
-            String producto = "";
-            String proceso = "";
             String monto = txtMonto.getText();
             String celular = txtNumero.getText();
             if(monto.equals("")){
@@ -253,8 +250,9 @@ public class Recargas extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Por favor ingrese un numero celular valido");
                         }
                         else{
-                            new ConfirmaRecarga(txtMonto.getText(),txtNumero.getText(),cmbOperadora.getSelectedItem().toString(),"Recargas").setVisible(true);
-        
+                            new ConfirmaRecarga(txtMonto.getText(),txtNumero.getText(),selected,"Recargas").setVisible(true);
+                            txtMonto.setText("");
+                            txtNumero.setText("");
                         }
                     }
                 }
@@ -263,7 +261,10 @@ public class Recargas extends javax.swing.JFrame {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    public static void limpiarCampos(){
+        //txtMonto.setText("");
+        //txtNumero.setText("");    
+    }
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
         
@@ -310,8 +311,8 @@ public class Recargas extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-                            txtMonto.setText("");
-                            txtNumero.setText("");
+        txtMonto.setText("");
+        txtNumero.setText("");
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

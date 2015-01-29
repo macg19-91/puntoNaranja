@@ -68,7 +68,11 @@ public void escribeFichero(String linea,String nombre) throws IOException
 
     private String getFecha() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-        return Integer.toString(cal.get(Calendar.MONTH)) + Integer.toString(cal.get(Calendar.DAY_OF_MONTH)) + Integer.toString(cal.get(Calendar.YEAR));
+        return addCero(Integer.toString(cal.get(Calendar.MONTH))+1,2) + addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)-1),2) + Integer.toString(cal.get(Calendar.YEAR));
+    }
+     private String getHora() {
+        Calendar cal = Calendar.getInstance();
+        return addCero(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)),2) +":"+ addCero(Integer.toString(cal.get(Calendar.MINUTE)),2) +":"+ addCero(Integer.toString(cal.get(Calendar.SECOND)),2);
     }
     
 public void escribeFicheroPrint(String monto,String num,String empresa,String nombre) throws IOException
@@ -88,27 +92,28 @@ public void escribeFicheroPrint(String monto,String num,String empresa,String no
 	FileOutputStream fos = new FileOutputStream(fout);
  
 	OutputStreamWriter osw = new OutputStreamWriter(fos);
- 
+            
+                    osw.write("Punto de venta: "+new auth().leerArchivo("archivoUser.txt"));
+                    osw.write(System.lineSeparator());
+                    osw.write("Fecha: "+fecha);
+                    osw.write(System.lineSeparator());
+                    osw.write("Hora: "+getHora());
+                    osw.write(System.lineSeparator());
 	
             switch (nombre) {
                 case "Recargas":
-                    osw.write(empresa);
+                    osw.write("Recarga automática (Tiempo Aire) Teléfono: "+num);
                     osw.write(System.lineSeparator());
-                    osw.write("Numero: "+num);
+                    osw.write("Transacción: "+empresa+", Monto: "+monto);
                     osw.write(System.lineSeparator());
-                    osw.write("Monto: "+monto);
-                    osw.write(System.lineSeparator());
-                    osw.write("Gracias...");
                 break;
                     
                 case "Pines":
-                    osw.write("Venta de Pin "+empresa);
+                    osw.write("Venta de Pin "+empresa+", Monto: "+monto);
                     osw.write(System.lineSeparator());
-                    osw.write("Monto: "+monto);
-                    osw.write(System.lineSeparator());
-                    osw.write("Gracias...");
                 break;
             }
+                    osw.write("Gracias...");
  
 	osw.close();
     }
@@ -123,5 +128,9 @@ public Boolean firstLogin()
 public Boolean verificaFichero(File file){ 
         return file.exists();
 }
+
+private String addCero(String monto, int i) {
+        return String.format("%0"+i+"d", Integer.parseInt(monto));
+    };
 }
 

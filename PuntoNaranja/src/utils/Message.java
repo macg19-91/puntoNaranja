@@ -267,12 +267,12 @@ public class Message {
 
     private String getHora() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-        return Integer.toString(cal.get(Calendar.HOUR_OF_DAY)) + Integer.toString(cal.get(Calendar.MINUTE)) + Integer.toString(cal.get(Calendar.SECOND));
+        return addCero(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)),2) + addCero(Integer.toString(cal.get(Calendar.MINUTE)),2) + addCero(Integer.toString(cal.get(Calendar.SECOND)),2);
     }
 
     private String getFecha() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-        return Integer.toString(cal.get(Calendar.MONTH)) + Integer.toString(cal.get(Calendar.DAY_OF_MONTH)) + Integer.toString(cal.get(Calendar.YEAR));
+        return addCero(Integer.toString(cal.get(Calendar.MONTH))+1,2) + addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)-1),2) + Integer.toString(cal.get(Calendar.YEAR));
     }
 
     private String getReferencia() {
