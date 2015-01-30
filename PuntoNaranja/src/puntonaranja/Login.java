@@ -21,7 +21,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         file=new auth();
         if(!file.firstLogin()){
-            JOptionPane.showMessageDialog(null,"Debe ingresar los datos del nuevo Usuario", "Exito!", JOptionPane.INFORMATION_MESSAGE );
+            JOptionPane.showMessageDialog(null,"No hay usuario registrado, debe ingresar los datos del nuevo Usuario", "Atencion!", JOptionPane.INFORMATION_MESSAGE );
             new CambioContraseña(true).setVisible(true);
         }
         initComponents();
@@ -125,11 +125,11 @@ public class Login extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         if(!file.firstLogin()){
-            JOptionPane.showMessageDialog(null,"Debe ingresar los datos del nuevo Usuario", "Exito!", JOptionPane.INFORMATION_MESSAGE );
+            JOptionPane.showMessageDialog(null,"No hay usuario registrado, debe ingresar los datos del nuevo Usuario", "Atencion!", JOptionPane.INFORMATION_MESSAGE );
             new CambioContraseña(true).setVisible(true);
         }else{
-            if(txtUser.getText().equals(file.leerArchivo("archivoUser.txt"))){
-                    if(txtPass.getText().equals(file.leerArchivo("archivoPassword.txt"))){
+            if(txtUser.getText().equals(file.leerArchivo("Sesion\\archivoUser.txt"))){
+                    if(txtPass.getText().equals(file.leerArchivo("Sesion\\archivoPassword.txt"))){
                         this.setVisible(false);
                         new home().setVisible(true);
                     }else{

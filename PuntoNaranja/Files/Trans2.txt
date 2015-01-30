@@ -1,6 +1,0 @@
-Punto de venta: Marlon
-Fecha: 01282015
-Hora: 20:54:46
-Recarga automática (Tiempo Aire) Teléfono: 54545454
-Transacción: Recarga FULLMOVIL, Monto: 3000
-Gracias...

@@ -348,9 +348,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                 break;
                     
                 case "Servicios":
-                    jLabel4.setText("Identificador:");
-                    jLabel4.setVisible(true);
-                    lblNum.setVisible(true);
+                    
                 break;
             }
             new ventanaReporte().setVisible(true);

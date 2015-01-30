@@ -204,10 +204,10 @@ public class CambioContraseña extends javax.swing.JFrame {
                                 
             //if((txtNew.getText().isEmpty() || txtAgain.getText().isEmpty()) || txtOld.getText().isEmpty()){
                 if(txtNew.getText().equals(txtAgain.getText())){
-                    if(txtOld.getText().equals(file.leerArchivo("archivoPassword.txt"))){
+                    if(txtOld.getText().equals(file.leerArchivo("Sesion\\archivoPassword.txt"))){
                         if(!txtOld.getText().equals(txtAgain.getText())){
                             //if(txtNew.getText().equals(txtAgain.getText())&&txtOld.getText().equals(file.leerArchivo())&&!txtOld.getText().equals(txtAgain.getText())){
-                            file.escribeFichero(txtNew.getText(),"archivoPassword.txt");
+                            file.escribeFichero(txtNew.getText(),"Sesion/archivoPassword.txt");
                             JOptionPane.showMessageDialog(null,"La contraseña ha sido cambiada", "Exito!", JOptionPane.INFORMATION_MESSAGE );
                             txtNew.setText("");
                             txtAgain.setText("");
@@ -249,9 +249,9 @@ public class CambioContraseña extends javax.swing.JFrame {
                 if(txtNew.getText().equals(txtAgain.getText())){
                     
                             //if(txtNew.getText().equals(txtAgain.getText())&&txtOld.getText().equals(file.leerArchivo())&&!txtOld.getText().equals(txtAgain.getText())){
-                            file.escribeFichero(txtUser.getText(),"archivoUser.txt");
-                            file.escribeFichero(txtId.getText(),"archivoId.txt");
-                            file.escribeFichero(txtNew.getText(),"archivoPassword.txt");
+                            file.escribeFichero(txtUser.getText(),"Sesion/archivoUser.txt");
+                            file.escribeFichero(txtId.getText(),"Sesion/archivoId.txt");
+                            file.escribeFichero(txtNew.getText(),"Sesion/archivoPassword.txt");
                             JOptionPane.showMessageDialog(null,"Ha ingresado los datos correctamente", "Exito!", JOptionPane.INFORMATION_MESSAGE );
                             this.setVisible(false);
                             txtNew.setText("");
