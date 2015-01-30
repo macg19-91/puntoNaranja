@@ -1,5 +1,0 @@
-Punto de venta: Marlon
-Fecha: 01282015
-Hora: 21:59:38
-Venta de Pin Viajera, Monto: 3000
-Gracias...

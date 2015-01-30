@@ -53,6 +53,7 @@ public class auth {
     
 public void escribeFichero(String linea,String nombre) throws IOException
     {
+        verificaCarpetas();
         String ruta = "Files/"+nombre;
         File archivo = new File(ruta);
         BufferedWriter bw;
@@ -68,7 +69,17 @@ public void escribeFichero(String linea,String nombre) throws IOException
 
     private String getFecha() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-        return addCero(Integer.toString(cal.get(Calendar.MONTH))+1,2) + addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)-1),2) + Integer.toString(cal.get(Calendar.YEAR));
+        return addCero(Integer.toString(cal.get(Calendar.MONTH)+1),2) + addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)-1),2) + Integer.toString(cal.get(Calendar.YEAR));
+    }
+
+    private String getMes() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        return addCero(Integer.toString(cal.get(Calendar.MONTH)+1),2);
+    }
+    private String getMesAntes() {
+        Calendar cal = Calendar.getInstance();
+        if("01".equals(getMes())){return "12";}
+        return addCero(Integer.toString(cal.get(Calendar.MONTH)),2);
     }
      private String getHora() {
         Calendar cal = Calendar.getInstance();
@@ -77,23 +88,33 @@ public void escribeFichero(String linea,String nombre) throws IOException
     
 public void escribeFicheroPrint(String monto,String num,String empresa,String nombre) throws IOException
     {
-        String fecha= leerArchivo("archivoFecha.txt");
-        if(!fecha.equals(getFecha())){
+        verificaCarpetas();
+        String fecha= leerArchivo("Bitacora\\archivoFecha.txt");        
+        File Bitacora = new File("Files\\Bitacora");
+        if(!fecha.equals(getMes())){
+            int total=Bitacora.list().length;
+            if(total>11){
+                for(int i=0;i<total-11;i++){  
+                    int j=i+1;
+                    File removed = new File("Files\\Bitacora\\"+getMesAntes()+"-"+j+".txt");
+                    removed.delete();
+                }
+            }
             fecha=getFecha();
-            escribeFichero(fecha, "archivoFecha.txt");
-            escribeFichero("0", "archivoTransacciones.txt");
+            escribeFichero(getMes(), "Bitacora/archivoFecha.txt");
+            escribeFichero("0", "Bitacora/archivoTransacciones.txt");
         }
-        String trans= leerArchivo("archivoTransacciones.txt");
+        String trans= leerArchivo("Bitacora\\archivoTransacciones.txt");
             int cuantas=Integer.parseInt(trans)+1;
-            escribeFichero(cuantas+"", "archivoTransacciones.txt");
+            escribeFichero(cuantas+"", "Bitacora/archivoTransacciones.txt");
             
-        File fout = new File("Files/"+"Trans"+cuantas+".txt");
+        File fout = new File("Files/Bitacora/"+getMes()+"-"+cuantas+".txt");
       
 	FileOutputStream fos = new FileOutputStream(fout);
  
 	OutputStreamWriter osw = new OutputStreamWriter(fos);
             
-                    osw.write("Punto de venta: "+new auth().leerArchivo("archivoUser.txt"));
+                    osw.write("Punto de venta: "+new auth().leerArchivo("Sesion\\archivoUser.txt"));
                     osw.write(System.lineSeparator());
                     osw.write("Fecha: "+fecha);
                     osw.write(System.lineSeparator());
@@ -120,11 +141,32 @@ public void escribeFicheroPrint(String monto,String num,String empresa,String no
 
 public Boolean firstLogin()
     {
-        String ruta = "Files/archivoPassword.txt";
+        File Sesion = new File("Files\\Sesion");
+        File Bitacora = new File("Files\\Bitacora");
+        int num=Bitacora.list().length;
+        //File folderSesion = new File("Files\\Sesion");
+        String ruta = "Files/Sesion/archivoPassword.txt";
         File archivo = new File(ruta);
-        return verificaFichero(archivo);
+        if (!archivo.exists()) {
+            Sesion.mkdirs();
+            Bitacora.mkdirs();
+            return false;
+        }
+        return true;
     }
 
+public void verificaCarpetas(){ 
+       // return file.exists();
+        File Sesion = new File("Files\\Sesion");
+        File Bitacora = new File("Files\\Bitacora");
+        
+        if (!Sesion.exists()) {
+            Sesion.mkdirs();
+        }
+        if (!Bitacora.exists()) {
+            Bitacora.mkdirs();
+        }
+}
 public Boolean verificaFichero(File file){ 
         return file.exists();
 }

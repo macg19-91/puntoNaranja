@@ -56,7 +56,7 @@ public class TextPrinter implements Printable {
         /* Now we perform our rendering */
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader("Files\\Trans"+new auth().leerArchivo("archivoTransacciones.txt")+".txt"));
+            br = new BufferedReader(new FileReader("Files\\Bitacora\\"+getMes()+"-"+new auth().leerArchivo("Bitacora\\archivoTransacciones.txt")+".txt"));
         String line;
         int cuenta=0;
         try {
@@ -83,7 +83,12 @@ public class TextPrinter implements Printable {
     }
     private String getFecha() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-        return  addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)-1),2) +"/"+ addCero(Integer.toString(cal.get(Calendar.MONTH))+1,2) +"/"+ Integer.toString(cal.get(Calendar.YEAR));
+        return  addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)-1),2) +"/"+ addCero(Integer.toString(cal.get(Calendar.MONTH)+1),2) +"/"+ Integer.toString(cal.get(Calendar.YEAR));
+    }
+
+    private String getMes() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        return addCero(Integer.toString(cal.get(Calendar.MONTH)+1),2);
     }
     
     private String addCero(String monto, int i) {
@@ -93,7 +98,7 @@ public class TextPrinter implements Printable {
         String reporte="";
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader("Files\\Trans"+new auth().leerArchivo("archivoTransacciones.txt")+".txt"));
+            br = new BufferedReader(new FileReader("Files\\Bitacora\\"+getMes()+"-"+new auth().leerArchivo("Bitacora\\archivoTransacciones.txt")+".txt"));
         String line;
         int cuenta=0;
         try {
@@ -116,7 +121,7 @@ public class TextPrinter implements Printable {
     }
     public static void test() throws PrinterException {
         DocPrintJob docPrintJob=null;
-        String printerNameDesired = new auth().leerArchivo("defaultPrinter.txt");
+        String printerNameDesired = new auth().leerArchivo("Sesion\\defaultPrinter.txt");
 
         javax.print.PrintService[] service = PrinterJob.lookupPrintServices(); // list of printers
 
@@ -131,7 +136,7 @@ public class TextPrinter implements Printable {
 //PrinterJob pjob = PrinterJob.getPrinterJob();
 pjob.setPrintService(docPrintJob.getPrintService());
 pjob.setJobName("job");
-pjob.print();
+//pjob.print();
     }
     public void actionPerformed(ActionEvent e) {
          PrinterJob job = PrinterJob.getPrinterJob();
@@ -151,7 +156,7 @@ pjob.print();
          pjob.setPrintable(this);
          boolean ok = pjob.printDialog();
          if (ok) {
-            new auth().escribeFichero(pjob.getPrintService().getName(),"defaultPrinter.txt");
+            new auth().escribeFichero(pjob.getPrintService().getName(),"Sesion/defaultPrinter.txt");
               
          }
     }

@@ -1,6 +1,0 @@
-Punto de venta: Marlon
-Fecha: 01282015
-Hora: 20:59:50
-Recarga automática (Tiempo Aire) Teléfono: 77777777
-Transacción: Recarga TUYO MOVIL, Monto: 100
-Gracias...
