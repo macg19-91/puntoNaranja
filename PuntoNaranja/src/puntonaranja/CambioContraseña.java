@@ -8,6 +8,7 @@ package puntonaranja;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utils.auth;
 /**
@@ -21,6 +22,8 @@ public class CambioContraseña extends javax.swing.JFrame {
      * Creates new form CambioContraseña
      */
     public CambioContraseña() {
+        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        setIconImage(img.getImage());
         initComponents();
         file=new auth();
     }

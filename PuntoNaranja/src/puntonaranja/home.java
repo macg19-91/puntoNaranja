@@ -9,10 +9,14 @@ import java.awt.print.PrinterException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import utils.TextPrinter;
+import utils.auth;
 
 /**
  *
@@ -28,9 +32,13 @@ public class home extends javax.swing.JFrame {
     Recargas recargas;
     ventaPines pines;
     ServiciosPublicos servP;
+    
     public home() {
         initComponents();
-       
+        llenaTabla();
+        
+        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        setIconImage(img.getImage());
         ventanaPass= new CambioContraseña(false);
         recargas=new Recargas();
         pines= new ventaPines();
@@ -63,7 +71,9 @@ public class home extends javax.swing.JFrame {
         lblESPHAgua = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblBitacora = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         lblNaranja = new javax.swing.JLabel();
@@ -136,6 +146,12 @@ public class home extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(152, Short.MAX_VALUE))
         );
+
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -289,34 +305,71 @@ public class home extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Servicios comunes", jPanel2);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblBitacora.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblBitacora.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Fecha", "Tipo", "Identificación", "Valor", "Usuario"
+                "Fecha", "Hora", "Tipo", "Identificador/Num", "Monto"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblBitacora);
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jButton2.setText("Refrescar");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jButton3.setText("Re-Imprimir");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("Bitacora", jPanel3);
@@ -444,6 +497,23 @@ public class home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void llenaTabla(){
+        //DefaultTableModel model = new DefaultTableModel();
+        //tblBitacora = new JTable(model);
+        DefaultTableModel model = (DefaultTableModel) tblBitacora.getModel();
+        int rowCount = model.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i=0; i < rowCount; i++) {
+            model.removeRow(0);
+        }
+        String[] bitacora=new auth().bitacora();
+        for(int i=bitacora.length-3;i>=0;i--){
+            String[] datos=new auth().returnRow(bitacora[i]).split("&-&");
+            model.addRow(new Object[]{datos[1], datos[2], datos[5],datos[4],datos[6]});
+        }
+        //model.addRow(new Object[]{"30/01/2015", "10:30:20", "Kolbi","87878787","1000"});
+    }
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -619,6 +689,27 @@ public class home extends javax.swing.JFrame {
         lblESPHAgua.setBorder(null);      
     }//GEN-LAST:event_lblESPHAguaMouseExited
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        llenaTabla();
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        // TODO add your handling code here:
+        llenaTabla();
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        ventanaReporte reporte=new ventanaReporte();
+        if(tblBitacora.getSelectedRow()>=0){
+            reporte.printSelected(tblBitacora.getSelectedRow());
+            reporte.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null,"Haga click en latransacción que desea imprimir", "Atención!", JOptionPane.WARNING_MESSAGE );
+        }
+    }//GEN-LAST:event_jButton3MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -656,6 +747,8 @@ public class home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -672,7 +765,6 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblAya;
     private javax.swing.JLabel lblCNFL;
@@ -682,5 +774,6 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JLabel lblICETel;
     private javax.swing.JLabel lblKolbi;
     private javax.swing.JLabel lblNaranja;
+    private javax.swing.JTable tblBitacora;
     // End of variables declaration//GEN-END:variables
 }

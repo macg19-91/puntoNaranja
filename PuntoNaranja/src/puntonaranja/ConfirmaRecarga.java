@@ -9,6 +9,7 @@ import java.awt.print.PrinterException;
 import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utils.TextPrinter;
 import utils.auth;
@@ -25,6 +26,8 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
     String operador,mont,num,tipo;
     public ConfirmaRecarga(String mont,String num,String operador,String tipo) {
         initComponents();
+        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        setIconImage(img.getImage());
         this.operador=operador;
         this.mont=mont;
         this.num=num;

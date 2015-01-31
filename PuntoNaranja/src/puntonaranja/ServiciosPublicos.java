@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -37,6 +38,8 @@ public class ServiciosPublicos extends javax.swing.JFrame {
      */
     public ServiciosPublicos() {
         initComponents();
+        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        setIconImage(img.getImage());
         loadCombo();
     }
 

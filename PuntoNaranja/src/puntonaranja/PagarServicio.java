@@ -7,6 +7,7 @@ package puntonaranja;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -19,6 +20,8 @@ public class PagarServicio extends javax.swing.JFrame {
      */
     public PagarServicio() {
         initComponents();
+        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        setIconImage(img.getImage());
     }
 
     /**
