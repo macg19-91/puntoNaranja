@@ -1,5 +1,0 @@
-Punto de venta: test
-Fecha: 01292015
-Hora: 21:53:35
-Venta de Pin Prepago Movil, Monto: 2500
-Gracias...

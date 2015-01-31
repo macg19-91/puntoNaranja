@@ -1,6 +1,0 @@
-Punto de venta: test
-Fecha: 01
-Hora: 21:54:11
-Recarga automática (Tiempo Aire) Teléfono: 87878787
-Transacción: Recarga Kolbi, Monto: 500
-Gracias...

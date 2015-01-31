@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package puntonaranja;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utils.auth;
 
@@ -25,6 +26,8 @@ public class Login extends javax.swing.JFrame {
             new CambioContraseña(true).setVisible(true);
         }
         initComponents();
+        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        setIconImage(img.getImage());
     }
 
     /**

@@ -11,6 +11,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -69,7 +71,7 @@ public void escribeFichero(String linea,String nombre) throws IOException
 
     private String getFecha() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-        return addCero(Integer.toString(cal.get(Calendar.MONTH)+1),2) + addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)-1),2) + Integer.toString(cal.get(Calendar.YEAR));
+        return addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)),2) +"/"+addCero(Integer.toString(cal.get(Calendar.MONTH)+1),2) +"/"+ Integer.toString(cal.get(Calendar.YEAR));
     }
 
     private String getMes() {
@@ -85,56 +87,72 @@ public void escribeFichero(String linea,String nombre) throws IOException
         Calendar cal = Calendar.getInstance();
         return addCero(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)),2) +":"+ addCero(Integer.toString(cal.get(Calendar.MINUTE)),2) +":"+ addCero(Integer.toString(cal.get(Calendar.SECOND)),2);
     }
-    
+public String[] bitacora(){
+    File Bitacora = new File("Files\\Bitacora");
+    return Bitacora.list();
+}    
+public String returnRow(String fileName){
+        String reporte="";
+        BufferedReader br;
+        try {
+            br = new BufferedReader(new FileReader("Files\\Bitacora\\"+fileName));
+        String line;
+        int cuenta=0;
+        try {
+        while ((line = br.readLine()) != null) {
+            reporte+=line+"&-&";
+           cuenta++;
+        }
+        br.close();
+        } catch (IOException ex) {
+            Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return reporte;
+    }
 public void escribeFicheroPrint(String monto,String num,String empresa,String nombre) throws IOException
     {
         verificaCarpetas();
         String fecha= leerArchivo("Bitacora\\archivoFecha.txt");        
         File Bitacora = new File("Files\\Bitacora");
         if(!fecha.equals(getMes())){
+            String[] listArchivos=Bitacora.list();
             int total=Bitacora.list().length;
             if(total>11){
                 for(int i=0;i<total-11;i++){  
                     int j=i+1;
-                    File removed = new File("Files\\Bitacora\\"+getMesAntes()+"-"+j+".txt");
+                    File removed = new File("Files\\Bitacora\\"+listArchivos[i]);
                     removed.delete();
                 }
             }
-            fecha=getFecha();
             escribeFichero(getMes(), "Bitacora/archivoFecha.txt");
             escribeFichero("0", "Bitacora/archivoTransacciones.txt");
         }
         String trans= leerArchivo("Bitacora\\archivoTransacciones.txt");
             int cuantas=Integer.parseInt(trans)+1;
-            escribeFichero(cuantas+"", "Bitacora/archivoTransacciones.txt");
+            escribeFichero(addCero(cuantas+"",2)+"", "Bitacora/archivoTransacciones.txt");
             
-        File fout = new File("Files/Bitacora/"+getMes()+"-"+cuantas+".txt");
+        File fout = new File("Files/Bitacora/"+getMes()+"-"+addCero(cuantas+"",2)+".txt");
       
 	FileOutputStream fos = new FileOutputStream(fout);
  
 	OutputStreamWriter osw = new OutputStreamWriter(fos);
             
-                    osw.write("Punto de venta: "+new auth().leerArchivo("Sesion\\archivoUser.txt"));
+                    osw.write(new auth().leerArchivo("Sesion\\archivoUser.txt"));
                     osw.write(System.lineSeparator());
-                    osw.write("Fecha: "+fecha);
+                    osw.write(getFecha());
                     osw.write(System.lineSeparator());
-                    osw.write("Hora: "+getHora());
+                    osw.write(getHora());
                     osw.write(System.lineSeparator());
-	
-            switch (nombre) {
-                case "Recargas":
-                    osw.write("Recarga automática (Tiempo Aire) Teléfono: "+num);
+                    osw.write(nombre);
                     osw.write(System.lineSeparator());
-                    osw.write("Transacción: "+empresa+", Monto: "+monto);
+                    osw.write(num);
                     osw.write(System.lineSeparator());
-                break;
-                    
-                case "Pines":
-                    osw.write("Venta de Pin "+empresa+", Monto: "+monto);
+                    osw.write(empresa);
                     osw.write(System.lineSeparator());
-                break;
-            }
-                    osw.write("Gracias...");
+                    osw.write(monto);
  
 	osw.close();
     }

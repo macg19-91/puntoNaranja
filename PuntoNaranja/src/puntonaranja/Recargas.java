@@ -50,6 +50,8 @@ public class Recargas extends javax.swing.JFrame {
     
     public Recargas() {
         initComponents();
+        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        setIconImage(img.getImage());
         tuyoIcon = new ImageIcon("src/puntonaranja/resurces/90-141-thickbox.jpg");
         kolbiIcon = new ImageIcon("src/puntonaranja/resurces/kolbi.jpg");
         fullIcon = new ImageIcon("src/puntonaranja/resurces/fullemovil.png");

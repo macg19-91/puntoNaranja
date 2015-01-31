@@ -6,6 +6,7 @@
 package puntonaranja;
 
 import java.awt.print.PrinterException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utils.TextPrinter;
 
@@ -20,6 +21,8 @@ public class ventanaReporte extends javax.swing.JFrame {
      */
     public ventanaReporte() {
         initComponents();
+        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        setIconImage(img.getImage());
         areaReporte.setText(new TextPrinter().loadFileToArea());
     }
 
@@ -127,7 +130,10 @@ public class ventanaReporte extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    public void printSelected(int cual){
+        areaReporte.setText(new TextPrinter().loadSelectedFileToArea(cual));
+    }
+    
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
         try {
