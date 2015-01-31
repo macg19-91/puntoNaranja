@@ -31,8 +31,7 @@ public class home extends javax.swing.JFrame {
     Border border = LineBorder.createGrayLineBorder();
     Recargas recargas;
     ventaPines pines;
-    ServiciosPublicos servP;
-    
+    ServiciosPublicos servP;    
     public home() {
         initComponents();
         llenaTabla();
