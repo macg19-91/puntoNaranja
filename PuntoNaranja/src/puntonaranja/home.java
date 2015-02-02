@@ -31,17 +31,21 @@ public class home extends javax.swing.JFrame {
     Border border = LineBorder.createGrayLineBorder();
     Recargas recargas;
     ventaPines pines;
-    ServiciosPublicos servP;    
+    cierreCaja caja;
+    ServiciosPublicos servP;   
+    int[] files;
     public home() {
         initComponents();
         llenaTabla();
         
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
+        files=new int[10];
         ventanaPass= new CambioContraseña(false);
         recargas=new Recargas();
         pines= new ventaPines();
         servP=new ServiciosPublicos();
+        caja=new cierreCaja();
     }
 
     /**
@@ -78,8 +82,9 @@ public class home extends javax.swing.JFrame {
         lblNaranja = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
@@ -123,7 +128,12 @@ public class home extends javax.swing.JFrame {
         });
 
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton6.setText("Bitácora de transacciones");
+        jButton6.setText("Cierre de caja");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -355,7 +365,7 @@ public class home extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -363,8 +373,8 @@ public class home extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
@@ -398,14 +408,6 @@ public class home extends javax.swing.JFrame {
 
         jMenu2.setText("Opciones");
 
-        jMenu5.setText("Impresora");
-        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu5MouseClicked(evt);
-            }
-        });
-        jMenu2.add(jMenu5);
-
         jMenu6.setText("Consulta Saldo");
         jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -413,6 +415,22 @@ public class home extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenu6);
+
+        jMenu1.setText("Exportar Bitácora");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenu2.add(jMenu1);
+
+        jMenu5.setText("Seleccionar Impresora");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
+        jMenu2.add(jMenu5);
 
         jMenu3.setText("Cambiar contraseña");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -422,7 +440,7 @@ public class home extends javax.swing.JFrame {
         });
         jMenu2.add(jMenu3);
 
-        jMenu4.setText("Cerrar Sesion");
+        jMenu4.setText("Cerrar Sesión");
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu4MouseClicked(evt);
@@ -444,12 +462,12 @@ public class home extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
                                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jTabbedPane1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -505,10 +523,16 @@ public class home extends javax.swing.JFrame {
         for (int i=0; i < rowCount; i++) {
             model.removeRow(0);
         }
+        files=new int[10];
         String[] bitacora=new auth().bitacora();
+        int cuantos=9;
         for(int i=bitacora.length-3;i>=0;i--){
             String[] datos=new auth().returnRow(bitacora[i]).split("&-&");
-            model.addRow(new Object[]{datos[1], datos[2], datos[5],datos[4],datos[6]});
+            if(datos[3].equals("Recargas")&&model.getRowCount()<10){
+                model.addRow(new Object[]{datos[1], datos[2], datos[5],datos[4],datos[6]});
+                files[cuantos]=i;
+                cuantos--;
+            }
         }
         //model.addRow(new Object[]{"30/01/2015", "10:30:20", "Kolbi","87878787","1000"});
     }
@@ -691,23 +715,35 @@ public class home extends javax.swing.JFrame {
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         llenaTabla();
+        JOptionPane.showMessageDialog(null,"Bitácora actualizada", "Éxito!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         // TODO add your handling code here:
         llenaTabla();
+        
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
         ventanaReporte reporte=new ventanaReporte();
         if(tblBitacora.getSelectedRow()>=0){
-            reporte.printSelected(tblBitacora.getSelectedRow());
+            reporte.printSelected(files[tblBitacora.getSelectedRow()]);
             reporte.setVisible(true);
         }else{
-            JOptionPane.showMessageDialog(null,"Haga click en latransacción que desea imprimir", "Atención!", JOptionPane.WARNING_MESSAGE );
+            JOptionPane.showMessageDialog(null,"Haga click en la transacción que desea imprimir", "Atención!", JOptionPane.WARNING_MESSAGE );
         }
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        // TODO add your handling code here:
+        caja.calculaCierre();
+        caja.setVisible(true);
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -753,6 +789,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;

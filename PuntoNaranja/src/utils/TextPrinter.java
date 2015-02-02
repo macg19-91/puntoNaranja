@@ -39,7 +39,8 @@ import javax.print.attribute.standard.PrinterName;
 public class TextPrinter implements Printable {
 
                  static PrinterJob pjob = PrinterJob.getPrinterJob();
-
+    int cual=0;
+    boolean selected=false;
     public int print(Graphics g, PageFormat pf, int page) throws
                                                         PrinterException {
 
@@ -55,9 +56,15 @@ public class TextPrinter implements Printable {
         int place=30;
         /* Now we perform our rendering */
         BufferedReader br;
+        File Bitacora = new File("Files\\Bitacora");
+        String[] lista=Bitacora.list();
         try {
-            br = new BufferedReader(new FileReader("Files\\Bitacora\\"+getMes()+"-"+new auth().leerArchivo("Bitacora\\archivoTransacciones.txt")+".txt"));
-        String line;
+            if(selected){
+                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3-cual]));
+            }else{
+                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
+            }
+            String line;
         /*int cuenta=0;
         try {
         while ((line = br.readLine()) != null) {      
@@ -115,55 +122,18 @@ public class TextPrinter implements Printable {
         return String.format("%0"+i+"d", Integer.parseInt(monto));
     };
     
-    public String loadSelectedFileToArea(int cual){
+    public String loadFileToArea(Boolean selected, int cual){
         String reporte="";
         BufferedReader br;
         File Bitacora = new File("Files\\Bitacora");
         String[] lista=Bitacora.list();
         try {
-            br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3-cual]));
-        String line;
-        int cuenta=0;
-        String tipo="";
-        try {
-        while((line = br.readLine()) != null) {   
-            if(cuenta==0)reporte+="Punto de venta: "+line+"\n";
-            if(cuenta==1)reporte+="Fecha: "+line+"\n";
-            if(cuenta==2)reporte+="Hora: "+line+"\n";
-            if(cuenta==3)tipo=line;
-            switch (tipo) {
-                case "Recargas":
-                    if(cuenta==4)reporte+="Recarga automática (Tiempo Aire) Teléfono: "+line+"\n";
-                    if(cuenta==5)reporte+="Transacción: "+line+", ";
-                    if(cuenta==6)reporte+="Monto: "+line+"\n";
-                break;
-                    
-                case "Pines":
-                    if(cuenta==4)reporte+="Numero Pin: "+line+"\n";
-                    if(cuenta==5)reporte+="Venta Pin: "+line+", ";
-                    if(cuenta==6)reporte+="Monto: "+line+"\n";
-                break;
+            if(selected){
+                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3-cual]));
+            }else{
+                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
             }
-                    
-           cuenta++;
-        }
-        reporte+="Gracias...";
-        br.close();
-        } catch (IOException ex) {
-            Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return reporte;
-    }
-    
-    public String loadFileToArea(){
-        String reporte="";
-        BufferedReader br;
-        try {
-            br = new BufferedReader(new FileReader("Files\\Bitacora\\"+getMes()+"-"+new auth().leerArchivo("Bitacora\\archivoTransacciones.txt")+".txt"));
-        String line;
+            String line;
         int cuenta=0;
         String tipo="";
         try {
@@ -239,13 +209,16 @@ pjob.setJobName("job");
               
          }
     }
-    public void startPrinter() {
+    public void startPrinter(Boolean selected, int cual) {
  
                   //PrinterJob job = PrinterJob.getPrinterJob();
          pjob.setPrintable(this);
         /* boolean ok = job.printDialog();
          if (ok) {
-             */try {
+             */
+            this.selected=selected;
+            this.cual=cual;
+             try {
                   pjob.print();
              } catch (PrinterException ex) {
               /* The job did not successfully complete */

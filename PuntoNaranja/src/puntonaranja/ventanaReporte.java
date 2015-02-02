@@ -19,11 +19,15 @@ public class ventanaReporte extends javax.swing.JFrame {
     /**
      * Creates new form ventanaReporte
      */
+    int cual;
+    boolean selected;
     public ventanaReporte() {
         initComponents();
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
-        areaReporte.setText(new TextPrinter().loadFileToArea());
+        areaReporte.setText(new TextPrinter().loadFileToArea(false,0));
+        selected=false;
+        cual=0;
     }
 
     /**
@@ -131,7 +135,9 @@ public class ventanaReporte extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public void printSelected(int cual){
-        areaReporte.setText(new TextPrinter().loadSelectedFileToArea(cual));
+        this.selected=true;
+        this.cual=cual;
+        areaReporte.setText(new TextPrinter().loadFileToArea(true,cual));
     }
     
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
@@ -141,7 +147,7 @@ public class ventanaReporte extends javax.swing.JFrame {
         } catch (PrinterException ex) {
             //Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }
-        new TextPrinter().startPrinter();
+        new TextPrinter().startPrinter(selected,cual);
         this.setVisible(false);
         //new home().setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked
@@ -152,8 +158,8 @@ public class ventanaReporte extends javax.swing.JFrame {
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
-        this.setVisible(false);
         JOptionPane.showMessageDialog(null, "Transaccion Completa");
+        this.setVisible(false);
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
