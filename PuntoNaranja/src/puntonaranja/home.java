@@ -525,13 +525,13 @@ public class home extends javax.swing.JFrame {
         }
         files=new int[10];
         String[] bitacora=new auth().bitacora();
-        int cuantos=9;
+        int cuantos=0;
         for(int i=bitacora.length-3;i>=0;i--){
             String[] datos=new auth().returnRow(bitacora[i]).split("&-&");
             if(datos[3].equals("Recargas")&&model.getRowCount()<10){
                 model.addRow(new Object[]{datos[1], datos[2], datos[5],datos[4],datos[6]});
                 files[cuantos]=i;
-                cuantos--;
+                cuantos++;
             }
         }
         //model.addRow(new Object[]{"30/01/2015", "10:30:20", "Kolbi","87878787","1000"});

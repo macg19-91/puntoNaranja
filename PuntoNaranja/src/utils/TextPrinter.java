@@ -60,7 +60,7 @@ public class TextPrinter implements Printable {
         String[] lista=Bitacora.list();
         try {
             if(selected){
-                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3-cual]));
+                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));
             }else{
                 br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
             }
@@ -129,7 +129,7 @@ public class TextPrinter implements Printable {
         String[] lista=Bitacora.list();
         try {
             if(selected){
-                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3-cual]));
+                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));
             }else{
                 br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
             }
