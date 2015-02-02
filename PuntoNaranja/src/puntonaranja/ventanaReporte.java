@@ -6,9 +6,11 @@
 package puntonaranja;
 
 import java.awt.print.PrinterException;
+import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utils.TextPrinter;
+import utils.auth;
 
 /**
  *
@@ -143,11 +145,15 @@ public class ventanaReporte extends javax.swing.JFrame {
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
         try {
-            TextPrinter.test();
+            
+        String ruta = "Files/Sesion/defaultPrinter.txt";
+        File archivo = new File(ruta);
+            if(archivo.exists())TextPrinter.test();
         } catch (PrinterException ex) {
             //Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }
         new TextPrinter().startPrinter(selected,cual);
+        JOptionPane.showMessageDialog(null, "Transaccion Completa");
         this.setVisible(false);
         //new home().setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked

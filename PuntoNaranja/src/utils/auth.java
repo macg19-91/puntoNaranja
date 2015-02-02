@@ -176,7 +176,6 @@ public Boolean firstLogin()
     {
         File Sesion = new File("Files\\Sesion");
         File Bitacora = new File("Files\\Bitacora");
-        int num=Bitacora.list().length;
         //File folderSesion = new File("Files\\Sesion");
         String ruta = "Files/Sesion/archivoPassword.txt";
         File archivo = new File(ruta);
