@@ -30,6 +30,7 @@ public class ventanaReporte extends javax.swing.JFrame {
         areaReporte.setText(new TextPrinter().loadFileToArea(false,0));
         selected=false;
         cual=0;
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -55,6 +56,7 @@ public class ventanaReporte extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Reporte");
         setAlwaysOnTop(true);
         setResizable(false);
 
@@ -153,8 +155,8 @@ public class ventanaReporte extends javax.swing.JFrame {
             //Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }
         new TextPrinter().startPrinter(selected,cual);
-        JOptionPane.showMessageDialog(null, "Transaccion Completa");
         this.setVisible(false);
+        JOptionPane.showMessageDialog(null, "Transaccion Completa");
         //new home().setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked
 
@@ -164,8 +166,8 @@ public class ventanaReporte extends javax.swing.JFrame {
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Transaccion Completa");
         this.setVisible(false);
+        JOptionPane.showMessageDialog(null, "Transaccion Completa");
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
