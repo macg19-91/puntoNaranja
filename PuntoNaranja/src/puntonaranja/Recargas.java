@@ -85,6 +85,7 @@ public class Recargas extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Recargas");
         setBackground(new java.awt.Color(51, 51, 255));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -121,6 +122,9 @@ public class Recargas extends javax.swing.JFrame {
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton3MouseEntered(evt);
             }
         });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -240,8 +244,8 @@ public class Recargas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un monto");
             }
             else{
-                if((parseInt(monto) < 0 )||(parseInt(monto) > 10000 )){
-                    JOptionPane.showMessageDialog(null, "Por favor ingrese un monto entre los 0 y los 10000 colones");
+                if((parseInt(monto) < 100 )||(parseInt(monto) > 25000 )){
+                    JOptionPane.showMessageDialog(null, "Por favor ingrese un monto entre los 100 y los 25000 colones");
                 }
                 else{
                     if(celular.equals("")){
@@ -320,6 +324,10 @@ public class Recargas extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3MouseEntered
 
     /**
      * @param args the command line arguments

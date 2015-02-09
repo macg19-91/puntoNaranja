@@ -65,7 +65,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
         lblImg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Servicios Publicos");
+        setTitle("Servicios Públicos");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
