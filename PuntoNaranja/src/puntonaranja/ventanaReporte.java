@@ -6,9 +6,11 @@
 package puntonaranja;
 
 import java.awt.print.PrinterException;
+import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utils.TextPrinter;
+import utils.auth;
 
 /**
  *
@@ -19,11 +21,16 @@ public class ventanaReporte extends javax.swing.JFrame {
     /**
      * Creates new form ventanaReporte
      */
+    int cual;
+    boolean selected;
     public ventanaReporte() {
         initComponents();
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
-        areaReporte.setText(new TextPrinter().loadFileToArea());
+        areaReporte.setText(new TextPrinter().loadFileToArea(false,0));
+        selected=false;
+        cual=0;
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -49,6 +56,7 @@ public class ventanaReporte extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Reporte");
         setAlwaysOnTop(true);
         setResizable(false);
 
@@ -131,18 +139,24 @@ public class ventanaReporte extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     public void printSelected(int cual){
-        areaReporte.setText(new TextPrinter().loadSelectedFileToArea(cual));
+        this.selected=true;
+        this.cual=cual;
+        areaReporte.setText(new TextPrinter().loadFileToArea(true,cual));
     }
     
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
         try {
-            TextPrinter.test();
+            
+        String ruta = "Files/Sesion/defaultPrinter.txt";
+        File archivo = new File(ruta);
+            if(archivo.exists())TextPrinter.test();
         } catch (PrinterException ex) {
             //Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }
-        new TextPrinter().startPrinter();
+        new TextPrinter().startPrinter(selected,cual);
         this.setVisible(false);
+        JOptionPane.showMessageDialog(null, "Transaccion Completa");
         //new home().setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked
 

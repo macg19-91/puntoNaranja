@@ -63,7 +63,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
         lblImg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Servicios Publicos");
+        setTitle("Servicios Públicos");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -231,8 +231,8 @@ public class ServiciosPublicos extends javax.swing.JFrame {
 
             if(dialogResult == JOptionPane.YES_OPTION){
                 //Manda a imprimir
-                //new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected.getLabel(),"archivoPrint.txt");
-                new TextPrinter().startPrinter();
+                new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected.getLabel(),"archivoPrint.txt");
+                new TextPrinter().startPrinter(false,0);
                 JOptionPane.showMessageDialog(null, resp);
             }
             if(dialogResult == JOptionPane.NO_OPTION){

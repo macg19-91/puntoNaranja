@@ -51,6 +51,7 @@ public class PagarServicio extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Pagar Servicios");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel4.setText("Identificador");

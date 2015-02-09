@@ -26,6 +26,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
     String operador,mont,num,tipo;
     public ConfirmaRecarga(String mont,String num,String operador,String tipo) {
         initComponents();
+        setLocationRelativeTo(null);
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
         this.operador=operador;
@@ -35,6 +36,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         lblMonto.setText(mont);
         lblNum.setText(num);
         this.tipo=tipo;
+        
         switch (tipo) {
                 case "Recargas":
                     jLabel4.setText("Numero:");
@@ -75,6 +77,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Confirmación");
         setAlwaysOnTop(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {

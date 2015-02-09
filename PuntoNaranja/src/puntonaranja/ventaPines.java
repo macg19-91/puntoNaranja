@@ -53,6 +53,7 @@ public class ventaPines extends javax.swing.JFrame {
         cmpMonto = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Venta Pines");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -67,7 +68,7 @@ public class ventaPines extends javax.swing.JFrame {
         jLabel2.setText("Operadora");
 
         cmbOperadora.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        cmbOperadora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Prepago Movil", "Viajera", "Teletica" }));
+        cmbOperadora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Prepago Movil", "Viajera", "Tuyo" }));
         cmbOperadora.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbOperadoraItemStateChanged(evt);
