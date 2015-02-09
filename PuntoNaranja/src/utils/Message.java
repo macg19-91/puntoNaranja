@@ -84,7 +84,7 @@ public class Message {
         this.parent = "isomsg";
         this.map = new HashMap<String, String>();
         codigosMap = new HashMap<String, String>();
-        identificador = getIdentificador();
+        identificador = "51110341"; //getIdentificador();
         pupulateCodigosMap();
         this.clave = "1234";
         this.usuario = "user";
@@ -243,15 +243,15 @@ public class Message {
     }
     
     public String buildString() throws ParserConfigurationException, SAXException, IOException{
-        String values = "<"+parent+">";
+        String values = "<"+parent+">\r\n";
         for ( String key : map.keySet() ) {
-            values += "<field id=\""+key+"\" value=\""+ map.get(key) +"\"/>";
+            values += "<field id=\""+key+"\" value=\""+ map.get(key) +"\"/>\r\n";
         }
         values += "</"+parent+">";
         return values;
     }
     
-    public Map<String, String> getFromXML(Document doc){
+    public void getFromXML(Document doc){
         String value;
         String id;
         Element elem;
@@ -262,7 +262,19 @@ public class Message {
             id = elem.getAttribute("id");
             map.put(id, value);
         }
-        return map;
+    }
+    
+    public void getFromXML2(Document doc){
+        String value;
+        String id;
+        Element elem;
+        map = new HashMap<String, String>();
+        for(int i=0,j=doc.getChildNodes().getLength();i<j;i++){
+            elem = (Element)doc.getChildNodes().item(i);
+            value = elem.getAttribute("value");
+            id = elem.getAttribute("id");
+            map.put(id, value);
+        }
     }
 
     private String getHora() {

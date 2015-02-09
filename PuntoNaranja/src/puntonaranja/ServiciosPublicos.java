@@ -54,9 +54,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtMonto = new javax.swing.JTextField();
         cmbOperadora = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
@@ -79,14 +77,8 @@ public class ServiciosPublicos extends javax.swing.JFrame {
         txtNumero.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         txtNumero.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setText("Monto");
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Servicio");
-
-        txtMonto.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        txtMonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         cmbOperadora.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
         cmbOperadora.addItemListener(new java.awt.event.ItemListener() {
@@ -156,14 +148,13 @@ public class ServiciosPublicos extends javax.swing.JFrame {
                                 .addComponent(cmbOperadora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
                                     .addComponent(jLabel4)
                                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(39, 39, 39)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(76, 76, 76)
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                                 .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -183,15 +174,11 @@ public class ServiciosPublicos extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cmbOperadora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
-                        .addGap(28, 28, 28)
+                        .addGap(68, 68, 68)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
+                        .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -229,24 +216,29 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             String identificador = txtNumero.getText();
             Utilities util = new Utilities();
             Message msg = new Message();
-            msg.consultaServiciosPublicos(selected.getValue(), identificador, "", "");
+            //msg.consultaServiciosPublicos(selected.getValue(), identificador, "", "");
+            msg.setEchoTest();
             Document doc = util.SendToServer(msg.buildXML());
             msg.getFromXML(doc);
             String resp = msg.getMsgResponse();
+            //String resp = "success";
+            if(resp.equals("success")){
+                new PagarServicio(selected ,identificador, "monto" ).setVisible(true);
+            }
             JOptionPane.showMessageDialog(null, resp);
             //String resp = "Transaccion Completa";
             int dialogResult = JOptionPane.showConfirmDialog (null, "Le gustaria imprimir el comprobante?","Warning",JOptionPane.YES_NO_OPTION);
 
             if(dialogResult == JOptionPane.YES_OPTION){
                 //Manda a imprimir
-                new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected.getLabel(),"archivoPrint.txt");
+                //new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected.getLabel(),"archivoPrint.txt");
                 new TextPrinter().startPrinter();
                 JOptionPane.showMessageDialog(null, resp);
             }
             if(dialogResult == JOptionPane.NO_OPTION){
                 JOptionPane.showMessageDialog(null, "no");
             }
-            txtMonto.setText("");
+            //txtMonto.setText("");
             txtNumero.setText("");
                         
             
@@ -257,7 +249,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        txtMonto.setText("");
+        //txtMonto.setText("");
         txtNumero.setText("");
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -318,10 +310,8 @@ public class ServiciosPublicos extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblImg;
-    private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
 
