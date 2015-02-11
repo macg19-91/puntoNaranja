@@ -231,7 +231,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
 
             if(dialogResult == JOptionPane.YES_OPTION){
                 //Manda a imprimir
-                new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected.getLabel(),"archivoPrint.txt");
+               // new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected.getLabel(),"archivoPrint.txt");
                 new TextPrinter().startPrinter(false,0);
                 JOptionPane.showMessageDialog(null, resp);
             }
