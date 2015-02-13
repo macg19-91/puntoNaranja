@@ -7,6 +7,10 @@ package puntonaranja;
 
 import java.awt.print.PrinterException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -18,9 +22,12 @@ import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import org.json.JSONObject;
+import utils.ComboItem;
 import utils.Static;
 import utils.TextPrinter;
 import utils.auth;
+import utils.httpCall;
 
 /**
  *
@@ -39,6 +46,9 @@ public class home extends javax.swing.JFrame {
     ServiciosPublicos servP;   
     exportaVentas exportar;
     int[] files;
+    static int counter = 0;
+    static JSONObject json = new JSONObject();
+    static ArrayList<ComboItem> elements = new ArrayList<>();
     public home() {
         initComponents();
         llenaTabla();
@@ -55,6 +65,7 @@ public class home extends javax.swing.JFrame {
         servP=new ServiciosPublicos();
         caja=new cierreCaja();
         exportar=new exportaVentas();
+        loadNews();
     }
 
     /**
@@ -71,9 +82,10 @@ public class home extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        label1 = new java.awt.Label();
+        label2 = new java.awt.Label();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         lblKolbi = new javax.swing.JLabel();
@@ -150,10 +162,6 @@ public class home extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Noticias aqui, cambian cada minuto");
-
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -166,7 +174,7 @@ public class home extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(88, 88, 88)
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,22 +184,32 @@ public class home extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        label1.setFont(new java.awt.Font("Tahoma", 2, 24)); // NOI18N
+        label1.setText("Titulo");
+
+        label2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        label2.setText("Contenido");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83))
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -207,7 +225,7 @@ public class home extends javax.swing.JFrame {
         lblKolbi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblKolbi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/kolbi.jpg"))); // NOI18N
         lblKolbi.setText("jLabel2");
-        lblKolbi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblKolbi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblKolbi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblKolbiMouseClicked(evt);
@@ -222,7 +240,7 @@ public class home extends javax.swing.JFrame {
 
         lblAya.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/AYA.jpg"))); // NOI18N
         lblAya.setText("jLabel2");
-        lblAya.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAya.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblAya.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAyaMouseClicked(evt);
@@ -237,7 +255,7 @@ public class home extends javax.swing.JFrame {
 
         lblICE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/ICE.jpg"))); // NOI18N
         lblICE.setText("jLabel2");
-        lblICE.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblICE.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblICE.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblICEMouseClicked(evt);
@@ -252,7 +270,7 @@ public class home extends javax.swing.JFrame {
 
         lblESPH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/ESPH.jpg"))); // NOI18N
         lblESPH.setText("jLabel2");
-        lblESPH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblESPH.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblESPH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblESPHMouseClicked(evt);
@@ -267,7 +285,7 @@ public class home extends javax.swing.JFrame {
 
         lblCNFL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/CNFL.jpg"))); // NOI18N
         lblCNFL.setText("jLabel2");
-        lblCNFL.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCNFL.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblCNFL.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCNFLMouseClicked(evt);
@@ -282,7 +300,7 @@ public class home extends javax.swing.JFrame {
 
         lblICETel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/ICETel.jpg"))); // NOI18N
         lblICETel.setText("jLabel2");
-        lblICETel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblICETel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblICETel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblICETelMouseClicked(evt);
@@ -297,7 +315,7 @@ public class home extends javax.swing.JFrame {
 
         lblESPHAgua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/ESPHAgua.jpg"))); // NOI18N
         lblESPHAgua.setText("jLabel2");
-        lblESPHAgua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblESPHAgua.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblESPHAgua.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblESPHAguaMouseClicked(evt);
@@ -921,7 +939,6 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
@@ -938,6 +955,8 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
+    private java.awt.Label label1;
+    private java.awt.Label label2;
     private javax.swing.JLabel lblAya;
     private javax.swing.JLabel lblCNFL;
     private javax.swing.JLabel lblESPH;
@@ -949,4 +968,38 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JMenu menuPedir;
     private javax.swing.JTable tblBitacora;
     // End of variables declaration//GEN-END:variables
+
+    private void loadNews() {
+        try {
+            httpCall hc = new httpCall();
+            json = hc.call("noticias");
+            Set keys = json.keySet();
+            Object[] array = keys.toArray();
+            String key = "";
+            for(int i=0; i<array.length; i++){
+                key = (String) array[i];
+                //elements.add((String)json.get(key));
+                elements.add(new ComboItem(key, (String) json.get(key)));
+            }
+            TimerTask timerTask = new TimerTask() {
+
+                @Override
+                public void run() {
+                    if(counter>=elements.size()){
+                        counter = 0;
+                    }
+                    ComboItem noticia = elements.get(counter);
+                    label1.setText(noticia.getValue());
+                    label2.setText(noticia.getLabel());
+                    counter++;
+                }
+            };
+
+            Timer timer = new Timer("MyTimer");//create a new Timer
+
+            timer.scheduleAtFixedRate(timerTask, 30, 3000);
+        } catch (IOException ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
