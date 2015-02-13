@@ -197,9 +197,6 @@ public class Login extends javax.swing.JFrame {
                     if(txtPass.getText().equals(file.leerArchivo("Sesion\\archivoPassword.txt"))){
                         this.setVisible(false);
                         new home().setVisible(true);
-                        Static.setUsuario(txtUser.getText());
-                        Static.setPassword(txtPass.getText());
-                        Static.setTerminal(file.leerArchivo("Sesion\\archivoId.txt"));
                         
                     }else{
                         JOptionPane.showMessageDialog(null,"La contraseña introducida es incorrecta", "Error!", JOptionPane.ERROR_MESSAGE );
