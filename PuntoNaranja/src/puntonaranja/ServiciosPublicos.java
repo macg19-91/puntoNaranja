@@ -8,6 +8,7 @@ package puntonaranja;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -170,24 +171,25 @@ public class ServiciosPublicos extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cmbOperadora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
-                        .addGap(68, 68, 68)
+                        .addGap(65, 65, 65)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(77, Short.MAX_VALUE))))
         );
 
         pack();
@@ -216,14 +218,12 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             String identificador = txtNumero.getText();
             Utilities util = new Utilities();
             Message msg = new Message();
-            //msg.consultaServiciosPublicos(selected.getValue(), identificador, "", "");
-            msg.setEchoTest();
-            Document doc = util.SendToServer(msg.buildXML());
-            msg.getFromXML(doc);
+            msg.consultaServiciosPublicos(selected.getValue(), identificador, "", "");
+            Map<String, String> response = util.SendToServer(msg.buildString());
+            msg.setMap(response);
             String resp = msg.getMsgResponse();
-            //String resp = "success";
-            if(resp.equals("success")){
-                new PagarServicio(selected ,identificador, "monto" ).setVisible(true);
+            if(resp.equals("Transacción aprobada en forma exitosa")){
+                new PagarServicio(selected ,identificador, msg.getMsgMonto() ).setVisible(true);
             }
             JOptionPane.showMessageDialog(null, resp);
             //String resp = "Transaccion Completa";
@@ -231,7 +231,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
 
             if(dialogResult == JOptionPane.YES_OPTION){
                 //Manda a imprimir
-                new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected.getLabel(),"archivoPrint.txt");
+                new auth().escribeFicheroPrint("",txtNumero.getText(),selected.getLabel(),"archivoPrint.txt");
                 new TextPrinter().startPrinter(false,0);
                 JOptionPane.showMessageDialog(null, resp);
             }

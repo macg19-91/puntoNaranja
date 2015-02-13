@@ -221,7 +221,8 @@ public class Message {
     
     public String getEchoResp(){
         String str = map.get("39");
-        return str;
+        String response = codigosMap.get(str);
+        return response;
     }
       
 

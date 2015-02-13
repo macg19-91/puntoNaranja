@@ -5,6 +5,7 @@
  */
 package puntonaranja;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -76,8 +77,9 @@ public class test extends javax.swing.JFrame {
             Message ms = new Message();
             Utilities ut = new Utilities();
             ms.setEchoTest();
-            Document doc = ut.SendToServer(ms.buildXML());
-            JOptionPane.showMessageDialog(null, "test");
+            Map map = ut.SendToServer(ms.buildString());
+            ms.setMap(map);
+            JOptionPane.showMessageDialog(null, ms.getEchoResp());
         } catch (Exception ex) {
             Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
         }
