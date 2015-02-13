@@ -74,7 +74,7 @@ public void escribeFichero(String linea,String nombre) throws IOException
         return addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)),2) +"/"+addCero(Integer.toString(cal.get(Calendar.MONTH)+1),2) +"/"+ Integer.toString(cal.get(Calendar.YEAR));
     }
     
-    private String getDia() {
+    public String getDia() {
         Calendar cal = Calendar.getInstance();
         return addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)),2);
     }
@@ -182,6 +182,11 @@ public Boolean firstLogin()
         if (!archivo.exists()) {
             Sesion.mkdirs();
             Bitacora.mkdirs();
+            try {
+                escribeFichero("true","Sesion/archivoPidePassword.txt");
+            } catch (IOException ex) {
+                Logger.getLogger(auth.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return false;
         }
         return true;

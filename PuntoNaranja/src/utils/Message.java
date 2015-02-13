@@ -47,6 +47,7 @@ public class Message {
     private String clave;
     private String tienda;
     private JSONObject serviciosMap;
+    private Static st;
 
     public String getUsuario() {
         return usuario;
@@ -84,10 +85,11 @@ public class Message {
         this.parent = "isomsg";
         this.map = new HashMap<String, String>();
         codigosMap = new HashMap<String, String>();
-        identificador = "51110341"; //getIdentificador();
+        identificador = this.st.getTerminal();
         pupulateCodigosMap();
         this.clave = "1234";
         this.usuario = "user";
+        
     }
 
     public String getParent() {
