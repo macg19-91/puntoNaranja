@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import utils.Static;
 import utils.TextPrinter;
 import utils.auth;
 
@@ -38,6 +39,9 @@ public class home extends javax.swing.JFrame {
     public home() {
         initComponents();
         llenaTabla();
+        Static stat=new Static();
+        if(!Static.getPass())menuPedir.setText("Pedir Contraseña: NO");
+        else menuPedir.setText("Pedir Contraseña: SI");
         
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
@@ -90,6 +94,7 @@ public class home extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
+        menuPedir = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
@@ -471,6 +476,14 @@ public class home extends javax.swing.JFrame {
         });
         jMenu2.add(jMenu5);
 
+        menuPedir.setText("Pedir Contraseña: Si");
+        menuPedir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuPedirMouseClicked(evt);
+            }
+        });
+        jMenu2.add(menuPedir);
+
         jMenu3.setText("Cambiar contraseña");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -521,7 +534,7 @@ public class home extends javax.swing.JFrame {
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(lblNaranja, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(96, 96, 96)))))
+                                .addGap(104, 104, 104)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -798,6 +811,39 @@ public class home extends javax.swing.JFrame {
         System.exit(0); 
     }//GEN-LAST:event_jButton7MouseClicked
 
+    private void menuPedirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPedirMouseClicked
+        // TODO add your handling code here:
+        int dialogResult=0;
+        if(Static.getPass()){
+            dialogResult = JOptionPane.showConfirmDialog (null, "¿Le gustaria deshabilitar la contraseña al hacer ventas?","Atención",JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                Static.setPass(false);
+                menuPedir.setText("Pedir Contraseña: NO");
+                
+                try {
+                    new auth().escribeFichero("false","Sesion/archivoPidePassword.txt");
+                } catch (IOException ex) {
+                    Logger.getLogger(auth.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        else{
+            dialogResult = JOptionPane.showConfirmDialog (null, "¿Le gustaria habilitar la contraseña al hacer ventas?","Atención",JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                Static.setPass(true);
+                menuPedir.setText("Pedir Contraseña: SI");
+                
+                try {
+                    new auth().escribeFichero("true","Sesion/archivoPidePassword.txt");
+                } catch (IOException ex) {
+                    Logger.getLogger(auth.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        }
+        
+    }//GEN-LAST:event_menuPedirMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -866,6 +912,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JLabel lblICETel;
     private javax.swing.JLabel lblKolbi;
     private javax.swing.JLabel lblNaranja;
+    private javax.swing.JMenu menuPedir;
     private javax.swing.JTable tblBitacora;
     // End of variables declaration//GEN-END:variables
 }

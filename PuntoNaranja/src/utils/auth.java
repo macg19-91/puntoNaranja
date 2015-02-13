@@ -182,6 +182,11 @@ public Boolean firstLogin()
         if (!archivo.exists()) {
             Sesion.mkdirs();
             Bitacora.mkdirs();
+            try {
+                escribeFichero("true","Sesion/archivoPidePassword.txt");
+            } catch (IOException ex) {
+                Logger.getLogger(auth.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return false;
         }
         return true;

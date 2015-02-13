@@ -43,6 +43,14 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jMenu5MouseClicked"/>
               </Events>
             </Menu>
+            <Menu class="javax.swing.JMenu" name="menuPedir">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Pedir Contrase&#xf1;a: Si"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuPedirMouseClicked"/>
+              </Events>
+            </Menu>
             <Menu class="javax.swing.JMenu" name="jMenu3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cambiar contrase&#xf1;a"/>
@@ -123,7 +131,7 @@
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="lblNaranja" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>

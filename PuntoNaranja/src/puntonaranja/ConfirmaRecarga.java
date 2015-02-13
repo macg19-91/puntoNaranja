@@ -10,7 +10,10 @@ import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import utils.TextPrinter;
 import utils.auth;
 
@@ -186,9 +189,9 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -340,6 +343,38 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
     }
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String name="";
+        Boolean pass=false;
+        if(Boolean.parseBoolean(new auth().leerArchivo("Sesion\\archivoPidePassword.txt"))){
+            this.hide();
+            while(!pass){
+                //if(!pass)JOptionPane.showMessageDialog(null,"Contraseña incorrecta", "Error", JOptionPane.WARNING_MESSAGE );
+                //name = JOptionPane.showInputDialog(null, "Digite la contraseña para realizar la venta");
+                JPanel panel = new JPanel();
+                JLabel label = new JLabel("Digite la contraseña:");
+                JPasswordField psw = new JPasswordField(10);
+                panel.add(label);
+                panel.add(psw);
+                String[] options = new String[]{"Aceptar", "Cancelar"};
+                int option = JOptionPane.showOptionDialog(null, panel, "Digite la contraseña",
+                                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                         null, options, options[1]);
+                if(option == 0) // pressing OK button
+                {
+                    char[] password = psw.getPassword();
+                    name=new String(password);
+                }else{
+                    JOptionPane.showMessageDialog(null,"Compra Cancelada", "Error", JOptionPane.WARNING_MESSAGE );
+                    pass=true;
+                }
+                if(name.equals(new auth().leerArchivo("Sesion\\archivoPassword.txt")))pass=true;
+            }   
+            this.setVisible(true);
+        }else{
+            name=new auth().leerArchivo("Sesion\\archivoPassword.txt");
+            pass=true;
+        }
+        if(pass && name.equals(new auth().leerArchivo("Sesion\\archivoPassword.txt"))){
         switch (tipo) {
                 case "Recargas":
                     recargas();
@@ -354,6 +389,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                 break;
             }
             new ventanaReporte().setVisible(true);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
