@@ -32,6 +32,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import static utils.Static.terminal;
 
 /**
  *
@@ -47,6 +48,7 @@ public class Message {
     private String clave;
     private String tienda;
     private JSONObject serviciosMap;
+    private Static st;
 
     public String getUsuario() {
         return usuario;
@@ -84,10 +86,11 @@ public class Message {
         this.parent = "isomsg";
         this.map = new HashMap<String, String>();
         codigosMap = new HashMap<String, String>();
-        identificador = "51110341"; //getIdentificador();
+        identificador = this.st.getTerminal();
         pupulateCodigosMap();
         this.clave = "1234";
         this.usuario = "user";
+        
     }
 
     public String getParent() {
@@ -221,16 +224,24 @@ public class Message {
     
     public String getEchoResp(){
         String str = map.get("39");
-        return str;
+        String response = codigosMap.get(str);
+        return response;
     }
       
 
     private String getSecuencia() {
-        return "11";
-    }
-
-    private String getIdentificador() {
-        return "11";
+        auth file = new auth();
+        String secuencia = file.leerArchivo("Sesion\\archivoSecuencia.txt");
+        int sec = Integer.parseInt(secuencia) + 1;
+        if(sec> 999999)
+            sec = 0;
+        String secuen = String.format("%06d", sec);
+        try {
+            file.escribeFichero(secuen,"Sesion/archivoSecuencia.txt");
+        } catch (IOException ex) {
+            Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Integer.toString(sec);
     }
     
     public Document buildXML() throws ParserConfigurationException, SAXException, IOException{
@@ -386,7 +397,7 @@ public class Message {
     public void pupulateServiciosMap() {
         
         try {
-            serviciosMap = new httpCall().call();
+            serviciosMap = new httpCall().call("Servicios");
         } catch (IOException ex) {
             Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
         }

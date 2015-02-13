@@ -29,18 +29,18 @@ public class httpCall {
     
 
     public httpCall() {
-        try {
-            call();
-        } catch (IOException ex) {
-            Logger.getLogger(httpCall.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+//        try {
+//            call(type);
+//        } catch (IOException ex) {
+//            Logger.getLogger(httpCall.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
     }
     
-    public JSONObject call() throws IOException{
+    public JSONObject call(String type) throws IOException{
         String content = "";
         try {
-            URL data = new URL("http://localhost:8383/jsonTest/json/servicios.json");
+            URL data = new URL("http://localhost:8383/jsonTest/json/"+type+".json");
             
             URLConnection dataConnection = data.openConnection();
 

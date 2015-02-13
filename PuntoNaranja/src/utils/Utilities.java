@@ -15,6 +15,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 import org.w3c.dom.Document;
 
 /**
@@ -36,9 +38,10 @@ public class Utilities {
         socket = new Socket(host, port);
     }
     
-    public Document SendToServer(Document doc) throws Exception{
+    public Map<String, String> SendToServer(String msg) throws Exception{
         //create output stream attached to socket
         String serverName = host;
+        Map<String, String> result = new HashMap<String, String>();
         try
         {
            System.out.println("Connecting to " + serverName + " on port " + port);
@@ -46,60 +49,31 @@ public class Utilities {
            InputStreamReader inputstreamreader = new InputStreamReader(socket.getInputStream());
            BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
            StringBuilder sb = new StringBuilder();
-           sb.append("<isomsg>\r\n<field id=\"0\" value=\"0800\" />\r\n<field id=\"3\" value=\"990000\" />\r\n<field id=\"11\" value=\"000001\" />\r\n<field id=\"41\" value=\"50600084\" />\r\n</isomsg>");
+           //sb.append("<isomsg>\r\n<field id=\"0\" value=\"0800\" />\r\n<field id=\"3\" value=\"990000\" />\r\n<field id=\"11\" value=\"000001\" />\r\n<field id=\"41\" value=\"50600084\" />\r\n</isomsg>");
+           sb.append(msg);
            PrintWriter printwriter = new PrintWriter(socket.getOutputStream(),true);
            printwriter.println(sb);
            String lineread = "";
-           lineread = bufferedreader.readLine();
-//           System.out.println("Received from Server: " + lineread);
+           String[] parts;
             while ((lineread = bufferedreader.readLine()) != null){
-              System.out.println("entra");
-              System.out.println("Received from Server: " + lineread);
+                System.out.println(lineread);
+                if(lineread.equals("</isomsg>")){
+                    break;
+                }
+                if(!lineread.equals("<isomsg>")){
+                    parts = lineread.split("id=\"");
+                    String part1 = parts[1];
+                    result.put(part1.split("\"")[0],part1.split("\"")[2]);
+                }
             }
             
         }catch(IOException e)
         {
            e.printStackTrace();
         }
-        return null;
+        return result;
     }
     
-//    public String SendToServerXML(String doc) throws Exception{
-//        //create output stream attached to socket
-//        String docu;
-//        outputStream = new ObjectOutputStream(socket.getOutputStream());
-//        outputStream.writeObject(doc);
-//        //send msg to server
-//        socket.shutdownOutput();
-//        while(true){
-//            if(socket.getInputStream() != null){
-//                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-//                docu = (String) ois.readObject();
-//                break;
-//            }
-//        }
-//        return docu;
-//    }
-    
-    static String convertStreamToString(java.io.InputStream is) {
-        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-        return s.hasNext() ? s.next() : "";
-    }
-    
-    public String ReadBigStringIn(BufferedReader buffIn) throws IOException {
-        StringBuilder everything = new StringBuilder();
-        String line;
-        while( (line = buffIn.readLine()) != null) {
-           everything.append(line);
-        }
-        return everything.toString();
-    }
-    
-    public Document RecieveFromServer() throws Exception{
-        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-        Document doc = (Document) ois.readObject();
-        return doc;
-    }
     
     public void open() throws IOException{
         socket.close();
