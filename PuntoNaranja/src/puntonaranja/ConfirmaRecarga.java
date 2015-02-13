@@ -357,8 +357,8 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                 panel.add(psw);
                 String[] options = new String[]{"Aceptar", "Cancelar"};
                 int option = JOptionPane.showOptionDialog(null, panel, "Digite la contraseña",
-                                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-                                         null, options, options[1]);
+                JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options, options[1]);
                 if(option == 0) // pressing OK button
                 {
                     char[] password = psw.getPassword();

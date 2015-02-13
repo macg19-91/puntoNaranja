@@ -10,7 +10,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -817,13 +820,42 @@ public class home extends javax.swing.JFrame {
         if(Static.getPass()){
             dialogResult = JOptionPane.showConfirmDialog (null, "¿Le gustaria deshabilitar la contraseña al hacer ventas?","Atención",JOptionPane.YES_NO_OPTION);
             if(dialogResult == JOptionPane.YES_OPTION){
-                Static.setPass(false);
-                menuPedir.setText("Pedir Contraseña: NO");
+                String name="";
+                Boolean pass=false;
+               
+                    while(!pass){
+                        //if(!pass)JOptionPane.showMessageDialog(null,"Contraseña incorrecta", "Error", JOptionPane.WARNING_MESSAGE );
+                        //name = JOptionPane.showInputDialog(null, "Digite la contraseña para realizar la venta");
+                        JPanel panel = new JPanel();
+                        JLabel label = new JLabel("Digite la contraseña:");
+                        JPasswordField psw = new JPasswordField(10);
+                        panel.add(label);
+                        panel.add(psw);
+                        String[] options = new String[]{"Aceptar", "Cancelar"};
+                        int option = JOptionPane.showOptionDialog(null, panel, "Digite la contraseña",
+                        JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        null, options, options[1]);
+                        if(option == 0) // pressing OK button
+                        {
+                            char[] password = psw.getPassword();
+                            name=new String(password);
+                        }else{
+                            pass=true;
+                        }
+                        if(name.equals(Static.getPassword()))pass=true;
+                    }   
+                    this.setVisible(true);
                 
-                try {
-                    new auth().escribeFichero("false","Sesion/archivoPidePassword.txt");
-                } catch (IOException ex) {
-                    Logger.getLogger(auth.class.getName()).log(Level.SEVERE, null, ex);
+                if(pass && name.equals(Static.getPassword())){
+                    Static.setPass(false);
+                    menuPedir.setText("Pedir Contraseña: NO");                
+                    try {
+                        new auth().escribeFichero("false","Sesion/archivoPidePassword.txt");
+                    } catch (IOException ex) {
+                        Logger.getLogger(auth.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    JOptionPane.showMessageDialog(null,"Contraseña deshabilitada", "Gracias", JOptionPane.WARNING_MESSAGE );
+                                    
                 }
             }
         }
@@ -838,6 +870,8 @@ public class home extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(auth.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                JOptionPane.showMessageDialog(null,"Contraseña habilitada", "Gracias", JOptionPane.WARNING_MESSAGE );
+                    
             }
             
         }

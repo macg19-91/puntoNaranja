@@ -13,9 +13,9 @@ public class Static {
     static String usuario, password, terminal, saldo;
     static Boolean pass;
     public Static() {
-        usuario="";
-        password="";
-        terminal="";
+        usuario=new auth().leerArchivo("Sesion\\archivoUser.txt");
+        password=new auth().leerArchivo("Sesion\\archivoPassword.txt");
+        terminal=new auth().leerArchivo("Sesion\\archivoId.txt");
         saldo="";
         pass=Boolean.parseBoolean(new auth().leerArchivo("Sesion\\archivoPidePassword.txt"));
     }
