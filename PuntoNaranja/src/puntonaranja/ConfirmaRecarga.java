@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import utils.Static;
 import utils.TextPrinter;
 import utils.auth;
 
@@ -367,14 +368,14 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,"Compra Cancelada", "Error", JOptionPane.WARNING_MESSAGE );
                     pass=true;
                 }
-                if(name.equals(new auth().leerArchivo("Sesion\\archivoPassword.txt")))pass=true;
+                if(name.equals(Static.getPassword()))pass=true;
             }   
             this.setVisible(true);
         }else{
-            name=new auth().leerArchivo("Sesion\\archivoPassword.txt");
+            name=Static.getPassword();
             pass=true;
         }
-        if(pass && name.equals(new auth().leerArchivo("Sesion\\archivoPassword.txt"))){
+        if(pass && name.equals(Static.getPassword())){
         switch (tipo) {
                 case "Recargas":
                     recargas();
