@@ -172,8 +172,13 @@ public class exportaVentas extends javax.swing.JFrame {
         while(dia.equals(new auth().getDia())&&mes.equals(new auth().getMes())){
             cantidad++;
             cual--;
-            dia=(bitacora[cual].split("-"))[1];
-            mes=(bitacora[cual].split("-"))[0];
+            if(cual>0){
+              dia=(bitacora[cual].split("-"))[1];
+              mes=(bitacora[cual].split("-"))[0];  
+            }else{
+                dia="";
+                mes="";
+            }            
         }
         files=new int[cantidad];
         int cuantos=0;
