@@ -7,6 +7,7 @@ package puntonaranja;
 
 import java.awt.print.PrinterException;
 import static java.lang.Integer.parseInt;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -14,8 +15,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import org.w3c.dom.Document;
+import utils.Message;
 import utils.Static;
 import utils.TextPrinter;
+import utils.Utilities;
 import utils.auth;
 
 /**
@@ -239,15 +243,20 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                                 proceso = "240000";
                                 break;
                             }
-                            //                            Utilities util = new Utilities();
-                            //                            Message msg = new Message();
-                            //                            msg.recargaTiempoAire(monto, operador, producto, proceso, celular);
-                            //                            Document doc = util.SendToServer(msg.buildXML());
-                            //                            msg.getFromXML(doc);
-                            //                            String resp = msg.getMsgResponse();
-                            String resp = "Transaccion Completa";
-                            new auth().escribeFicheroPrint(monto,celular,selected,tipo);
-                            this.setVisible(false);
+                            Utilities util = new Utilities();
+                            Message msg = new Message();
+                            msg.recargaTiempoAire(monto, operador, producto, proceso, celular);
+                            Map<String, String> response = util.SendToServer(msg.buildString());
+                            msg.setMap(response);
+                            String resp = msg.getMsgResponse();
+                            if(resp.equals("Transacción aprobada en forma exitosa")){
+                                new auth().escribeFicheroPrint(monto,celular,selected,tipo);
+                                this.setVisible(false);
+                                new ventanaReporte().setVisible(true);
+                            }else {
+                                this.setVisible(false);
+                                JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transaccion");
+                            }
         } catch (Exception ex) {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -329,15 +338,20 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                                         break;
                                     }
                             }
-                            //                            Utilities util = new Utilities();
-                            //                            Message msg = new Message();
-                            //                            msg.ventaPines(monto, operador, producto);
-                            //                            Document doc = util.SendToServer(msg.buildXML());
-                            //                            msg.getFromXML(doc);
-                            //                            String resp = msg.getMsgResponse();
-                            String resp = "Transaccion Completa";
-                            new auth().escribeFicheroPrint(selected2,"",selected,"Pines");
-                            this.setVisible(false);
+                            Utilities util = new Utilities();
+                            Message msg = new Message();
+                            msg.ventaPines(mont, operador, producto);
+                            Map<String, String> response = util.SendToServer(msg.buildString());
+                            msg.setMap(response);
+                            String resp = msg.getMsgResponse();
+                            if(resp.equals("Transacción aprobada en forma exitosa")){
+                                new auth().escribeFicheroPrint(selected2,msg.getMsgPin(),selected,"Pines");
+                                this.setVisible(false);
+                                new ventanaReporte().setVisible(true);
+                            }else {
+                                this.setVisible(false);
+                                JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transaccion");
+                            }
         } catch (Exception ex) {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -389,7 +403,6 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                     
                 break;
             }
-            new ventanaReporte().setVisible(true);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 

@@ -15,6 +15,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,7 +79,7 @@ public class Message {
         this.parent = parent;
         this.map = map;
         this.identificador = identificador;
-        this.clave = "1234";
+        this.clave = "159951";
         this.usuario = "user";
     }
     
@@ -88,8 +89,8 @@ public class Message {
         codigosMap = new HashMap<String, String>();
         identificador = this.st.getTerminal();
         pupulateCodigosMap();
-        this.clave = "1234";
-        this.usuario = "user";
+        this.clave = st.getPassword();
+        this.usuario = st.getUsuario();
         
     }
 
@@ -128,8 +129,8 @@ public class Message {
     
     public void consultaSaldo(){
         map = new HashMap<String, String>();
-        map.put("0","0100");
         map.put("3","200200");
+        map.put("0","0100");
         map.put("11",getSecuencia());
         map.put("41",identificador);
         map.put("61",identificador);
@@ -147,12 +148,12 @@ public class Message {
     
     public void recargaTiempoAire(String monto,String operador,String producto,String proceso,String celular) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String recarga = operador + ","+producto+","+celular+","+usuario+","+dispersion(clave)+","+tienda;
+        String recarga = operador + ","+producto+","+celular+","+identificador+","+dispersion(clave)+","+tienda;
         String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
         map.put("3",proceso);
-        map.put("4",monto);
+        map.put("4",addCero(Integer.toString(Integer.parseInt(monto)*100),12));
         map.put("11",getSecuencia());
         map.put("12",getHora());
         map.put("13",getFecha());
@@ -164,12 +165,12 @@ public class Message {
     
     public void ventaPines(String monto,String operador,String producto) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String recarga = operador + ","+producto+","+usuario+","+dispersion(clave)+","+tienda;
+        String recarga = operador + ","+producto+","+identificador+","+dispersion(clave)+","+tienda;
         String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
         map.put("3","000500");
-        map.put("4",addCero(monto,12));
+        map.put("4",addCero(Integer.toString(Integer.parseInt(monto)*100),12));
         map.put("11",getSecuencia());
         map.put("12",getHora());
         map.put("13",getFecha());
@@ -210,7 +211,7 @@ public class Message {
         map = new HashMap<String, String>();
         map.put("0","0200");
         map.put("3","000006");
-        map.put("3",monto);
+        map.put("4",addCero(Integer.toString(Integer.parseInt(monto)*100),12));
         map.put("11",getSecuencia());
         map.put("12",getHora());
         map.put("13",getFecha());
@@ -241,7 +242,7 @@ public class Message {
         } catch (IOException ex) {
             Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return Integer.toString(sec);
+        return (String.format("%06d",sec));
     }
     
     public Document buildXML() throws ParserConfigurationException, SAXException, IOException{
@@ -255,8 +256,13 @@ public class Message {
     
     public String buildString() throws ParserConfigurationException, SAXException, IOException{
         String values = "<"+parent+">\r\n";
+        ArrayList<Integer> ordenada= new ArrayList<>();
         for ( String key : map.keySet() ) {
-            values += "<field id=\""+key+"\" value=\""+ map.get(key) +"\"/>\r\n";
+            ordenada.add(Integer.parseInt(key));                
+        }
+        Collections.sort(ordenada);
+        for (Integer ordenada1 : ordenada) {
+            values += "<field id=\"" + Integer.toString(ordenada1) + "\" value=\"" + map.get(Integer.toString(ordenada1)) + "\"/>\r\n";
         }
         values += "</"+parent+">";
         return values;
@@ -386,6 +392,19 @@ public class Message {
         String resp = "";
         if(map.get("39").equals("00")){
             resp = map.get("4");
+        }
+        else{
+            resp = map.get("39");
+        }
+        
+        return resp;
+    }
+    
+    public String getMsgPin() {
+        String resp = "";
+        if(map.get("39").equals("00")){
+            String[] datosPin=map.get("62").split(",");
+            resp = datosPin[1]+", Clave: "+datosPin[2];
         }
         else{
             resp = map.get("39");

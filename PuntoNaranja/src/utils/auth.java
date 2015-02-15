@@ -79,6 +79,11 @@ public void escribeFichero(String linea,String nombre) throws IOException
         return addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)),2);
     }
 
+    public String getYear() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        return addCero(Integer.toString(cal.get(Calendar.YEAR)),2);
+    }
+
     public String getMes() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         return addCero(Integer.toString(cal.get(Calendar.MONTH)+1),2);
@@ -127,9 +132,8 @@ public void escribeFicheroPrint(String monto,String num,String empresa,String no
             String[] listArchivos=Bitacora.list();
             int total=0;
             if(listArchivos.length>0){
-                while(!listArchivos[total].split("-")[0].equals(getMesAntes())&&!fecha.equals(getMes())&&Bitacora.list().length>11){
-                    Bitacora = new File("Files\\Bitacora");
-                    
+                while(!listArchivos[total].split("-")[1].equals(getMesAntes())&&!fecha.equals(getMes())&&Bitacora.list().length>11){
+                    Bitacora = new File("Files\\Bitacora");                    
                     File removed = new File("Files\\Bitacora\\"+listArchivos[total]);
                     removed.delete();
                     total++;
@@ -149,7 +153,7 @@ public void escribeFicheroPrint(String monto,String num,String empresa,String no
             int cuantas=Integer.parseInt(trans)+1;
             escribeFichero(addCero(cuantas+"",2)+"", "Bitacora/archivoTransacciones.txt");
             
-        File fout = new File("Files/Bitacora/"+getMes()+"-"+getDia()+"-"+addCero(cuantas+"",2)+".txt");
+        File fout = new File("Files/Bitacora/"+getYear()+"-"+getMes()+"-"+getDia()+"-"+addCero(cuantas+"",2)+".txt");
       
 	FileOutputStream fos = new FileOutputStream(fout);
  

@@ -15,6 +15,7 @@ import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import utils.Static;
 import utils.TextPrinter;
 import utils.auth;
 
@@ -33,7 +34,9 @@ public class cierreCaja extends javax.swing.JFrame {
         setIconImage(img.getImage());
         jButton1.setVisible(false);
     }
-
+    public void setSaldo(){
+        txtFinal.setText(Static.getSaldo());
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -211,8 +214,8 @@ public class cierreCaja extends javax.swing.JFrame {
         int recargas=0,pines=0,servicios=0,total=0;
         try {
             int cual=lista.length-3;
-            String dia=(lista[cual].split("-"))[1];
-            String mes=(lista[cual].split("-"))[0];
+            String dia=(lista[cual].split("-"))[2];
+            String mes=(lista[cual].split("-"))[1];
             while(dia.equals(getDia())&&mes.equals(new auth().getMes())&&cual<lista.length-2){
                 br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));            
                 String line;
@@ -241,7 +244,7 @@ public class cierreCaja extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if(cual>0){cual--; dia=(lista[cual].split("-"))[1];}
+                if(cual>0){cual--; dia=(lista[cual].split("-"))[2];}
                 else {cual=lista.length-1; dia="0";}
             }
             total=recargas+pines+servicios;
