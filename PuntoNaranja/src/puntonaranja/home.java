@@ -169,6 +169,7 @@ public class home extends javax.swing.JFrame {
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
