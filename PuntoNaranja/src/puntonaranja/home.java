@@ -8,6 +8,7 @@ package puntonaranja;
 import java.awt.print.PrinterException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,8 +25,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import org.json.JSONObject;
 import utils.ComboItem;
+import utils.Message;
 import utils.Static;
 import utils.TextPrinter;
+import utils.Utilities;
 import utils.auth;
 import utils.httpCall;
 
@@ -54,18 +57,18 @@ public class home extends javax.swing.JFrame {
         llenaTabla();
         Static stat=new Static();
         if(!Static.getPass())menuPedir.setText("Pedir Contraseña: NO");
-        else menuPedir.setText("Pedir Contraseña: SI");
-        
+        else menuPedir.setText("Pedir Contraseña: SI");        
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
         files=new int[10];
         ventanaPass= new CambioContraseña(false);
         recargas=new Recargas();
         pines= new ventaPines();
-        servP=new ServiciosPublicos();
+       // servP=new ServiciosPublicos();
         caja=new cierreCaja();
         exportar=new exportaVentas();
         loadNews();
+        consultaSaldo();
     }
 
     /**
@@ -101,7 +104,7 @@ public class home extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtSaldo = new javax.swing.JTextField();
         lblNaranja = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -117,6 +120,11 @@ public class home extends javax.swing.JFrame {
         setTitle("Ventana Principal");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                formMouseMoved(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jButton1.setText("Recargas");
@@ -161,6 +169,7 @@ public class home extends javax.swing.JFrame {
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -443,10 +452,10 @@ public class home extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Saldo:");
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField1.setText("0");
+        txtSaldo.setEditable(false);
+        txtSaldo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtSaldo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtSaldo.setText("0");
 
         lblNaranja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja-big.jpg"))); // NOI18N
         lblNaranja.setText("jLabel2");
@@ -535,7 +544,7 @@ public class home extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -582,7 +591,7 @@ public class home extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
@@ -720,10 +729,38 @@ public class home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "El saldo actual es: 0 Colones");
+        try {
+            // TODO add your handling code here:
+            if(Float.parseFloat(consultaSaldo())>=0){
+                
+                JOptionPane.showMessageDialog(null, "El saldo actual es: "+Static.getSaldo()+" Colones");
+                
+            }else JOptionPane.showMessageDialog(null, consultaSaldo());
+        } catch (Exception ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenu6MouseClicked
 
+    public String consultaSaldo(){
+        String resp="";
+        try {
+            // TODO add your handling code here:
+            Utilities util = new Utilities();
+            Message msg = new Message();
+            msg.consultaSaldo();
+            Map<String, String> response = util.SendToServer(msg.buildString());
+            msg.setMap(response);
+            resp = msg.getMsgResponse();
+            if(resp.equals("Transacción aprobada en forma exitosa")){
+                Static.setSaldo((Float.parseFloat(msg.getMsgMonto())/100)+"");
+                txtSaldo.setText(Static.getSaldo());
+                return (Float.parseFloat(msg.getMsgMonto())/100)+"";
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return resp;
+    }
     private void lblNaranjaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNaranjaMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_lblNaranjaMouseEntered
@@ -818,6 +855,7 @@ public class home extends javax.swing.JFrame {
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
         caja.calculaCierre();
+        caja.setSaldo();
         caja.setVisible(true);
     }//GEN-LAST:event_jButton6MouseClicked
 
@@ -896,6 +934,11 @@ public class home extends javax.swing.JFrame {
         
     }//GEN-LAST:event_menuPedirMouseClicked
 
+    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        // TODO add your handling code here:
+        consultaSaldo();
+    }//GEN-LAST:event_formMouseMoved
+
     /**
      * @param args the command line arguments
      */
@@ -954,7 +997,6 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private javax.swing.JLabel lblAya;
@@ -967,6 +1009,7 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JLabel lblNaranja;
     private javax.swing.JMenu menuPedir;
     private javax.swing.JTable tblBitacora;
+    private javax.swing.JTextField txtSaldo;
     // End of variables declaration//GEN-END:variables
 
     private void loadNews() {
@@ -997,7 +1040,7 @@ public class home extends javax.swing.JFrame {
 
             Timer timer = new Timer("MyTimer");//create a new Timer
 
-            timer.scheduleAtFixedRate(timerTask, 30, 3000);
+            timer.scheduleAtFixedRate(timerTask, 30, 10000);
         } catch (IOException ex) {
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }

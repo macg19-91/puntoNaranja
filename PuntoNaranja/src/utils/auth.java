@@ -79,14 +79,24 @@ public void escribeFichero(String linea,String nombre) throws IOException
         return addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)),2);
     }
 
+    public String getYear() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        return addCero(Integer.toString(cal.get(Calendar.YEAR)),2);
+    }
+
     public String getMes() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         return addCero(Integer.toString(cal.get(Calendar.MONTH)+1),2);
     }
-    private String getMesAntes() {
+    public String get2MesAntes() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         if("01".equals(getMes())){return "11";}
         if("02".equals(getMes())){return "12";}
+        return addCero(Integer.toString(cal.get(Calendar.MONTH)),2);
+    }
+    public String getMesAntes() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        if("01".equals(getMes())){return "12";}
         return addCero(Integer.toString(cal.get(Calendar.MONTH)),2);
     }
      private String getHora() {
@@ -127,9 +137,8 @@ public void escribeFicheroPrint(String monto,String num,String empresa,String no
             String[] listArchivos=Bitacora.list();
             int total=0;
             if(listArchivos.length>0){
-                while(!listArchivos[total].split("-")[0].equals(getMesAntes())&&!fecha.equals(getMes())&&Bitacora.list().length>11){
-                    Bitacora = new File("Files\\Bitacora");
-                    
+                while(!listArchivos[total].split("-")[1].equals(get2MesAntes())&&!fecha.equals(getMes())&&Bitacora.list().length>11){
+                    Bitacora = new File("Files\\Bitacora");                    
                     File removed = new File("Files\\Bitacora\\"+listArchivos[total]);
                     removed.delete();
                     total++;
@@ -149,7 +158,7 @@ public void escribeFicheroPrint(String monto,String num,String empresa,String no
             int cuantas=Integer.parseInt(trans)+1;
             escribeFichero(addCero(cuantas+"",2)+"", "Bitacora/archivoTransacciones.txt");
             
-        File fout = new File("Files/Bitacora/"+getMes()+"-"+getDia()+"-"+addCero(cuantas+"",2)+".txt");
+        File fout = new File("Files/Bitacora/"+getYear()+"-"+getMes()+"-"+getDia()+"-"+addCero(cuantas+"",2)+".txt");
       
 	FileOutputStream fos = new FileOutputStream(fout);
  

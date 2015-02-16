@@ -167,14 +167,14 @@ public class exportaVentas extends javax.swing.JFrame {
         }
         String[] bitacora=new auth().bitacora();
         int cual=bitacora.length-3,cantidad=0;
-        String dia=(bitacora[cual].split("-"))[1];
-        String mes=(bitacora[cual].split("-"))[0];
+        String dia=(bitacora[cual].split("-"))[2];
+        String mes=(bitacora[cual].split("-"))[1];
         while(dia.equals(new auth().getDia())&&mes.equals(new auth().getMes())){
             cantidad++;
             cual--;
             if(cual>0){
-              dia=(bitacora[cual].split("-"))[1];
-              mes=(bitacora[cual].split("-"))[0];  
+              dia=(bitacora[cual].split("-"))[2];
+              mes=(bitacora[cual].split("-"))[1];  
             }else{
                 dia="";
                 mes="";

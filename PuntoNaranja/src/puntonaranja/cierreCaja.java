@@ -10,11 +10,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import utils.Static;
 import utils.TextPrinter;
 import utils.auth;
 
@@ -32,8 +39,9 @@ public class cierreCaja extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
         jButton1.setVisible(false);
+        cargaCombos();
+        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,6 +64,12 @@ public class cierreCaja extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtFinal = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        cmbDias = new javax.swing.JComboBox();
+        cmbMeses = new javax.swing.JComboBox();
+        cmbAnos = new javax.swing.JComboBox();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Cierre de Caja");
@@ -90,7 +104,8 @@ public class cierreCaja extends javax.swing.JFrame {
         txtServicios.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         txtServicios.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 204, 0));
         jLabel5.setText("Total:");
 
         txtTotal.setEditable(false);
@@ -116,49 +131,112 @@ public class cierreCaja extends javax.swing.JFrame {
         txtFinal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtFinal.setText("0");
 
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jLabel7.setText("Desde:");
+
+        cmbDias.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        cmbMeses.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cmbMeses.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbMesesItemStateChanged(evt);
+            }
+        });
+
+        cmbAnos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cmbAnos.setEnabled(false);
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton3.setText("Calcular");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbDias, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbAnos, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(23, 23, 23))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(cmbDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbMeses, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbAnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jLabel1)
-                .addContainerGap(133, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(237, 237, 237)
-                        .addComponent(txtTotal))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addComponent(txtRecargas, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(132, 132, 132)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtServicios)
-                            .addComponent(txtPines)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(218, 218, 218)
+                                .addComponent(txtTotal))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                                .addComponent(txtRecargas, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(132, 132, 132)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtServicios)
+                                    .addComponent(txtPines)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -174,11 +252,11 @@ public class cierreCaja extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtServicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -188,6 +266,29 @@ public class cierreCaja extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void setSaldo(){
+        txtFinal.setText(Static.getSaldo());
+    }
+    public void cargaCombos(){
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cmbDias.getModel();
+        for(int i=1;i<=31;i++){
+            model.addElement(new auth().addCero(Integer.toString(i), 2));
+        }
+        model = (DefaultComboBoxModel) cmbMeses.getModel();
+        model.addElement(new auth().getMesAntes());
+        model.addElement(new auth().getMes());
+        
+        
+        model = (DefaultComboBoxModel) cmbAnos.getModel();
+        if(new auth().getMes().equals("01"))model.addElement(Integer.toString(Integer.parseInt(new auth().getYear())-1));
+        model.addElement(new auth().getYear());
+        
+        cmbDias.setSelectedItem(new auth().getDia());
+        cmbMeses.setSelectedItem(new auth().getMes());
+        cmbAnos.setSelectedItem(new auth().getYear());
+    }
+    
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
@@ -198,6 +299,16 @@ public class cierreCaja extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_formWindowClosing
 
+    private void cmbMesesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbMesesItemStateChanged
+        // TODO add your handling code here:
+        if(cmbMeses.getSelectedIndex()==0&&cmbMeses.getSelectedItem().equals("12"))cmbAnos.setSelectedIndex(0);
+    }//GEN-LAST:event_cmbMesesItemStateChanged
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        calculaCierre();
+    }//GEN-LAST:event_jButton3MouseClicked
+
     
     private String getDia() {
         Calendar cal = Calendar.getInstance();
@@ -205,15 +316,17 @@ public class cierreCaja extends javax.swing.JFrame {
     }
     
     public void calculaCierre(){
+        if(isFechaValida(cmbDias.getSelectedItem().toString()+"/"+cmbMeses.getSelectedItem().toString()+"/"+cmbAnos.getSelectedItem().toString())){
         BufferedReader br;
         File Bitacora = new File("Files\\Bitacora");
         String[] lista=Bitacora.list();
         int recargas=0,pines=0,servicios=0,total=0;
         try {
             int cual=lista.length-3;
-            String dia=(lista[cual].split("-"))[1];
-            String mes=(lista[cual].split("-"))[0];
-            while(dia.equals(getDia())&&mes.equals(new auth().getMes())&&cual<lista.length-2){
+            String dia=((lista[cual].split("-"))[2]);
+            String mes=(lista[cual].split("-"))[1];
+            String ano=(lista[cual].split("-"))[0];
+            while(compararFechasConDate((cmbDias.getSelectedIndex())+"/"+cmbMeses.getSelectedItem().toString()+"/"+cmbAnos.getSelectedItem().toString(), dia+"/"+mes+"/"+ano) && cual<lista.length-2){
                 br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));            
                 String line;
                 int cuenta=0;
@@ -241,7 +354,7 @@ public class cierreCaja extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                if(cual>0){cual--; dia=(lista[cual].split("-"))[1];}
+                if(cual>0){cual--; dia=((lista[cual].split("-"))[2]);mes=(lista[cual].split("-"))[1];ano=(lista[cual].split("-"))[0];}
                 else {cual=lista.length-1; dia="0";}
             }
             total=recargas+pines+servicios;
@@ -252,6 +365,50 @@ public class cierreCaja extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if(txtTotal.getText().equals("0"))JOptionPane.showMessageDialog(null,"No hay datos guardados entre las fechas seleccionadas", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+            
+        }else {
+            JOptionPane.showMessageDialog(null,"Fecha inválida", "Error", JOptionPane.ERROR_MESSAGE);
+            cmbDias.setSelectedItem(new auth().getDia());
+            cmbMeses.setSelectedItem(new auth().getMes());
+            cmbAnos.setSelectedItem(new auth().getYear());
+        }
+    }
+    private boolean compararFechasConDate(String fecha1, String fecha2) {  
+        
+        String resultado="";
+        try {
+         /**Obtenemos las fechas enviadas en el formato a comparar*/
+         SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy"); 
+         Date fechaDate1 = formateador.parse(fecha1);
+         Date fechaDate2 = formateador.parse(fecha2);
+         Date fechaDateActual = formateador.parse(new auth().addCero(Integer.toString(Integer.parseInt(new auth().getDia())+1),2)+"/"+new auth().getMes()+"/"+new auth().getYear());
+
+          if ( fechaDate1.before(fechaDate2) && fechaDate2.before(fechaDateActual) ){
+            return true;
+          }
+        } catch (ParseException e) {
+         System.out.println("Se Produjo un Error!!!  "+e.getMessage());
+        }  
+        return false;
+       }
+    public  boolean isFechaValida(String fecha) {
+        
+        try {
+            SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy"); 
+            Date fechaDate1 = formateador.parse(fecha);
+            Date fechaDateActual = formateador.parse(new auth().addCero(Integer.toString(Integer.parseInt(new auth().getDia())+1),2)+"/"+new auth().getMes()+"/"+new auth().getYear());
+
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            formatoFecha.setLenient(false);
+            formatoFecha.parse(fecha);
+            if ( !fechaDate1.before(fechaDateActual) ){
+            return false;
+          }
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
     /**
      * @param args the command line arguments
@@ -289,14 +446,20 @@ public class cierreCaja extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbAnos;
+    private javax.swing.JComboBox cmbDias;
+    private javax.swing.JComboBox cmbMeses;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtFinal;
     private javax.swing.JTextField txtPines;
     private javax.swing.JTextField txtRecargas;
