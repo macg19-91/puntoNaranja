@@ -342,7 +342,9 @@ public class cierreCaja extends javax.swing.JFrame {
         fechaSelected=cmbDias.getSelectedItem().toString()+"/"+cmbMeses.getSelectedItem().toString()+"/"+cmbAnos.getSelectedItem().toString();
         if(isFechaValida(fechaSelected)){
         BufferedReader br;
-        File Bitacora = new File("Files\\Bitacora");
+        File Bitacora;
+        if(Static.isWindows())Bitacora = new File("Files\\Bitacora");
+        else Bitacora = new File("Files/Bitacora");
         String[] lista=Bitacora.list();
         if(lista.length>0){
         int recargas=0,pines=0,servicios=0,total=0;
@@ -352,7 +354,8 @@ public class cierreCaja extends javax.swing.JFrame {
             String mes=(lista[cual].split("-"))[1];
             String ano=(lista[cual].split("-"))[0];
             while(compararFechasConDate((cmbDias.getSelectedIndex())+"/"+cmbMeses.getSelectedItem().toString()+"/"+cmbAnos.getSelectedItem().toString(), dia+"/"+mes+"/"+ano) && cual<lista.length-2){
-                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));            
+                if(Static.isWindows()) br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));            
+                else br = new BufferedReader(new FileReader("Files/Bitacora/"+lista[cual]));    
                 String line;
                 int cuenta=0;
                 String tipo="";
