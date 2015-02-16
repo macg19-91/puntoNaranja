@@ -64,7 +64,7 @@ public class home extends javax.swing.JFrame {
         ventanaPass= new CambioContraseña(false);
         recargas=new Recargas();
         pines= new ventaPines();
-       // servP=new ServiciosPublicos();
+        servP=new ServiciosPublicos();
         caja=new cierreCaja();
         exportar=new exportaVentas();
         loadNews();

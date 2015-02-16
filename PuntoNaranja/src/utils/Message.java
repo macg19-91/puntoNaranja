@@ -92,7 +92,7 @@ public class Message {
         identificador = Static.getTerminal();
         pupulateCodigosMap();
         this.clave = st.getPassword();
-        this.usuario = st.getUsuario();
+        this.usuario = identificador;
         tienda="00000";
         
     }
