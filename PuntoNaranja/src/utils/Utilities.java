@@ -46,6 +46,7 @@ public class Utilities {
         {
            System.out.println("Connecting to " + serverName + " on port " + port);
            System.out.println("Just connected to "+ socket.getRemoteSocketAddress());
+           System.out.println("send "+ msg);
            InputStreamReader inputstreamreader = new InputStreamReader(socket.getInputStream());
            BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
            StringBuilder sb = new StringBuilder();

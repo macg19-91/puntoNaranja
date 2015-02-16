@@ -7,6 +7,7 @@ package utils;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -18,6 +19,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,8 +90,8 @@ public class Message {
         codigosMap = new HashMap<String, String>();
         identificador = this.st.getTerminal();
         pupulateCodigosMap();
-        this.clave = "1234";
-        this.usuario = "user";
+        this.clave = "223344";
+        this.usuario = "50600081";
         
     }
 
@@ -147,7 +149,7 @@ public class Message {
     
     public void recargaTiempoAire(String monto,String operador,String producto,String proceso,String celular) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String recarga = operador + ","+producto+","+celular+","+usuario+","+dispersion(clave)+","+tienda;
+        String recarga = operador + ","+producto+","+celular+","+usuario+","+dispersion(usuario+clave)+","+tienda;
         String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
@@ -164,7 +166,7 @@ public class Message {
     
     public void ventaPines(String monto,String operador,String producto) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String recarga = operador + ","+producto+","+usuario+","+dispersion(clave)+","+tienda;
+        String recarga = operador + ","+producto+","+usuario+","+dispersion(usuario+clave)+","+tienda;
         String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
@@ -181,12 +183,12 @@ public class Message {
     
     public void consultaServiciosPublicos(String empresa,String numeroReferencia,String zonaSoloCabletica,String tipoSoloCabletica) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String datos = usuario + "," + dispersion(clave) + ","+empresa+","+numeroReferencia;
+        String datos = usuario + "," + dispersion(usuario+clave) + ","+empresa+","+numeroReferencia;
         if(empresa.equals("021003")){
             datos += ","+zonaSoloCabletica+","+tipoSoloCabletica;
         }
         datos += ",NA,NA,NA,NA";
-        String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
+        String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client "+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0100");
         map.put("3","000004");
@@ -304,8 +306,11 @@ public class Message {
 
     private String dispersion(String clave) {
         String enc = "";
+        Random generator = new Random();
+        int i = generator.nextInt(100);
+        int y = generator.nextInt(100);
         try {
-            enc = sha1(clave);
+            enc = sha1(sha1(Integer.toString(i)))+sha1(clave)+sha1(Integer.toString(y));
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -313,14 +318,21 @@ public class Message {
     }
     
     static String sha1(String input) throws NoSuchAlgorithmException {
-        MessageDigest mDigest = MessageDigest.getInstance("SHA1");
-        byte[] result = mDigest.digest(input.getBytes());
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < result.length; i++) {
-            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+        String sh = "";
+        try {
+            //        MessageDigest mDigest = MessageDigest.getInstance("SHA1");
+//        byte[] result = mDigest.digest(input.getBytes());
+//        StringBuffer sb = new StringBuffer();
+//        for (int i = 0; i < result.length; i++) {
+//            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+//        }
+//         
+//        return sb.toString();
+            sh = AeSimpleSHA1.SHA1(input);  
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
-        return sb.toString();
+        return sh;
     }
 
     private String addCero(String monto, int i) {
