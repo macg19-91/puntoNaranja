@@ -89,10 +89,11 @@ public class Message {
         this.parent = "isomsg";
         this.map = new HashMap<String, String>();
         codigosMap = new HashMap<String, String>();
-        identificador = this.st.getTerminal();
+        identificador = Static.getTerminal();
         pupulateCodigosMap();
         this.clave = st.getPassword();
         this.usuario = st.getUsuario();
+        tienda="00000";
         
     }
 
@@ -235,6 +236,7 @@ public class Message {
     private String getSecuencia() {
         auth file = new auth();
         String secuencia = file.leerArchivo("Sesion\\archivoSecuencia.txt");
+        
         int sec = Integer.parseInt(secuencia) + 1;
         if(sec> 999999)
             sec = 0;
