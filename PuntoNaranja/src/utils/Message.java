@@ -81,8 +81,8 @@ public class Message {
         this.parent = parent;
         this.map = map;
         this.identificador = identificador;
-        this.clave = "159951";
-        this.usuario = "user";
+        this.clave = Static.getPassword();
+        this.usuario = Static.getUsuario();
     }
     
     public Message() {
@@ -92,7 +92,7 @@ public class Message {
         identificador = Static.getTerminal();
         pupulateCodigosMap();
         this.clave = st.getPassword();
-        this.usuario = identificador;
+        this.usuario = Static.getUsuario();
         tienda="00000";
         
     }
@@ -136,7 +136,7 @@ public class Message {
         map.put("0","0100");
         map.put("11",getSecuencia());
         map.put("41",identificador);
-        map.put("61",identificador);
+        map.put("61",usuario);
     } 
     
     public void consultaEstadoTransaccionRecarga(String operador,String idTransaccion){
@@ -151,7 +151,7 @@ public class Message {
     
     public void recargaTiempoAire(String monto,String operador,String producto,String proceso,String celular) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String recarga = operador + ","+producto+","+celular+","+identificador+","+dispersion(usuario+clave)+","+tienda;
+        String recarga = operador + ","+producto+","+celular+","+usuario+","+dispersion(usuario+clave)+","+tienda;
         String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
@@ -168,7 +168,7 @@ public class Message {
     
     public void ventaPines(String monto,String operador,String producto) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String recarga = operador + ","+producto+","+identificador+","+dispersion(usuario+clave)+","+tienda;
+        String recarga = operador + ","+producto+","+usuario+","+dispersion(usuario+clave)+","+tienda;
         String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");

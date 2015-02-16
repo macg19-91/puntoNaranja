@@ -51,6 +51,7 @@ public class CambioContraseña extends javax.swing.JFrame {
             lblUser.setVisible(false);
             lblId.setVisible(false);            
         }
+         setLocationRelativeTo(null);
     }
 
     /**
@@ -269,8 +270,9 @@ public class CambioContraseña extends javax.swing.JFrame {
                             file.escribeFichero(txtUser.getText(),"Sesion/archivoUser.txt");
                             file.escribeFichero(txtId.getText(),"Sesion/archivoId.txt");
                             file.escribeFichero(txtNew.getText(),"Sesion/archivoPassword.txt");
-                            JOptionPane.showMessageDialog(null,"Ha ingresado los datos correctamente", "Exito!", JOptionPane.INFORMATION_MESSAGE );
                             this.setVisible(false);
+                            JOptionPane.showMessageDialog(null,"Ha ingresado los datos correctamente", "Exito!", JOptionPane.INFORMATION_MESSAGE );
+                            
                             txtNew.setText("");
                             txtAgain.setText("");
                             txtUser.setText("");
