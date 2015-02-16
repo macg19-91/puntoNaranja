@@ -150,7 +150,7 @@ public class Message {
     
     public void recargaTiempoAire(String monto,String operador,String producto,String proceso,String celular) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String recarga = operador + ","+producto+","+celular+","+identificador+","+dispersion(clave)+","+tienda;
+        String recarga = operador + ","+producto+","+celular+","+identificador+","+dispersion(usuario+clave)+","+tienda;
         String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
@@ -167,7 +167,7 @@ public class Message {
     
     public void ventaPines(String monto,String operador,String producto) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String recarga = operador + ","+producto+","+identificador+","+dispersion(clave)+","+tienda;
+        String recarga = operador + ","+producto+","+identificador+","+dispersion(usuario+clave)+","+tienda;
         String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
@@ -204,7 +204,7 @@ public class Message {
     
     public void pagarServiciosPublicos(String monto,String consecutivoRecibo,String numeroReferencia,String zonaSoloCabletica) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String datos = usuario + "," + dispersion(clave) + ","+consecutivoRecibo+","+monto+"00";
+        String datos = usuario + "," + dispersion(usuario+clave) + ","+consecutivoRecibo+","+monto+"00";
         if(!zonaSoloCabletica.equals("")){
             datos += ","+zonaSoloCabletica;
         }
