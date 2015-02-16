@@ -34,11 +34,13 @@ public class cierreCaja extends javax.swing.JFrame {
     /**
      * Creates new form cierreCaja
      */
+    String fechaSelected;
     public cierreCaja() {
         initComponents();
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
         jButton1.setVisible(false);
+        fechaSelected="";
         cargaCombos();
         
     }
@@ -114,6 +116,11 @@ public class cierreCaja extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton1.setText("Imprimir");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton2.setText("Salir");
@@ -309,6 +316,22 @@ public class cierreCaja extends javax.swing.JFrame {
         calculaCierre();
     }//GEN-LAST:event_jButton3MouseClicked
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        String cierre="    Cierre de caja \n \n";
+        cierre+="Desde: "+fechaSelected+"\n";
+        cierre+="Hasta: "+new auth().addCero(Integer.toString(Integer.parseInt(new auth().getDia())),2)+"/"+new auth().getMes()+"/"+new auth().getYear()+"\n \n";
+        cierre+="Saldo Final: "+txtFinal.getText()+"\n";
+        cierre+="Recargas Telefonicas: "+txtRecargas.getText()+"\n";
+        cierre+="Venta Pines: "+txtPines.getText()+"\n";
+        cierre+="Servicios Publicos: "+txtServicios.getText()+"\n \n";
+        cierre+="Total: "+txtTotal.getText();
+        
+        ventanaReporte rep=new ventanaReporte();
+        rep.cargaCierreCaja(cierre);
+        rep.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
+
     
     private String getDia() {
         Calendar cal = Calendar.getInstance();
@@ -316,10 +339,12 @@ public class cierreCaja extends javax.swing.JFrame {
     }
     
     public void calculaCierre(){
-        if(isFechaValida(cmbDias.getSelectedItem().toString()+"/"+cmbMeses.getSelectedItem().toString()+"/"+cmbAnos.getSelectedItem().toString())){
+        fechaSelected=cmbDias.getSelectedItem().toString()+"/"+cmbMeses.getSelectedItem().toString()+"/"+cmbAnos.getSelectedItem().toString();
+        if(isFechaValida(fechaSelected)){
         BufferedReader br;
         File Bitacora = new File("Files\\Bitacora");
         String[] lista=Bitacora.list();
+        if(lista.length>0){
         int recargas=0,pines=0,servicios=0,total=0;
         try {
             int cual=lista.length-3;
@@ -362,11 +387,12 @@ public class cierreCaja extends javax.swing.JFrame {
             txtPines.setText(pines+"");
             txtServicios.setText(servicios+"");
             txtTotal.setText(total+"");
+            jButton1.setVisible(true);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
         }
         if(txtTotal.getText().equals("0"))JOptionPane.showMessageDialog(null,"No hay datos guardados entre las fechas seleccionadas", "Resultado", JOptionPane.INFORMATION_MESSAGE);
-            
+        }else JOptionPane.showMessageDialog(null,"No hay datos guardados entre las fechas seleccionadas", "Resultado", JOptionPane.INFORMATION_MESSAGE);
         }else {
             JOptionPane.showMessageDialog(null,"Fecha inválida", "Error", JOptionPane.ERROR_MESSAGE);
             cmbDias.setSelectedItem(new auth().getDia());

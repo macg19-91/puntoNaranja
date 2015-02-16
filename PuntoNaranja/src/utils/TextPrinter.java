@@ -41,6 +41,8 @@ public class TextPrinter implements Printable {
                  static PrinterJob pjob = PrinterJob.getPrinterJob();
     int cual=0;
     boolean selected=false;
+    boolean caja=false;
+    String[] lineas;
     public int print(Graphics g, PageFormat pf, int page) throws
                                                         PrinterException {
 
@@ -55,6 +57,7 @@ public class TextPrinter implements Printable {
         g2d.translate(pf.getImageableX(), pf.getImageableY());
         int place=30;
         /* Now we perform our rendering */
+        if(!caja){
         BufferedReader br;
         File Bitacora = new File("Files\\Bitacora");
         String[] lista=Bitacora.list();
@@ -104,9 +107,17 @@ public class TextPrinter implements Printable {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+        }else{
+            for (String linea : lineas) {
+                g.drawString(linea, 0, place);
+                place+=20; 
+            }
+        }
         /* tell the caller that this page is part of the printed document */
         return PAGE_EXISTS;
+    }
+    public void setLineas(String[] lineas){
+        this.lineas=lineas;
     }
     private String getFecha() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
@@ -209,7 +220,7 @@ pjob.setJobName("job");
               
          }
     }
-    public void startPrinter(Boolean selected, int cual) {
+    public void startPrinter(Boolean selected, int cual,Boolean caja) {
  
                   //PrinterJob job = PrinterJob.getPrinterJob();
          pjob.setPrintable(this);
@@ -218,6 +229,7 @@ pjob.setJobName("job");
              */
             this.selected=selected;
             this.cual=cual;
+            this.caja=caja;
              try {
                   pjob.print();
              } catch (PrinterException ex) {
