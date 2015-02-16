@@ -20,7 +20,8 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    auth file;      
+    auth file; 
+    CambioContraseña change=new CambioContraseña(true);
     public Login() {
         file=new auth();
         initComponents();
@@ -29,8 +30,8 @@ public class Login extends javax.swing.JFrame {
             setLocationRelativeTo(null);
         if(!file.firstLogin()){
             JOptionPane.showMessageDialog(null,"No hay usuario registrado, debe ingresar los datos del nuevo Usuario", "Atencion!", JOptionPane.INFORMATION_MESSAGE );
-            this.setVisible(false);
-            new CambioContraseña(true).setVisible(true);
+            this.setFocusable(false);
+            change.setVisible(true);
         }
         txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
@@ -68,6 +69,11 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Iniciar Sesión");
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
@@ -191,7 +197,7 @@ public class Login extends javax.swing.JFrame {
     private void aceptar(){
         if(!file.firstLogin()){
             JOptionPane.showMessageDialog(null,"No hay usuario registrado, debe ingresar los datos del nuevo Usuario", "Atencion!", JOptionPane.INFORMATION_MESSAGE );
-            new CambioContraseña(true).setVisible(true);
+            change.setVisible(true);
         }else{
             if(txtUser.getText().equals(file.leerArchivo("Sesion\\archivoUser.txt"))){
                     if(txtPass.getText().equals(file.leerArchivo("Sesion\\archivoPassword.txt"))){
@@ -243,6 +249,11 @@ public class Login extends javax.swing.JFrame {
             aceptar();
         } 
     }//GEN-LAST:event_formKeyReleased
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formFocusGained
 
     /**
      * @param args the command line arguments

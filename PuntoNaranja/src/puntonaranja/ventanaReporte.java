@@ -23,12 +23,14 @@ public class ventanaReporte extends javax.swing.JFrame {
      */
     int cual;
     boolean selected;
+    boolean caja;
     public ventanaReporte() {
         initComponents();
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
         areaReporte.setText(new TextPrinter().loadFileToArea(false,0));
         selected=false;
+        caja=false;
         cual=0;
         setLocationRelativeTo(null);
     }
@@ -143,7 +145,10 @@ public class ventanaReporte extends javax.swing.JFrame {
         this.cual=cual;
         areaReporte.setText(new TextPrinter().loadFileToArea(true,cual));
     }
-    
+    public void cargaCierreCaja(String texto ){
+        areaReporte.setText(texto);
+        caja=true;
+    }
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
         try {
@@ -154,7 +159,9 @@ public class ventanaReporte extends javax.swing.JFrame {
         } catch (PrinterException ex) {
             //Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }
-        new TextPrinter().startPrinter(selected,cual);
+        TextPrinter print=new TextPrinter();
+        print.setLineas(areaReporte.getText().split("\n"));
+        print.startPrinter(selected,cual,caja);
         this.setVisible(false);
         JOptionPane.showMessageDialog(null, "Transaccion Completa");
         //new home().setVisible(true);
