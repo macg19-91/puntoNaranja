@@ -356,6 +356,7 @@ public class Message {
         codigosMap.put("1D","Clave invalida");
         codigosMap.put("25","No existe ultima transacción");
         codigosMap.put("27","Saldo insuficiente");
+        codigosMap.put("28","Producto no asignado a cliente");
         codigosMap.put("2F","Error en la base de datos");
         codigosMap.put("31","Usuario no existe");
         codigosMap.put("32","Usuario inactivo");

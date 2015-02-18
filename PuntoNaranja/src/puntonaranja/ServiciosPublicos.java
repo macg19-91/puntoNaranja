@@ -227,23 +227,17 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             Map<String, String> response = util.SendToServer(msg.buildString());
             msg.setMap(response);
             String resp = msg.getMsgResponse();
-            if(resp.equals("Transacción aprobada en forma exitosa")){
-                new ConfirmaRecarga(response.get("4") ,identificador,selected.getLabel(),"Servicios",response.get("62"),"").setVisible(true);
+             if(resp != null){
+                if(resp.equals("Transacción aprobada en forma exitosa")){
+                    new ConfirmaRecarga(response.get("4") ,identificador,selected.getLabel(),"Servicios",response.get("62"),"").setVisible(true);
+                }else {
+                                    JOptionPane.showMessageDialog(null, resp+", intente de nuevo");
+                                    txtNumero.setText("");
+                                }
+            }else{
+                this.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: "+response.get("39")+", consulte con su proveedor");
             }
-           // JOptionPane.showMessageDialog(null, resp);
-            //String resp = "Transaccion Completa";
-            //int dialogResult = JOptionPane.showConfirmDialog (null, "Le gustaria imprimir el comprobante?","Warning",JOptionPane.YES_NO_OPTION);
-
-            //if(dialogResult == JOptionPane.YES_OPTION){
-                //Manda a imprimir
-               // new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected.getLabel(),"archivoPrint.txt");
-           /*     new TextPrinter().startPrinter(false,0,false);
-                JOptionPane.showMessageDialog(null, resp);
-            }
-            if(dialogResult == JOptionPane.NO_OPTION){
-                JOptionPane.showMessageDialog(null, "no");
-            }
-            //txtMonto.setText("");*/
             txtNumero.setText("");
                         
             
