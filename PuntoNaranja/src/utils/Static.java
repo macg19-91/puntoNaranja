@@ -13,11 +13,18 @@ public class Static {
     static String usuario, password, terminal, saldo;
     static Boolean pass;
     public Static() {
-        usuario=new auth().leerArchivo("Sesion\\archivoUser.txt");
-        password=new auth().leerArchivo("Sesion\\archivoPassword.txt");
-        terminal=new auth().leerArchivo("Sesion\\archivoId.txt");
+        if(Static.isWindows()){
+            usuario=new auth().leerArchivo("Sesion\\archivoUser.txt");
+            password=new auth().leerArchivo("Sesion\\archivoPassword.txt");
+            terminal=new auth().leerArchivo("Sesion\\archivoId.txt");
+            pass=Boolean.parseBoolean(new auth().leerArchivo("Sesion\\archivoPidePassword.txt"));
+        }else{
+            usuario=new auth().leerArchivo("Sesion/archivoUser.txt");
+            password=new auth().leerArchivo("Sesion/archivoPassword.txt");
+            terminal=new auth().leerArchivo("Sesion/archivoId.txt");
+            pass=Boolean.parseBoolean(new auth().leerArchivo("Sesion/archivoPidePassword.txt"));
+        }
         saldo="";
-        pass=Boolean.parseBoolean(new auth().leerArchivo("Sesion\\archivoPidePassword.txt"));
     }
 
     public static String getUsuario() {
@@ -31,7 +38,10 @@ public class Static {
     public static String getPassword() {
         return password;
     }
-
+    public static boolean isWindows() {
+        String OS = System.getProperty("os.name").toLowerCase();
+        return (OS.contains("win"));
+    }
     public static void setPassword(String password) {
         Static.password = password;
     }

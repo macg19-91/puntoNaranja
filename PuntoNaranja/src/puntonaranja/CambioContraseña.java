@@ -222,7 +222,7 @@ public class CambioContraseña extends javax.swing.JFrame {
                                 
             //if((txtNew.getText().isEmpty() || txtAgain.getText().isEmpty()) || txtOld.getText().isEmpty()){
                 if(txtNew.getText().equals(txtAgain.getText())){
-                    if(txtOld.getText().equals(file.leerArchivo("Sesion\\archivoPassword.txt"))){
+                    if(txtOld.getText().equals(file.leerArchivo("Sesion\\archivoPassword.txt"))||txtOld.getText().equals(file.leerArchivo("Sesion/archivoPassword.txt"))){
                         if(!txtOld.getText().equals(txtAgain.getText())){
                             //if(txtNew.getText().equals(txtAgain.getText())&&txtOld.getText().equals(file.leerArchivo())&&!txtOld.getText().equals(txtAgain.getText())){
                             file.escribeFichero(txtNew.getText(),"Sesion/archivoPassword.txt");

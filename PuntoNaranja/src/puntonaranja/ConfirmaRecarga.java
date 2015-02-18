@@ -379,7 +379,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String name="";
         Boolean pass=false;
-        if(Boolean.parseBoolean(new auth().leerArchivo("Sesion\\archivoPidePassword.txt"))){
+        if(Boolean.parseBoolean(new auth().leerArchivo("Sesion\\archivoPidePassword.txt"))||Boolean.parseBoolean(new auth().leerArchivo("Sesion/archivoPidePassword.txt"))){
             this.hide();
             while(!pass){
                 //if(!pass)JOptionPane.showMessageDialog(null,"Contraseña incorrecta", "Error", JOptionPane.WARNING_MESSAGE );

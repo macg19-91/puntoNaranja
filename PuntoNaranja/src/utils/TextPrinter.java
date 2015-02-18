@@ -59,13 +59,23 @@ public class TextPrinter implements Printable {
         /* Now we perform our rendering */
         if(!caja){
         BufferedReader br;
-        File Bitacora = new File("Files\\Bitacora");
+        File Bitacora;
+       if(Static.isWindows()) Bitacora = new File("Files\\Bitacora");
+       else Bitacora = new File("Files/Bitacora");
         String[] lista=Bitacora.list();
         try {
-            if(selected){
-                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));
+            if(Static.isWindows()){
+                if(selected){
+                    br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));
+                }else{
+                    br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
+                }
             }else{
-                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
+                if(selected){
+                    br = new BufferedReader(new FileReader("Files/Bitacora/"+lista[cual]));
+                }else{
+                    br = new BufferedReader(new FileReader("Files/Bitacora/"+lista[Bitacora.list().length-3]));
+                }
             }
             String line;
         /*int cuenta=0;
@@ -136,13 +146,23 @@ public class TextPrinter implements Printable {
     public String loadFileToArea(Boolean selected, int cual){
         String reporte="";
         BufferedReader br;
-        File Bitacora = new File("Files\\Bitacora");
+         File Bitacora;
+       if(Static.isWindows()) Bitacora = new File("Files\\Bitacora");
+       else Bitacora = new File("Files/Bitacora");
         String[] lista=Bitacora.list();
         try {
-            if(selected){
-                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));
+            if(Static.isWindows()){
+                if(selected){
+                    br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));
+                }else{
+                    br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
+                }
             }else{
-                br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
+                if(selected){
+                    br = new BufferedReader(new FileReader("Files/Bitacora/"+lista[cual]));
+                }else{
+                    br = new BufferedReader(new FileReader("Files/Bitacora/"+lista[Bitacora.list().length-3]));
+                }
             }
             String line;
         int cuenta=0;
@@ -181,8 +201,9 @@ public class TextPrinter implements Printable {
     }
     public static void test() throws PrinterException {
         DocPrintJob docPrintJob=null;
-        String printerNameDesired = new auth().leerArchivo("Sesion\\defaultPrinter.txt");
-
+        String printerNameDesired;
+        if(Static.isWindows())printerNameDesired = new auth().leerArchivo("Sesion\\defaultPrinter.txt");
+        else printerNameDesired = new auth().leerArchivo("Sesion/defaultPrinter.txt");
         javax.print.PrintService[] service = PrinterJob.lookupPrintServices(); // list of printers
 
     int count = service.length;

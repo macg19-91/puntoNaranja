@@ -235,8 +235,9 @@ public class Message {
 
     private String getSecuencia() {
         auth file = new auth();
-        String secuencia = file.leerArchivo("Sesion\\archivoSecuencia.txt");
-        
+        String secuencia;
+        if(Static.isWindows())secuencia = file.leerArchivo("Sesion\\archivoSecuencia.txt");
+        else secuencia = file.leerArchivo("Sesion/archivoSecuencia.txt");
         int sec = Integer.parseInt(secuencia) + 1;
         if(sec> 999999)
             sec = 0;

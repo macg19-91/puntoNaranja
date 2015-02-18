@@ -27,7 +27,9 @@ public class auth {
       try {
          // Apertura del fichero y creacion de BufferedReader para poder
          // hacer una lectura comoda (disponer del metodo readLine()).
+        if(Static.isWindows()){            
          archivo = new File ("Files\\"+ruta);
+        }else archivo = new File ("Files/"+ruta);
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
  
@@ -104,14 +106,18 @@ public void escribeFichero(String linea,String nombre) throws IOException
         return addCero(Integer.toString(cal.get(Calendar.HOUR_OF_DAY)),2) +":"+ addCero(Integer.toString(cal.get(Calendar.MINUTE)),2) +":"+ addCero(Integer.toString(cal.get(Calendar.SECOND)),2);
     }
 public String[] bitacora(){
-    File Bitacora = new File("Files\\Bitacora");
+    File Bitacora;
+        if(Static.isWindows()){
+            Bitacora = new File("Files\\Bitacora");
+        }else Bitacora = new File("Files/Bitacora");
     return Bitacora.list();
 }    
 public String returnRow(String fileName){
         String reporte="";
         BufferedReader br;
         try {
-            br = new BufferedReader(new FileReader("Files\\Bitacora\\"+fileName));
+            if(Static.isWindows())br = new BufferedReader(new FileReader("Files\\Bitacora\\"+fileName));
+            else br = new BufferedReader(new FileReader("Files/Bitacora/"+fileName));
         String line;
         int cuenta=0;
         try {
@@ -131,15 +137,30 @@ public String returnRow(String fileName){
 public void escribeFicheroPrint(String monto,String num,String empresa,String nombre) throws IOException
     {
         verificaCarpetas();
-        String fecha= leerArchivo("Bitacora\\archivoFecha.txt");        
-        File Bitacora = new File("Files\\Bitacora");
+        String fecha;
+        File Bitacora;
+        if(Static.isWindows()){
+            fecha= leerArchivo("Bitacora\\archivoFecha.txt"); 
+            Bitacora = new File("Files\\Bitacora");
+        }  
+        else {
+            fecha= leerArchivo("Bitacora/archivoFecha.txt");
+            Bitacora = new File("Files/Bitacora");
+        } 
         if(!fecha.equals(getMes())){
             String[] listArchivos=Bitacora.list();
             int total=0;
             if(listArchivos.length>0){
                 while(!listArchivos[total].split("-")[1].equals(get2MesAntes())&&!fecha.equals(getMes())&&Bitacora.list().length>11){
-                    Bitacora = new File("Files\\Bitacora");                    
-                    File removed = new File("Files\\Bitacora\\"+listArchivos[total]);
+                    File removed;
+                    if(Static.isWindows()){
+                        Bitacora = new File("Files\\Bitacora");                    
+                        removed = new File("Files\\Bitacora\\"+listArchivos[total]);
+                    }else{
+                        Bitacora = new File("Files/Bitacora");                    
+                        removed = new File("Files/Bitacora/"+listArchivos[total]);
+                    }
+                    
                     removed.delete();
                     total++;
                 }
@@ -154,7 +175,10 @@ public void escribeFicheroPrint(String monto,String num,String empresa,String no
             escribeFichero(getMes(), "Bitacora/archivoFecha.txt");
             escribeFichero("0", "Bitacora/archivoTransacciones.txt");
         }
-        String trans= leerArchivo("Bitacora\\archivoTransacciones.txt");
+        String trans;
+       if(Static.isWindows()){                        
+            trans= leerArchivo("Bitacora\\archivoTransacciones.txt");
+       }else trans= leerArchivo("Bitacora/archivoTransacciones.txt");
             int cuantas=Integer.parseInt(trans)+1;
             escribeFichero(addCero(cuantas+"",2)+"", "Bitacora/archivoTransacciones.txt");
             
@@ -164,7 +188,8 @@ public void escribeFicheroPrint(String monto,String num,String empresa,String no
  
 	OutputStreamWriter osw = new OutputStreamWriter(fos);
             
-                    osw.write(new auth().leerArchivo("Sesion\\archivoUser.txt"));
+                    if(Static.isWindows())osw.write(new auth().leerArchivo("Sesion\\archivoUser.txt"));
+                    else osw.write(new auth().leerArchivo("Sesion/archivoUser.txt"));
                     osw.write(System.lineSeparator());
                     osw.write(getFecha());
                     osw.write(System.lineSeparator());
@@ -183,8 +208,15 @@ public void escribeFicheroPrint(String monto,String num,String empresa,String no
 
 public Boolean firstLogin()
     {
-        File Sesion = new File("Files\\Sesion");
-        File Bitacora = new File("Files\\Bitacora");
+        File Sesion;
+            File Bitacora;
+        if(Static.isWindows()){
+            Sesion = new File("Files\\Sesion");
+            Bitacora = new File("Files\\Bitacora");
+        }else{
+            Sesion = new File("Files/Sesion");
+            Bitacora = new File("Files/Bitacora");
+        }
         //File folderSesion = new File("Files\\Sesion");
         String ruta = "Files/Sesion/archivoPassword.txt";
         File archivo = new File(ruta);
@@ -203,8 +235,15 @@ public Boolean firstLogin()
 
 public void verificaCarpetas(){ 
        // return file.exists();
-        File Sesion = new File("Files\\Sesion");
-        File Bitacora = new File("Files\\Bitacora");
+            File Sesion;
+            File Bitacora;
+        if(Static.isWindows()){
+            Sesion = new File("Files\\Sesion");
+            Bitacora = new File("Files\\Bitacora");
+        }else{
+            Sesion = new File("Files/Sesion");
+            Bitacora = new File("Files/Bitacora");
+        }
         
         if (!Sesion.exists()) {
             Sesion.mkdirs();
