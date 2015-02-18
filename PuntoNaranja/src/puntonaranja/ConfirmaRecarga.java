@@ -215,6 +215,27 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3MouseClicked
+        
+    public static String consultaSaldo(){
+        String resp="";
+        try {
+            // TODO add your handling code here:
+            Utilities util = new Utilities();
+            Message msg = new Message();
+            msg.consultaSaldo();
+            Map<String, String> response = util.SendToServer(msg.buildString());
+            msg.setMap(response);
+            resp = msg.getMsgResponse();
+            if(resp.equals("Transacción aprobada en forma exitosa")){
+                Static.setSaldo((Float.parseFloat(msg.getMsgMonto())/100)+"");
+                return (Float.parseFloat(msg.getMsgMonto())/100)+"";
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return resp;
+    }
+    
     private void recargas(){
         try {
             // TODO add your handling code here:
@@ -251,6 +272,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                             String resp = msg.getMsgResponse();
                             if(resp.equals("Transacción aprobada en forma exitosa")){
                                 new auth().escribeFicheroPrint(monto,celular,selected,tipo);
+                                consultaSaldo();
                                 this.setVisible(false);
                                 new ventanaReporte().setVisible(true);
                             }else {
@@ -346,6 +368,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                             String resp = msg.getMsgResponse();
                             if(resp.equals("Transacción aprobada en forma exitosa")){
                                 new auth().escribeFicheroPrint(selected2,msg.getMsgPin(),selected,"Pines");
+                                consultaSaldo();
                                 this.setVisible(false);
                                 new ventanaReporte().setVisible(true);
                             }else {

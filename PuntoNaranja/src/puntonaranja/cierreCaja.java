@@ -41,6 +41,7 @@ public class cierreCaja extends javax.swing.JFrame {
         setIconImage(img.getImage());
         jButton1.setVisible(false);
         fechaSelected="";
+        txtTotal.setText("0");
         cargaCombos();
         
     }
@@ -346,7 +347,7 @@ public class cierreCaja extends javax.swing.JFrame {
         if(Static.isWindows())Bitacora = new File("Files\\Bitacora");
         else Bitacora = new File("Files/Bitacora");
         String[] lista=Bitacora.list();
-        if(lista.length>0){
+        if(lista.length>0&&Integer.parseInt(txtTotal.getText())>0){
         int recargas=0,pines=0,servicios=0,total=0;
         try {
             int cual=lista.length-3;
