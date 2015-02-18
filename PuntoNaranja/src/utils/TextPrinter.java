@@ -194,7 +194,7 @@ public class TextPrinter implements Printable {
                     
                 case "Servicios":
                     if(cuenta==4)reporte+="Identificador: "+line+"\n";
-                    if(cuenta==5)reporte+="Servicio: "+line+", ";
+                    if(cuenta==5)reporte+="Servicio: "+line+"\n";
                     if(cuenta==6)reporte+="Monto: "+line+"\n";
                 break;
             }

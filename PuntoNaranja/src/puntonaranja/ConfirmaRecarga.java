@@ -169,57 +169,54 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(142, 142, 142)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 253, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(lblPagar))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(lblNum, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                                        .addComponent(lblMonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblOperador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(lblPagar))
+                        .addGap(92, 92, 92)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblMonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 284, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(19, 19, 19))))
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(81, 81, 81))
+                            .addComponent(jLabel4))
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(lblNum, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPagar)
-                    .addComponent(lblPagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblNum, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPagar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -293,20 +290,28 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                             Map<String, String> response = util.SendToServer(msg.buildString());
                             msg.setMap(response);
                             String resp = msg.getMsgResponse();
-                            if(resp.equals("Transacción aprobada en forma exitosa")){
-                                new auth().escribeFicheroPrint(monto,celular,selected,tipo);
-                                consultaSaldo();
-                                this.setVisible(false);
-                                new ventanaReporte().setVisible(true);
-                            }else {
-                                this.setVisible(false);
-                                JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transaccion");
+                            if(resp != null){
+                                if(resp.equals("Transacción aprobada en forma exitosa")){
+                                    new auth().escribeFicheroPrint(monto,celular,selected,tipo);
+                                    consultaSaldo();
+                                    this.setVisible(false);
+                                    new ventanaReporte().setVisible(true);
+                                }else {
+                                    this.setVisible(false);
+                                    JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transaccion");
+                                }
+                            }else{
+                                    this.setVisible(false);
+                                    consultaErronea(response.get("39"));
                             }
-        } catch (Exception ex) {
+            } catch (Exception ex) {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    private void consultaErronea(String cod){
+        JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: "+cod+", consulte con su proveedor");
+                            
+    }
     private void pines(){
         try {
             // TODO add your handling code here:
@@ -389,14 +394,20 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                             Map<String, String> response = util.SendToServer(msg.buildString());
                             msg.setMap(response);
                             String resp = msg.getMsgResponse();
-                            if(resp.equals("Transacción aprobada en forma exitosa")){
-                                new auth().escribeFicheroPrint(selected2,msg.getMsgPin(),selected,"Pines");
-                                consultaSaldo();
-                                this.setVisible(false);
-                                new ventanaReporte().setVisible(true);
-                            }else {
-                                this.setVisible(false);
-                                JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transaccion");
+                            if(resp!=null){
+                                if(resp.equals("Transacción aprobada en forma exitosa")){
+                                    new auth().escribeFicheroPrint(selected2,msg.getMsgPin(),selected,"Pines");
+                                    consultaSaldo();
+                                    this.setVisible(false);
+                                    new ventanaReporte().setVisible(true);
+                                }else {
+                                    this.setVisible(false);
+                                    JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transaccion");
+                                }
+                            
+                            }else{
+                                    this.setVisible(false);
+                                    consultaErronea(response.get("39"));
                             }
         } catch (Exception ex) {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
@@ -445,7 +456,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                     pines();
                 break;
                     
-                case "servicios":
+                case "Servicios":
                     servicios();
                 break;
             }
@@ -518,21 +529,27 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
     private void servicios() {
         try {
             if(!txtPagar.getText().equals("")){
-               /* Utilities util = new Utilities();
+                Utilities util = new Utilities();
                 Message msg = new Message();
                 msg.pagarServiciosPublicos(mont,consecutivoRecibo, zonaSoloCabletica);
                 Map<String, String> response = util.SendToServer(msg.buildString());
                 msg.setMap(response);
                 String resp = msg.getMsgResponse();
-                if(resp.equals("Transacción aprobada en forma exitosa")){*/
+             if(resp!=null){   
+                if(resp.equals("Transacción aprobada en forma exitosa")){
                     new auth().escribeFicheroPrint(mont,num,operador,"Servicios");
                     consultaSaldo();
                     this.setVisible(false);
                     new ventanaReporte().setVisible(true);
-               /* }else {
+                }else {
                     this.setVisible(false);
                     JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transaccion");
-                }*/
+                }
+              
+              }else{
+               this.setVisible(false);
+               consultaErronea(response.get("39"));
+              }
             }
             else{
                 JOptionPane.showMessageDialog(null, "Por favor inserte un monto");
