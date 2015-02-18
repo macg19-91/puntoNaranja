@@ -77,6 +77,11 @@ public class ServiciosPublicos extends javax.swing.JFrame {
 
         txtNumero.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         txtNumero.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtNumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Servicio");
@@ -223,7 +228,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             msg.setMap(response);
             String resp = msg.getMsgResponse();
             if(resp.equals("Transacción aprobada en forma exitosa")){
-                new PagarServicio(selected ,identificador, msg.getMsgMonto() ).setVisible(true);
+                new ConfirmaRecarga(response.get("4") ,identificador,selected.getLabel(),"servicios",response.get("62"),"").setVisible(true);
             }
             JOptionPane.showMessageDialog(null, resp);
             //String resp = "Transaccion Completa";
@@ -267,6 +272,10 @@ public class ServiciosPublicos extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_formWindowClosing
+
+    private void txtNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroActionPerformed
 
     /**
      * @param args the command line arguments

@@ -199,7 +199,7 @@ public class ventaPines extends javax.swing.JFrame {
             // TODO add your handling code here:
             String selected = cmbOperadora.getSelectedItem().toString();
             String monto = cmpMonto.getSelectedItem().toString();
-            new ConfirmaRecarga(monto,"",selected,"Pines").setVisible(true);
+            new ConfirmaRecarga(monto,"",selected,"Pines","","").setVisible(true);
             
         } catch (Exception ex) {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
