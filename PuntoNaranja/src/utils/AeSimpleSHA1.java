@@ -15,7 +15,7 @@ import java.security.NoSuchAlgorithmException;
  
 public class AeSimpleSHA1 { 
  
-    private static String convertToHex(byte[] data) { 
+    public static String convertToHex(byte[] data) { 
         StringBuffer buf = new StringBuffer();
         for (int i = 0; i < data.length; i++) { 
             int halfbyte = (data[i] >>> 4) & 0x0F;
@@ -31,13 +31,13 @@ public class AeSimpleSHA1 {
         return buf.toString();
     } 
  
-    public static String SHA1(String text) 
+    public static byte[] SHA1(String text) 
     throws NoSuchAlgorithmException, UnsupportedEncodingException  { 
     MessageDigest md;
     md = MessageDigest.getInstance("SHA-1");
     byte[] sha1hash = new byte[40];
-    md.update(text.getBytes("iso-8859-1"), 0, text.length());
+    md.update(text.getBytes("ASCII"), 0, text.length());
     sha1hash = md.digest();
-    return convertToHex(sha1hash);
+    return sha1hash;
     } 
 } 
