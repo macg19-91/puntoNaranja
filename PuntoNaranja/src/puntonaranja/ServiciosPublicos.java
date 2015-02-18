@@ -228,22 +228,22 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             msg.setMap(response);
             String resp = msg.getMsgResponse();
             if(resp.equals("Transacción aprobada en forma exitosa")){
-                new ConfirmaRecarga(response.get("4") ,identificador,selected.getLabel(),"servicios",response.get("62"),"").setVisible(true);
+                new ConfirmaRecarga(response.get("4") ,identificador,selected.getLabel(),"Servicios",response.get("62"),"").setVisible(true);
             }
-            JOptionPane.showMessageDialog(null, resp);
+           // JOptionPane.showMessageDialog(null, resp);
             //String resp = "Transaccion Completa";
-            int dialogResult = JOptionPane.showConfirmDialog (null, "Le gustaria imprimir el comprobante?","Warning",JOptionPane.YES_NO_OPTION);
+            //int dialogResult = JOptionPane.showConfirmDialog (null, "Le gustaria imprimir el comprobante?","Warning",JOptionPane.YES_NO_OPTION);
 
-            if(dialogResult == JOptionPane.YES_OPTION){
+            //if(dialogResult == JOptionPane.YES_OPTION){
                 //Manda a imprimir
                // new auth().escribeFicheroPrint(txtMonto.getText(),txtNumero.getText(),selected.getLabel(),"archivoPrint.txt");
-                new TextPrinter().startPrinter(false,0,false);
+           /*     new TextPrinter().startPrinter(false,0,false);
                 JOptionPane.showMessageDialog(null, resp);
             }
             if(dialogResult == JOptionPane.NO_OPTION){
                 JOptionPane.showMessageDialog(null, "no");
             }
-            //txtMonto.setText("");
+            //txtMonto.setText("");*/
             txtNumero.setText("");
                         
             
