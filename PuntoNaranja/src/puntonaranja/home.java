@@ -68,7 +68,7 @@ public class home extends javax.swing.JFrame {
         caja=new cierreCaja();
         exportar=new exportaVentas();
         loadNews();
-        consultaSaldo();
+        txtSaldo.setText(ConfirmaRecarga.consultaSaldo());
     }
 
     /**
@@ -716,36 +716,16 @@ public class home extends javax.swing.JFrame {
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
         try {
             // TODO add your handling code here:
-            if(Float.parseFloat(consultaSaldo())>=0){
+            if(Float.parseFloat(ConfirmaRecarga.consultaSaldo())>=0){
                 
                 JOptionPane.showMessageDialog(null, "El saldo actual es: "+Static.getSaldo()+" Colones");
                 
-            }else JOptionPane.showMessageDialog(null, consultaSaldo());
+            }else JOptionPane.showMessageDialog(null, Static.getSaldo());
         } catch (Exception ex) {
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenu6MouseClicked
 
-    public String consultaSaldo(){
-        String resp="";
-        try {
-            // TODO add your handling code here:
-            Utilities util = new Utilities();
-            Message msg = new Message();
-            msg.consultaSaldo();
-            Map<String, String> response = util.SendToServer(msg.buildString());
-            msg.setMap(response);
-            resp = msg.getMsgResponse();
-            if(resp.equals("Transacción aprobada en forma exitosa")){
-                Static.setSaldo((Float.parseFloat(msg.getMsgMonto())/100)+"");
-                txtSaldo.setText(Static.getSaldo());
-                return (Float.parseFloat(msg.getMsgMonto())/100)+"";
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            return resp;
-    }
     private void lblNaranjaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNaranjaMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_lblNaranjaMouseEntered
@@ -921,7 +901,7 @@ public class home extends javax.swing.JFrame {
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
         // TODO add your handling code here:
-        consultaSaldo();
+        txtSaldo.setText(Static.getSaldo());
     }//GEN-LAST:event_formMouseMoved
 
     /**

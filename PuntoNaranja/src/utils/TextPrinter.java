@@ -105,6 +105,12 @@ public class TextPrinter implements Printable {
                     if(cuenta==5)g.drawString("Venta Pin: "+line, 0, place); 
                     if(cuenta==6)g.drawString("Monto: "+line, 0, place); 
                 break;
+                    
+                case "Servicios":
+                    if(cuenta==4)g.drawString("Identificador: "+line, 0, place); 
+                    if(cuenta==5)g.drawString("Servicio: "+line, 0, place); 
+                    if(cuenta==6)g.drawString("Monto: "+line, 0, place); 
+                break;
             }              
            place+=20;      
            cuenta++;
@@ -183,6 +189,12 @@ public class TextPrinter implements Printable {
                 case "Pines":
                     if(cuenta==4)reporte+="Numero Pin: "+line+"\n";
                     if(cuenta==5)reporte+="Venta Pin: "+line+", ";
+                    if(cuenta==6)reporte+="Monto: "+line+"\n";
+                break;
+                    
+                case "Servicios":
+                    if(cuenta==4)reporte+="Identificador: "+line+"\n";
+                    if(cuenta==5)reporte+="Servicio: "+line+", ";
                     if(cuenta==6)reporte+="Monto: "+line+"\n";
                 break;
             }

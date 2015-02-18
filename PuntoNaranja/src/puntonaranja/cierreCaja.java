@@ -41,6 +41,7 @@ public class cierreCaja extends javax.swing.JFrame {
         setIconImage(img.getImage());
         jButton1.setVisible(false);
         fechaSelected="";
+        txtTotal.setText("0");
         cargaCombos();
         
     }
@@ -144,6 +145,11 @@ public class cierreCaja extends javax.swing.JFrame {
         jLabel7.setText("Desde:");
 
         cmbDias.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cmbDias.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDiasItemStateChanged(evt);
+            }
+        });
 
         cmbMeses.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         cmbMeses.addItemListener(new java.awt.event.ItemListener() {
@@ -309,13 +315,20 @@ public class cierreCaja extends javax.swing.JFrame {
     private void cmbMesesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbMesesItemStateChanged
         // TODO add your handling code here:
         if(cmbMeses.getSelectedIndex()==0&&cmbMeses.getSelectedItem().equals("12"))cmbAnos.setSelectedIndex(0);
+            jButton1.setVisible(false);
+            limpiar();
     }//GEN-LAST:event_cmbMesesItemStateChanged
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
         calculaCierre();
     }//GEN-LAST:event_jButton3MouseClicked
-
+    private void limpiar(){
+        txtPines.setText("0");
+        txtRecargas.setText("0");
+        txtServicios.setText("0");
+        txtTotal.setText("0");
+    }
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         String cierre="    Cierre de caja \n \n";
@@ -331,6 +344,12 @@ public class cierreCaja extends javax.swing.JFrame {
         rep.cargaCierreCaja(cierre);
         rep.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void cmbDiasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDiasItemStateChanged
+        // TODO add your handling code here:
+            limpiar();
+            jButton1.setVisible(false);
+    }//GEN-LAST:event_cmbDiasItemStateChanged
 
     
     private String getDia() {
@@ -394,13 +413,23 @@ public class cierreCaja extends javax.swing.JFrame {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(txtTotal.getText().equals("0"))JOptionPane.showMessageDialog(null,"No hay datos guardados entre las fechas seleccionadas", "Resultado", JOptionPane.INFORMATION_MESSAGE);
-        }else JOptionPane.showMessageDialog(null,"No hay datos guardados entre las fechas seleccionadas", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        
+            if(txtTotal.getText().equals("0")){
+                JOptionPane.showMessageDialog(null,"No hay datos guardados entre las fechas seleccionadas", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                limpiar();
+                jButton1.setVisible(false);
+            }
+        
+        }else{
+            limpiar();
+            JOptionPane.showMessageDialog(null,"No hay datos guardados entre las fechas seleccionadas", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        }
         }else {
             JOptionPane.showMessageDialog(null,"Fecha inválida", "Error", JOptionPane.ERROR_MESSAGE);
             cmbDias.setSelectedItem(new auth().getDia());
             cmbMeses.setSelectedItem(new auth().getMes());
             cmbAnos.setSelectedItem(new auth().getYear());
+            limpiar();
         }
     }
     private boolean compararFechasConDate(String fecha1, String fecha2) {  
