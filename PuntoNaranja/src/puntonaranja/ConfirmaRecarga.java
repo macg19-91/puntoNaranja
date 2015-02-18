@@ -64,6 +64,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                 break;
                     
                 case "Servicios":
+                    jLabel3.setText("Cobro:");
                     jLabel4.setText("Identificador:");
                     jLabel4.setVisible(true);
                     lblNum.setVisible(true);
@@ -528,7 +529,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
 
     private void servicios() {
         try {
-            if(!txtPagar.getText().equals("")){
+            if(Integer.parseInt(txtPagar.getText())>=Integer.parseInt(mont)){
                 Utilities util = new Utilities();
                 Message msg = new Message();
                 msg.pagarServiciosPublicos(mont,consecutivoRecibo, zonaSoloCabletica);
@@ -552,7 +553,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
               }
             }
             else{
-                JOptionPane.showMessageDialog(null, "Por favor inserte un monto");
+                JOptionPane.showMessageDialog(null, "Por favor inserte un monto mayor o igual al cobro");
             }
         } catch (Exception ex) {
             Logger.getLogger(ConfirmaRecarga.class.getName()).log(Level.SEVERE, null, ex);
