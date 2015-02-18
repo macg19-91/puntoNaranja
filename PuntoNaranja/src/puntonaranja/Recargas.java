@@ -137,6 +137,11 @@ public class Recargas extends javax.swing.JFrame {
         jLabel4.setText("Numero celular");
 
         txtNumero.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtNumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroActionPerformed(evt);
+            }
+        });
 
         lblImg.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/puntonaranja/resurces/kolbi.jpg"))); // NOI18N
@@ -257,7 +262,7 @@ public class Recargas extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Por favor ingrese un numero celular valido");
                         }
                         else{
-                            new ConfirmaRecarga(txtMonto.getText(),txtNumero.getText(),selected,"Recargas").setVisible(true);
+                            new ConfirmaRecarga(txtMonto.getText(),txtNumero.getText(),selected,"Recargas","","").setVisible(true);
                             txtMonto.setText("");
                             txtNumero.setText("");
                         }
@@ -329,6 +334,10 @@ public class Recargas extends javax.swing.JFrame {
     private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3MouseEntered
+
+    private void txtNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumeroActionPerformed
 
     /**
      * @param args the command line arguments

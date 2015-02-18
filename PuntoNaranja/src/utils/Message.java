@@ -151,8 +151,8 @@ public class Message {
     
     public void recargaTiempoAire(String monto,String operador,String producto,String proceso,String celular) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String recarga = operador + ","+producto+","+celular+","+usuario+","+dispersion(usuario+clave)+","+tienda;
-        String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
+        String recarga = operador + ","+producto+","+celular+","+usuario+","+dispersion(usuario,clave)+","+tienda;
+        String extraInfo = "H2H"+"|"+InetAddress.getLocalHost().getHostAddress()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
         map.put("3",proceso);
@@ -163,12 +163,12 @@ public class Message {
         map.put("37",getReferencia());
         map.put("41",identificador);
         map.put("60",recarga);
-        map.put("62",extraInfo);
+        map.put("61",extraInfo);
     }  
     
     public void ventaPines(String monto,String operador,String producto) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String recarga = operador + ","+producto+","+usuario+","+dispersion(usuario+clave)+","+tienda;
+        String recarga = operador + ","+producto+","+usuario+","+dispersion(usuario,clave)+","+tienda;
         String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
@@ -185,7 +185,7 @@ public class Message {
     
     public void consultaServiciosPublicos(String empresa,String numeroReferencia,String zonaSoloCabletica,String tipoSoloCabletica) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String datos = usuario + "," + dispersion(usuario+clave) + ","+empresa+","+numeroReferencia;
+        String datos = usuario + "," + dispersion(usuario,clave) + ","+empresa+","+numeroReferencia;
         if(empresa.equals("021003")){
             datos += ","+zonaSoloCabletica+","+tipoSoloCabletica;
         }
@@ -203,9 +203,9 @@ public class Message {
         map.put("61",extraInfo);
     }  
     
-    public void pagarServiciosPublicos(String monto,String consecutivoRecibo,String numeroReferencia,String zonaSoloCabletica) throws UnknownHostException, SocketException{
+    public void pagarServiciosPublicos(String monto,String consecutivoRecibo,String zonaSoloCabletica) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
-        String datos = usuario + "," + dispersion(usuario+clave) + ","+consecutivoRecibo+","+monto+"00";
+        String datos = usuario + "," + dispersion(usuario,clave) + ","+consecutivoRecibo+","+monto+"00";
         if(!zonaSoloCabletica.equals("")){
             datos += ","+zonaSoloCabletica;
         }
@@ -310,24 +310,32 @@ public class Message {
     }
 
     private String getReferencia() {
-        return "000000000001";
-    }
-
-    private String dispersion(String clave) {
-        String enc = "";
-        Random generator = new Random();
-        int i = generator.nextInt(100);
-        int y = generator.nextInt(100);
+        auth file = new auth();
+        String secuencia = file.leerArchivo("Sesion\\archivoReferencia.txt");
+        
+        long sec = Long.parseLong(secuencia) + 1;
+        long max = Long.parseLong("999999999999");
+        if(sec > max)
+            sec = 0;
+        String secuen = String.format("%012d", sec);
         try {
-            enc = sha1(sha1(Integer.toString(i)))+sha1(clave)+sha1(Integer.toString(y));
-        } catch (NoSuchAlgorithmException ex) {
+            file.escribeFichero(secuen,"Sesion/archivoReferencia.txt");
+        } catch (IOException ex) {
             Logger.getLogger(Message.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return enc;
+        return (String.format("%012d",sec));
+    }
+
+    private String dispersion(String usuario,String clave) {
+        String enc = "";
+        Hash hs = new Hash();
+        enc = hs.get(usuario, clave);
+        String enc2 = "4BD4E771034D14382B9F276733CEFBB00C2F412A215BB47DA8FAC3342B858AC3DB09B033C6C46E0B";
+        return enc;//enc.toUpperCase();
     }
     
-    static String sha1(String input) throws NoSuchAlgorithmException {
-        String sh = "";
+    static byte[] sha1(String input) throws NoSuchAlgorithmException {
+        byte[] sh = null;
         try {
             sh = AeSimpleSHA1.SHA1(input);  
         } catch (UnsupportedEncodingException ex) {
@@ -335,6 +343,7 @@ public class Message {
         }
         return sh;
     }
+    
 
     private String addCero(String monto, int i) {
         return String.format("%0"+i+"d", Integer.parseInt(monto));
