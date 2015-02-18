@@ -5,6 +5,10 @@
  */
 package puntonaranja;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Document;
 import utils.ComboItem;
 import utils.Message;
+import utils.Static;
 import utils.TextPrinter;
 import utils.Utilities;
 import utils.auth;
@@ -62,6 +67,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lblImg = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Servicios Públicos");
@@ -135,6 +141,19 @@ public class ServiciosPublicos extends javax.swing.JFrame {
         lblImg.setText("jLabel2");
         lblImg.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jButton5.setText("Imprimir último");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton5MouseClicked(evt);
+            }
+        });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,7 +184,9 @@ public class ServiciosPublicos extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                                 .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -179,7 +200,9 @@ public class ServiciosPublicos extends javax.swing.JFrame {
                         .addGap(118, 118, 118)
                         .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
@@ -221,6 +244,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             // TODO add your handling code here:
             ComboItem selected = (ComboItem) cmbOperadora.getSelectedItem();
             String identificador = txtNumero.getText();
+            if(!identificador.equals("")){
             Utilities util = new Utilities();
             Message msg = new Message();
             msg.consultaServiciosPublicos(selected.getValue(), identificador, "", "");
@@ -239,7 +263,8 @@ public class ServiciosPublicos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: "+response.get("39")+", consulte con su proveedor");
             }
             txtNumero.setText("");
-                        
+       }else  JOptionPane.showMessageDialog(null, "Digite un valor para continuar");
+                          
             
         } catch (Exception ex) {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
@@ -270,6 +295,59 @@ public class ServiciosPublicos extends javax.swing.JFrame {
     private void txtNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumeroActionPerformed
+
+    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+        // TODO add your handling code here:
+        
+         BufferedReader br;
+        File Bitacora;
+        if(Static.isWindows())Bitacora = new File("Files\\Bitacora");
+        else Bitacora = new File("Files/Bitacora");
+        String[] lista=Bitacora.list();
+        if(lista.length>0){
+        int total=-1;
+        try {
+            int cual=lista.length-3;
+            while(cual>=0){
+                if(Static.isWindows()) br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));            
+                else br = new BufferedReader(new FileReader("Files/Bitacora/"+lista[cual]));    
+                String line;
+                int cuenta=0;
+                String tipo="";
+                try {
+                while((line = br.readLine()) != null) {   
+                    if(cuenta==3){tipo=line;
+                    switch (tipo) {
+                        case "Servicios":
+                            total= cual;
+                            cual=-1;
+                        break;
+                    }
+                    }
+                   cuenta++;
+                }
+                br.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               cual--;
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ventanaReporte reporte=new ventanaReporte();
+        if(total>=0){
+            reporte.printSelected(total);
+            reporte.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null,"No hay recibos para imprimir", "Atención!", JOptionPane.WARNING_MESSAGE );
+        }
+        }
+    }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,6 +389,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -320,9 +399,24 @@ public class ServiciosPublicos extends javax.swing.JFrame {
 
     private void loadCombo() {
         ArrayList<ComboItem> items = new ArrayList<ComboItem>();
-        Message mg = new Message();
-        mg.pupulateServiciosMap();
-        JSONObject json = mg.getServiciosMap();
+        //Message mg = new Message();
+       // mg.pupulateServiciosMap();
+       // JSONObject json = mg.getServiciosMap();
+        JSONObject json =new JSONObject("{\n" +
+"    \"004103\": \"Telecable - Cobro de servicios de cable\",\n" +
+"    \"004003\": \"Cablevision - Cobro de servicios de cable\",\n" +
+"    \"024047\": \"SKY - Cobro de servicios de cable\",\n" +
+"    \"021003\": \"Cabletica - Cobro de servicio de cable\",\n" +
+"    \"003003\": \"Amnet - Cobro de servicio de Cable - TIGO\",\n" +
+"    \"004008\": \"ICE - Cobro de servicios telefÃ³nicos\",\n" +
+"    \"006001\": \"CNFL - Cobro de servicios de electricidad\",\n" +
+"    \"004001\": \"ICE - Cobro de servicios de electricidad\",\n" +
+"    \"002002\": \"AyA - Cobro de servicios de agua\",\n" +
+"    \"030052\": \"RACSA - Cobro de servicios telemÃ¡ticos\",\n" +
+"    \"005001\": \"ESPH - Electricidad\",\n" +
+"    \"005002\": \"ESPH - Agua\",\n" +
+"    \"124137\": \"Recargas Kolbi - PTN\"\n" +
+"}");
         Set keys = json.keySet();
         Object[] array = keys.toArray();
         String key = "";

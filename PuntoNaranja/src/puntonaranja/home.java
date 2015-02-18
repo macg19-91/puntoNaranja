@@ -88,7 +88,8 @@ public class home extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         label1 = new java.awt.Label();
-        label2 = new java.awt.Label();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        areaNoti = new javax.swing.JTextArea();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         lblKolbi = new javax.swing.JLabel();
@@ -195,8 +196,12 @@ public class home extends javax.swing.JFrame {
         label1.setFont(new java.awt.Font("Tahoma", 2, 24)); // NOI18N
         label1.setText("Titulo");
 
-        label2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        label2.setText("Contenido");
+        areaNoti.setEditable(false);
+        areaNoti.setColumns(20);
+        areaNoti.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        areaNoti.setLineWrap(true);
+        areaNoti.setRows(5);
+        jScrollPane2.setViewportView(areaNoti);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -205,10 +210,9 @@ public class home extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,9 +220,8 @@ public class home extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane2))
         );
 
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -414,7 +417,7 @@ public class home extends javax.swing.JFrame {
         });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton3.setText("Re-Imprimir");
+        jButton3.setText("Imprimir");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton3MouseClicked(evt);
@@ -565,7 +568,7 @@ public class home extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblNaranja, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -585,7 +588,7 @@ public class home extends javax.swing.JFrame {
                             .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -940,6 +943,7 @@ public class home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areaNoti;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -960,9 +964,9 @@ public class home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private java.awt.Label label1;
-    private java.awt.Label label2;
     private javax.swing.JLabel lblAya;
     private javax.swing.JLabel lblCNFL;
     private javax.swing.JLabel lblESPH;
@@ -977,9 +981,14 @@ public class home extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void loadNews() {
-        try {
+       // try {
             httpCall hc = new httpCall();
-            json = hc.call("noticias");
+            //json = hc.call("noticias");
+            json =new JSONObject("{\n" +
+"    \"Noticia 1\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi rutrum, gravida erat ac, accumsan eros. Cras vehicula erat ac orci mattis cursus non nec felis. Donec at risus quam. Sed vel ultrices leo. Aenean urna turpis, volutpat in aliquam eu, egestas at eros. Proin dictum ultrices lacus, consectetur iaculis ligula suscipit ac. Vivamus tempus semper arcu, nec lacinia metus gravida id. Curabitur lobortis nunc at maximus pellentesque. Nullam nec sollicitudin massa. Nulla metus quam, vestibulum eu sollicitudin a, cursus at eros. Cras hendrerit sapien vitae est elementum, a pulvinar felis sagittis.\",\n" +
+"    \"Noticia 2\": \"Vestibulum elementum leo sed justo tristique porta. Quisque eleifend dolor et cursus aliquam. Proin mollis ultrices iaculis. Aenean porttitor auctor risus, sit amet mattis nibh rhoncus in. Morbi in sem tellus. Nullam dignissim faucibus purus a blandit. Sed id suscipit odio. Sed ut leo luctus, viverra odio non, blandit risus.\",\n" +
+"    \"Noticia 3\": \"Sed rutrum porta faucibus. Suspendisse interdum facilisis eros ac tincidunt. Integer vulputate in orci a commodo. Pellentesque sed nulla tristique, hendrerit urna sodales, porttitor elit. Sed odio purus, dignissim ac lacus at, sagittis ultricies leo. Maecenas at ante malesuada, efficitur nisi quis, volutpat libero. Praesent ut mattis metus. Aliquam erat volutpat. Pellentesque egestas molestie nisl sit amet auctor. Proin vel porttitor lorem, at cursus metus. Vivamus cursus ullamcorper sem, et lobortis libero.\",\n" +
+"}");
             Set keys = json.keySet();
             Object[] array = keys.toArray();
             String key = "";
@@ -997,7 +1006,7 @@ public class home extends javax.swing.JFrame {
                     }
                     ComboItem noticia = elements.get(counter);
                     label1.setText(noticia.getValue());
-                    label2.setText(noticia.getLabel());
+                    areaNoti.setText(noticia.getLabel());
                     counter++;
                 }
             };
@@ -1005,8 +1014,8 @@ public class home extends javax.swing.JFrame {
             Timer timer = new Timer("MyTimer");//create a new Timer
 
             timer.scheduleAtFixedRate(timerTask, 30, 10000);
-        } catch (IOException ex) {
+       /* } catch (IOException ex) {
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }
 }
