@@ -5,6 +5,7 @@
  */
 package puntonaranja;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,7 @@ public class CambioContraseña extends javax.swing.JFrame {
         initComponents();
         file=new auth();
         setLocationRelativeTo(null);
+        keyListeners();
     }
     public CambioContraseña(boolean firstTime) {
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
@@ -52,6 +54,7 @@ public class CambioContraseña extends javax.swing.JFrame {
             lblId.setVisible(false);            
         }
          setLocationRelativeTo(null);
+         keyListeners();
     }
 
     /**
@@ -207,6 +210,59 @@ public class CambioContraseña extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void keyListeners(){
+        txtAgain.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton1MouseClicked(null);
+                }             
+            }
+         });
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton1MouseClicked(null);
+                }             
+            }
+         });
+        txtNew.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                   jButton1MouseClicked(null);
+                }             
+            }
+         });
+        txtOld.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton1MouseClicked(null);
+                }             
+            }
+         });
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton1MouseClicked(null);
+                }             
+            }
+         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton1MouseClicked(null);
+                }             
+            }
+         });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton2MouseClicked(null);
+                }             
+            }
+         });
+    }
+    
+    
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         if(firstTime){
             createUser();

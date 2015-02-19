@@ -6,6 +6,7 @@
 package puntonaranja;
 
 import java.awt.Menu;
+import java.awt.event.KeyEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
@@ -56,13 +57,50 @@ public class Recargas extends javax.swing.JFrame {
         kolbiIcon = new ImageIcon("src/puntonaranja/resurces/kolbi.jpg");
         fullIcon = new ImageIcon("src/puntonaranja/resurces/fullemovil.png");
         lblImg.setIcon(kolbiIcon);
+        keyListeners();
     }
  void cambioOperadora(String operadora,Icon ic){
         this.operadora=operadora;
         this.ic=ic;
         cmbOperadora.setSelectedItem(operadora);    
     }
-
+private void keyListeners(){
+        txtMonto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton3ActionPerformed(null);
+                }             
+            }
+         });
+        txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton3ActionPerformed(null);
+                }             
+            }
+         });
+        jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton3ActionPerformed(null);
+                }             
+            }
+         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                   jButton1MouseClicked(null);
+                }             
+            }
+         });
+        jButton4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                   jButton4MouseClicked(null);
+                }             
+            }
+         });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
