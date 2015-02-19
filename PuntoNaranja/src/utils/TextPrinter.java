@@ -244,14 +244,16 @@ pjob.setJobName("job");
          }
     }
 
-    public void setPrinter() throws IOException { 
+    public boolean setPrinter() throws IOException { 
                   //PrinterJob job = PrinterJob.getPrinterJob();
          pjob.setPrintable(this);
          boolean ok = pjob.printDialog();
+         
          if (ok) {
             new auth().escribeFichero(pjob.getPrintService().getName(),"Sesion/defaultPrinter.txt");
-              
+            return true;
          }
+         return false;
     }
     public void startPrinter(Boolean selected, int cual,Boolean caja) {
  

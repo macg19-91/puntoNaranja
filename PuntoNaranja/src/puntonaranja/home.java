@@ -5,6 +5,7 @@
  */
 package puntonaranja;
 
+import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -69,6 +70,7 @@ public class home extends javax.swing.JFrame {
         exportar=new exportaVentas();
         loadNews();
         txtSaldo.setText(ConfirmaRecarga.consultaSaldo());
+        keyListeners();
     }
 
     /**
@@ -80,10 +82,10 @@ public class home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnRecargas = new javax.swing.JButton();
+        btnPines = new javax.swing.JButton();
+        btnServicios = new javax.swing.JButton();
+        btnCaja = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -107,7 +109,7 @@ public class home extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtSaldo = new javax.swing.JTextField();
         lblNaranja = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -126,45 +128,45 @@ public class home extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton1.setText("Recargas");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnRecargas.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnRecargas.setText("Recargas");
+        btnRecargas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnRecargasMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRecargas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRecargasActionPerformed(evt);
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton4.setText("Venta de Pines");
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnPines.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnPines.setText("Venta de Pines");
+        btnPines.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton4MouseClicked(evt);
+                btnPinesMouseClicked(evt);
             }
         });
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnPines.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnPinesActionPerformed(evt);
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton5.setText("Servicios Públicos");
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnServicios.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnServicios.setText("Servicios Públicos");
+        btnServicios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton5MouseClicked(evt);
+                btnServiciosMouseClicked(evt);
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jButton6.setText("Cierre de caja");
-        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCaja.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnCaja.setText("Cierre de caja");
+        btnCaja.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton6MouseClicked(evt);
+                btnCajaMouseClicked(evt);
             }
         });
 
@@ -445,7 +447,7 @@ public class home extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -471,11 +473,11 @@ public class home extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton7.setText("Cerrar");
-        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCerrar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnCerrar.setText("Cerrar");
+        btnCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton7MouseClicked(evt);
+                btnCerrarMouseClicked(evt);
             }
         });
 
@@ -540,18 +542,18 @@ public class home extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(btnRecargas, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                                    .addComponent(btnServicios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(btnPines, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                                    .addComponent(btnCaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(jTabbedPane1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -572,12 +574,12 @@ public class home extends javax.swing.JFrame {
                         .addComponent(lblNaranja, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnPines, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRecargas, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCaja, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
@@ -588,7 +590,7 @@ public class home extends javax.swing.JFrame {
                             .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                        .addComponent(btnCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -596,7 +598,43 @@ public class home extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void keyListeners(){
+        btnCaja.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   btnCajaMouseClicked(null);
+                }             
+            }
+         });
+        btnCerrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   btnCerrarMouseClicked(null);
+                }             
+            }
+         });
+        btnPines.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   btnPinesMouseClicked(null);
+                }             
+            }
+         });
+        btnRecargas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   btnRecargasMouseClicked(null);
+                }             
+            }
+         });
+        btnServicios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   btnServiciosMouseClicked(null);
+                }             
+            }
+         });
+    }
     private void llenaTabla(){
         //DefaultTableModel model = new DefaultTableModel();
         //tblBitacora = new JTable(model);
@@ -620,20 +658,20 @@ public class home extends javax.swing.JFrame {
         //model.addRow(new Object[]{"30/01/2015", "10:30:20", "Kolbi","87878787","1000"});
     }
     
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnPinesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPinesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnPinesActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btnRecargasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRecargasMouseClicked
         // TODO add your handling code here:
         //JOptionPane.showMessageDialog(null, "Going out");
         
         recargas.setVisible(true);
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_btnRecargasMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRecargasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRecargasActionPerformed
 /**/
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
         // TODO add your handling code here:
@@ -706,15 +744,15 @@ public class home extends javax.swing.JFrame {
         recargas.setVisible(true);
     }//GEN-LAST:event_lblKolbiMouseClicked
 
-    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+    private void btnPinesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPinesMouseClicked
         // TODO add your handling code here:
         pines.setVisible(true);
-    }//GEN-LAST:event_jButton4MouseClicked
+    }//GEN-LAST:event_btnPinesMouseClicked
 
-    private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
+    private void btnServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnServiciosMouseClicked
         // TODO add your handling code here:
         servP.setVisible(true);
-    }//GEN-LAST:event_jButton5MouseClicked
+    }//GEN-LAST:event_btnServiciosMouseClicked
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
         try {
@@ -820,12 +858,12 @@ public class home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3MouseClicked
 
-    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+    private void btnCajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCajaMouseClicked
         // TODO add your handling code here:
         caja.calculaCierre();
         caja.setSaldo();
         caja.setVisible(true);
-    }//GEN-LAST:event_jButton6MouseClicked
+    }//GEN-LAST:event_btnCajaMouseClicked
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         // TODO add your handling code here:
@@ -833,10 +871,10 @@ public class home extends javax.swing.JFrame {
         exportar.setVisible(true);
     }//GEN-LAST:event_jMenu1MouseClicked
 
-    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+    private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         // TODO add your handling code here:
         System.exit(0); 
-    }//GEN-LAST:event_jButton7MouseClicked
+    }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void menuPedirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPedirMouseClicked
         // TODO add your handling code here:
@@ -944,13 +982,13 @@ public class home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea areaNoti;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCaja;
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnPines;
+    private javax.swing.JButton btnRecargas;
+    private javax.swing.JButton btnServicios;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;

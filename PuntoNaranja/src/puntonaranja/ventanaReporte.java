@@ -5,8 +5,12 @@
  */
 package puntonaranja;
 
+import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utils.TextPrinter;
@@ -33,8 +37,26 @@ public class ventanaReporte extends javax.swing.JFrame {
         caja=false;
         cual=0;
         setLocationRelativeTo(null);
+        keyListeners();
     }
 
+ 
+private void keyListeners(){
+        jButton5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton5MouseClicked(null);
+                }             
+            }
+         });
+        jButton4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                   jButton4MouseClicked(null);
+                }             
+            }
+         });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -151,17 +173,29 @@ public class ventanaReporte extends javax.swing.JFrame {
     }
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
+        boolean sigue=false;
         try {
             
         String ruta = "Files/Sesion/defaultPrinter.txt";
         File archivo = new File(ruta);
-            if(archivo.exists())TextPrinter.test();
-       
-        TextPrinter print=new TextPrinter();
-        print.setLineas(areaReporte.getText().split("\n"));
-        print.startPrinter(selected,cual,caja);
-        this.setVisible(false);
-        JOptionPane.showMessageDialog(null, "Transaccion Completa");
+            if(archivo.exists()){
+                TextPrinter.test();
+                sigue=true;
+            }
+            else{
+            try {
+                sigue=new TextPrinter().setPrinter();
+            } catch (IOException ex) {
+                Logger.getLogger(ventanaReporte.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            }
+            if(sigue){
+                TextPrinter print=new TextPrinter();
+                print.setLineas(areaReporte.getText().split("\n"));
+                print.startPrinter(selected,cual,caja);
+                this.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Transaccion Completa");
+            }
          } catch (PrinterException ex) {
                     JOptionPane.showMessageDialog(null, "Revise su conexión a la impresora");
         }

@@ -5,6 +5,7 @@
  */
 package puntonaranja;
 
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,8 +39,24 @@ public class exportaVentas extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
         initComponents();
+        keyListeners();
     }
-
+private void keyListeners(){
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton1MouseClicked(null);
+                }             
+            }
+         });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                   jButton2MouseClicked(null);
+                }             
+            }
+         });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,6 +105,7 @@ public class exportaVentas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblBitacora.setFocusable(false);
         jScrollPane1.setViewportView(tblBitacora);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N

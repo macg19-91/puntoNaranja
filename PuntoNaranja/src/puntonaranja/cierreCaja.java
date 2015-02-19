@@ -5,6 +5,7 @@
  */
 package puntonaranja;
 
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,7 +44,7 @@ public class cierreCaja extends javax.swing.JFrame {
         fechaSelected="";
         txtTotal.setText("0");
         cargaCombos();
-        
+        keyListeners();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -278,7 +279,65 @@ public class cierreCaja extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+private void keyListeners(){
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton1MouseClicked(null);
+                }             
+            }
+         });
+        txtFinal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                    if(jButton1.isVisible()) jButton1MouseClicked(null);
+                }             
+            }
+         });
+        jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton3MouseClicked(null);
+                }             
+            }
+         });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                   jButton2MouseClicked(null);
+                }             
+            }
+         });
+        txtPines.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                    if(jButton1.isVisible()) jButton1MouseClicked(null);
+                }             
+            }
+         });
+        txtRecargas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                    if(jButton1.isVisible()) jButton1MouseClicked(null);
+                }             
+            }
+         });
+        txtServicios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                    if(jButton1.isVisible()) jButton1MouseClicked(null);
+                }             
+            }
+         });
+        txtTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                    if(jButton1.isVisible()) jButton1MouseClicked(null);
+                }             
+            }
+         });
+    }
+    
     
     public void setSaldo(){
         txtFinal.setText(Static.getSaldo());

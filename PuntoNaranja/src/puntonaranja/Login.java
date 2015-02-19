@@ -47,6 +47,28 @@ public class Login extends javax.swing.JFrame {
                 }             
             }
          });
+        btnAceptar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   btnAceptarMouseClicked(null);
+                }             
+            }
+         });
+        
+        this.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   btnAceptarMouseClicked(null);
+                }             
+            }
+         });
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton2MouseClicked(null);
+                }             
+            }
+         });
     }
 
     /**

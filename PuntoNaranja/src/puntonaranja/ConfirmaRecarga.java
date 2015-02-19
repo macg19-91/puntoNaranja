@@ -5,6 +5,7 @@
  */
 package puntonaranja;
 
+import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
 import static java.lang.Integer.parseInt;
 import java.net.SocketException;
@@ -48,7 +49,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         lblMonto.setText(mont);
         lblNum.setText(num);
         this.tipo=tipo;
-        
+        keyListeners();
         switch (tipo) {
                 case "Recargas":
                     jLabel4.setText("Numero:");
@@ -226,6 +227,31 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void keyListeners(){
+        txtPagar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton3MouseClicked(null);
+                }             
+            }
+         });
+        jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   jButton3MouseClicked(null);
+                }             
+            }
+         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                   jButton1MouseClicked(null);
+                }             
+            }
+         });
+    }
+    
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         this.setVisible(false);

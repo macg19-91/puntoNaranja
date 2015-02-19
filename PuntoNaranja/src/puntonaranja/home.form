@@ -103,20 +103,20 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="txtSaldo" min="-2" pref="144" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton7" min="-2" pref="127" max="-2" attributes="0"/>
+                      <Component id="btnCerrar" min="-2" pref="127" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButton1" pref="281" max="32767" attributes="0"/>
-                                  <Component id="jButton5" max="32767" attributes="0"/>
+                                  <Component id="btnRecargas" pref="281" max="32767" attributes="0"/>
+                                  <Component id="btnServicios" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButton4" pref="281" max="32767" attributes="0"/>
-                                  <Component id="jButton6" max="32767" attributes="0"/>
+                                  <Component id="btnPines" pref="281" max="32767" attributes="0"/>
+                                  <Component id="btnCaja" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jTabbedPane1" max="32767" attributes="0"/>
@@ -147,13 +147,13 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton4" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
+                          <Component id="btnPines" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
+                          <Component id="btnRecargas" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton5" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="jButton6" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
+                          <Component id="btnServicios" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
+                          <Component id="btnCaja" alignment="3" min="-2" pref="75" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jTabbedPane1" min="-2" pref="283" max="-2" attributes="0"/>
@@ -169,7 +169,7 @@
                       <EmptySpace min="29" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="jButton7" pref="40" max="32767" attributes="0"/>
+                      <Component id="btnCerrar" pref="40" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -178,7 +178,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnRecargas">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="1"/>
@@ -186,11 +186,11 @@
         <Property name="text" type="java.lang.String" value="Recargas"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRecargasMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRecargasActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="btnPines">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="1"/>
@@ -198,11 +198,11 @@
         <Property name="text" type="java.lang.String" value="Venta de Pines"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton4MouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnPinesMouseClicked"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPinesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="btnServicios">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="1"/>
@@ -210,10 +210,10 @@
         <Property name="text" type="java.lang.String" value="Servicios P&#xfa;blicos"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton5MouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnServiciosMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JButton" name="btnCaja">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="1"/>
@@ -221,7 +221,7 @@
         <Property name="text" type="java.lang.String" value="Cierre de caja"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton6MouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCajaMouseClicked"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
@@ -419,7 +419,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -435,7 +435,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -451,7 +451,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -467,7 +467,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -483,7 +483,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -499,7 +499,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -515,7 +515,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel2"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Cursor Por defecto"/>
+                  <Color id="Default Cursor"/>
                 </Property>
               </Properties>
               <Events>
@@ -559,7 +559,7 @@
                       <Component id="jScrollPane1" min="-2" pref="197" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton2" pref="41" max="32767" attributes="0"/>
+                          <Component id="jButton2" max="32767" attributes="0"/>
                           <Component id="jButton3" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -675,7 +675,7 @@
         </Property>
         <Property name="text" type="java.lang.String" value="jLabel2"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Cursor Por defecto"/>
+          <Color id="Default Cursor"/>
         </Property>
       </Properties>
       <Events>
@@ -683,7 +683,7 @@
         <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblNaranjaMouseExited"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton7">
+    <Component class="javax.swing.JButton" name="btnCerrar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="24" style="0"/>
@@ -691,7 +691,7 @@
         <Property name="text" type="java.lang.String" value="Cerrar"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton7MouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCerrarMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>
