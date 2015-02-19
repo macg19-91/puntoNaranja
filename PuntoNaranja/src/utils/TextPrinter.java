@@ -266,7 +266,7 @@ pjob.setJobName("job");
              try {
                   pjob.print();
              } catch (PrinterException ex) {
-              /* The job did not successfully complete */
+              JOptionPane.showMessageDialog(null, "Revise su conexión a la impresora");
              }
         // }
     }

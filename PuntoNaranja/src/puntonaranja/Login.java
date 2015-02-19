@@ -36,7 +36,7 @@ public class Login extends javax.swing.JFrame {
         txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
-                 aceptar();
+                   btnAceptarMouseClicked(null);
                 }             
             }
          });
