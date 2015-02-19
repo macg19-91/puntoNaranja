@@ -156,14 +156,15 @@ public class ventanaReporte extends javax.swing.JFrame {
         String ruta = "Files/Sesion/defaultPrinter.txt";
         File archivo = new File(ruta);
             if(archivo.exists())TextPrinter.test();
-        } catch (PrinterException ex) {
-            //Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
         TextPrinter print=new TextPrinter();
         print.setLineas(areaReporte.getText().split("\n"));
         print.startPrinter(selected,cual,caja);
         this.setVisible(false);
         JOptionPane.showMessageDialog(null, "Transaccion Completa");
+         } catch (PrinterException ex) {
+                    JOptionPane.showMessageDialog(null, "Revise su conexión a la impresora");
+        }
         //new home().setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked
 

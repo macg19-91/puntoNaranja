@@ -7,6 +7,8 @@ package puntonaranja;
 
 import java.awt.print.PrinterException;
 import static java.lang.Integer.parseInt;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -253,11 +255,13 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Error de conexión, revise su conexión a internet o comuníquese con el proveedor", "Error", JOptionPane.ERROR_MESSAGE );
+                    
         }
             return resp;
     }
     
-    private void recargas(){
+    private void recargas() {
         try {
             // TODO add your handling code here:
             String selected = operador;
@@ -266,48 +270,56 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
             String proceso = "";
             String monto = mont;
             String celular = num;
-                            switch (selected) {
-                                case "Recarga Kolbi":
-                                operador = "200";
-                                producto = "11";
-                                proceso = "680000";
-                                break;
-
-                                case "Recarga TUYO MOVIL":
-                                operador = "18";
-                                producto = "12";
-                                proceso = "690000";
-                                break;
-
-                                case "Recarga FULLMOVIL":
-                                operador = "24";
-                                producto = "16";
-                                proceso = "240000";
-                                break;
-                            }
-                            Utilities util = new Utilities();
-                            Message msg = new Message();
-                            msg.recargaTiempoAire(monto, operador, producto, proceso, celular);
-                            Map<String, String> response = util.SendToServer(msg.buildString());
-                            msg.setMap(response);
-                            String resp = msg.getMsgResponse();
-                            if(resp != null){
-                                if(resp.equals("Transacción aprobada en forma exitosa")){
-                                    new auth().escribeFicheroPrint(monto,celular,selected,tipo);
-                                    consultaSaldo();
-                                    this.setVisible(false);
-                                    new ventanaReporte().setVisible(true);
-                                }else {
-                                    this.setVisible(false);
-                                    JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transaccion");
-                                }
-                            }else{
-                                    this.setVisible(false);
-                                    consultaErronea(response.get("39"));
-                            }
-            } catch (Exception ex) {
-            Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
+            switch (selected) {
+                case "Recarga Kolbi":
+                    operador = "200";
+                    producto = "11";
+                    proceso = "680000";
+                    break;
+                    
+                case "Recarga TUYO MOVIL":
+                    operador = "18";
+                    producto = "12";
+                    proceso = "690000";
+                    break;
+                    
+                case "Recarga FULLMOVIL":
+                    operador = "24";
+                    producto = "16";
+                    proceso = "240000";
+                    break;
+            }
+            
+            Utilities util = new Utilities();
+            
+            Message msg = new Message();
+            msg.recargaTiempoAire(monto, operador, producto, proceso, celular);
+            
+            Map<String, String> response = util.SendToServer(msg.buildString());
+            msg.setMap(response);
+            String resp = msg.getMsgResponse();
+            if(resp != null){
+                if(resp.equals("Transacción aprobada en forma exitosa")){
+                    new auth().escribeFicheroPrint(monto,celular,selected,tipo);
+                    consultaSaldo();
+                    this.setVisible(false);
+                    new ventanaReporte().setVisible(true);
+                }else {
+                    this.setVisible(false);
+                    JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transaccion");
+                }
+            }else{
+                this.setVisible(false);
+                consultaErronea(response.get("39"));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ConfirmaRecarga.class.getName()).log(Level.SEVERE, null, ex);
+            this.setVisible(false);
+            JOptionPane.showMessageDialog(null,"Error de conexión, transacción cancelada. \n Revise su conexión a internet o comuníquese con el proveedor", "Error", JOptionPane.ERROR_MESSAGE );
+            
         }
+           
+            
     }
     private void consultaErronea(String cod){
         JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: "+cod+", consulte con su proveedor");
@@ -412,6 +424,9 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                             }
         } catch (Exception ex) {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
+            this.setVisible(false);
+            JOptionPane.showMessageDialog(null,"Error de conexión, transacción cancelada. \n Revise su conexión a internet o comuníquese con el proveedor", "Error", JOptionPane.ERROR_MESSAGE );
+            
         }
     }
     
@@ -557,6 +572,9 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             Logger.getLogger(ConfirmaRecarga.class.getName()).log(Level.SEVERE, null, ex);
+            this.setVisible(false);
+            JOptionPane.showMessageDialog(null,"Error de conexión, transacción cancelada. \n Revise su conexión a internet o comuníquese con el proveedor", "Error", JOptionPane.ERROR_MESSAGE );
+            
         }
     }
 }
