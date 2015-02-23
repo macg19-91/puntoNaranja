@@ -24,6 +24,7 @@ import java.util.Random;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -150,9 +151,24 @@ public class Message {
     }  
     
     public void recargaTiempoAire(String monto,String operador,String producto,String proceso,String celular) throws UnknownHostException, SocketException{
-        NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+        String mac = "";
+        String ip = "";
+        NetworkInterface ni = null;
+        try{
+            ip = InetAddress.getLocalHost().getHostAddress();
+        }
+        catch(Exception e){
+            ip = "127.0.0.1";
+        }
+        try{
+            ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+            mac = ni.getHardwareAddress().toString();
+        }
+        catch(Exception e){
+            mac = "02-50-F2-CE-82-01";
+        }
         String recarga = operador + ","+producto+","+celular+","+usuario+","+dispersion(usuario,clave)+","+tienda;
-        String extraInfo = "H2H"+"|"+InetAddress.getLocalHost().getHostAddress()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
+        String extraInfo = "H2H"+"|"+ip+"|"+mac+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
         map.put("3",proceso);
