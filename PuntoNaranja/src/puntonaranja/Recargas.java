@@ -7,6 +7,7 @@ package puntonaranja;
 
 import java.awt.Menu;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
@@ -48,7 +49,10 @@ public class Recargas extends javax.swing.JFrame {
     ImageIcon kolbiIcon;
     ImageIcon tuyoIcon;
     ImageIcon fullIcon;
-    
+    private int limite  = 8;
+ 
+
+
     public Recargas() {
         initComponents();
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
@@ -100,6 +104,21 @@ private void keyListeners(){
                 }             
             }
          });
+        txtNumero.addKeyListener(new KeyListener(){
+
+        public void keyTyped(KeyEvent e)
+
+        {if (txtNumero.getText().length()== limite)
+
+             e.consume();
+        }
+
+        public void keyPressed(KeyEvent arg0) {
+        }
+
+        public void keyReleased(KeyEvent arg0) {
+        }
+        });
     }
     /**
      * This method is called from within the constructor to initialize the form.

@@ -320,19 +320,17 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
             
             Utilities util = new Utilities();
             
-            this.setVisible(false);
             Message msg = new Message();
-            JOptionPane.showMessageDialog(null, "iniciando transaccion");
             NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
             msg.recargaTiempoAire(monto, operador, producto, proceso, celular);
             Map<String, String> response = util.SendToServer(msg.buildString());
-            JOptionPane.showMessageDialog(null, "respuesta "+ response.get("39"));
             msg.setMap(response);
             String resp = msg.getMsgResponse();
             if(resp != null){
                 if(resp.equals("Transacción aprobada en forma exitosa")){
                     new auth().escribeFicheroPrint(monto,celular,selected,tipo);
                     consultaSaldo();
+                    this.setVisible(false);
                     new ventanaReporte().setVisible(true);
                 }else {
                     JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transaccion");
