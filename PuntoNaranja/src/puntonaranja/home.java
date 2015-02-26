@@ -71,6 +71,7 @@ public class home extends javax.swing.JFrame {
         loadNews();
         txtSaldo.setText(ConfirmaRecarga.consultaSaldo());
         keyListeners();
+        //keysAdded
     }
 
     /**
