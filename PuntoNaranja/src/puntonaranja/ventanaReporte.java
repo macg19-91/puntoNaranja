@@ -176,7 +176,7 @@ private void keyListeners(){
         boolean sigue=false;
         try {
             
-        String ruta = "Files/Sesion/defaultPrinter.txt";
+        String ruta = System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Sesion/defaultPrinter.txt";
         File archivo = new File(ruta);
             if(archivo.exists()){
                 TextPrinter.test();

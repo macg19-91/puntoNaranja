@@ -60,21 +60,21 @@ public class TextPrinter implements Printable {
         if(!caja){
         BufferedReader br;
         File Bitacora;
-       if(Static.isWindows()) Bitacora = new File("Files\\Bitacora");
-       else Bitacora = new File("Files/Bitacora");
+       if(Static.isWindows()) Bitacora = new File(System.getProperty("user.home")+"\\Documents\\Puntos Naranja\\Files\\Bitacora");
+       else Bitacora = new File(System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Bitacora");
         String[] lista=Bitacora.list();
         try {
             if(Static.isWindows()){
                 if(selected){
-                    br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));
+                    br = new BufferedReader(new FileReader(System.getProperty("user.home")+"\\Documents\\Puntos Naranja\\Files\\Bitacora\\"+lista[cual]));
                 }else{
-                    br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
+                    br = new BufferedReader(new FileReader(System.getProperty("user.home")+"\\Documents\\Puntos Naranja\\Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
                 }
             }else{
                 if(selected){
-                    br = new BufferedReader(new FileReader("Files/Bitacora/"+lista[cual]));
+                    br = new BufferedReader(new FileReader(System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Bitacora/"+lista[cual]));
                 }else{
-                    br = new BufferedReader(new FileReader("Files/Bitacora/"+lista[Bitacora.list().length-3]));
+                    br = new BufferedReader(new FileReader(System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Bitacora/"+lista[Bitacora.list().length-3]));
                 }
             }
             String line;
@@ -153,21 +153,21 @@ public class TextPrinter implements Printable {
         String reporte="";
         BufferedReader br;
          File Bitacora;
-       if(Static.isWindows()) Bitacora = new File("Files\\Bitacora");
-       else Bitacora = new File("Files/Bitacora");
+       if(Static.isWindows()) Bitacora = new File(System.getProperty("user.home")+"\\Documents\\Puntos Naranja\\Files\\Bitacora");
+       else Bitacora = new File(System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Bitacora");
         String[] lista=Bitacora.list();
         try {
             if(Static.isWindows()){
                 if(selected){
-                    br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));
+                    br = new BufferedReader(new FileReader(System.getProperty("user.home")+"\\Documents\\Puntos Naranja\\Files\\Bitacora\\"+lista[cual]));
                 }else{
-                    br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
+                    br = new BufferedReader(new FileReader(System.getProperty("user.home")+"\\Documents\\Puntos Naranja\\Files\\Bitacora\\"+lista[Bitacora.list().length-3]));
                 }
             }else{
                 if(selected){
-                    br = new BufferedReader(new FileReader("Files/Bitacora/"+lista[cual]));
+                    br = new BufferedReader(new FileReader(System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Bitacora/"+lista[cual]));
                 }else{
-                    br = new BufferedReader(new FileReader("Files/Bitacora/"+lista[Bitacora.list().length-3]));
+                    br = new BufferedReader(new FileReader(System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Bitacora/"+lista[Bitacora.list().length-3]));
                 }
             }
             String line;
