@@ -30,7 +30,8 @@ import org.w3c.dom.Document;
  */
 public class Utilities {
     String host = "190.26.241.209";
-    int port = 7001;
+    //int port = 7001;
+    int port = 7009;
     Socket socket = null;
     
     public Utilities(String _host, int _port) throws Exception{
