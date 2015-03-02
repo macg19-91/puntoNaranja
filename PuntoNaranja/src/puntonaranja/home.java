@@ -69,7 +69,13 @@ public class home extends javax.swing.JFrame {
         caja=new cierreCaja();
         exportar=new exportaVentas();
         loadNews();
-        txtSaldo.setText(ConfirmaRecarga.consultaSaldo());
+        ConfirmaRecarga.consultaSaldo();
+         if(Integer.parseInt(Static.getSaldo())>0) txtSaldo.setText(Static.getSaldo());
+         else{ 
+             txtSaldo.setText("0.0");             
+            JOptionPane.showMessageDialog(null,ConfirmaRecarga.consultaSaldo()+", no se pudo actualizar el saldo", "Error!", JOptionPane.ERROR_MESSAGE);
+         }
+
         keyListeners();
         //keysAdded
     }

@@ -267,7 +267,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3MouseClicked
         
-    public static String consultaSaldo(){
+   public static String consultaSaldo(){
         String resp="";
         try {
             // TODO add your handling code here:
@@ -277,17 +277,19 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
             Map<String, String> response = util.SendToServer(msg.buildString());
             msg.setMap(response);
             resp = msg.getMsgResponse();
-            if(resp.equals("Transacción aprobada en forma exitosa")){
+            if(resp.equals("TransacciÃ³n aprobada en forma exitosa")){
                 Static.setSaldo((Float.parseFloat(msg.getMsgMonto())/100)+"");
                 return (Float.parseFloat(msg.getMsgMonto())/100)+"";
             }
+                Static.setSaldo("0");
         } catch (Exception ex) {
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null,"Error de conexión, revise su conexión a internet o comuníquese con el proveedor", "Error", JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(null,"Error de conexiÃ³n, revise su conexiÃ³n a internet o comunÃ­quese con el proveedor", "Error", JOptionPane.ERROR_MESSAGE );
                     
         }
             return resp;
     }
+
     
     private void recargas() {
         try {
