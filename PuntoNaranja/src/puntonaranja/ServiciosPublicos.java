@@ -358,16 +358,16 @@ public class ServiciosPublicos extends javax.swing.JFrame {
         
          BufferedReader br;
         File Bitacora;
-        if(Static.isWindows())Bitacora = new File("Files\\Bitacora");
-        else Bitacora = new File("Files/Bitacora");
+        if(Static.isWindows())Bitacora = new File(System.getProperty("user.home")+"\\Documents\\Puntos Naranja\\Files\\Bitacora");
+        else Bitacora = new File(System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Bitacora");
         String[] lista=Bitacora.list();
         if(lista.length>0){
         int total=-1;
         try {
             int cual=lista.length-3;
             while(cual>=0){
-                if(Static.isWindows()) br = new BufferedReader(new FileReader("Files\\Bitacora\\"+lista[cual]));            
-                else br = new BufferedReader(new FileReader("Files/Bitacora/"+lista[cual]));    
+                if(Static.isWindows()) br = new BufferedReader(new FileReader(System.getProperty("user.home")+"\\Documents\\Puntos Naranja\\Files\\Bitacora\\"+lista[cual]));            
+                else br = new BufferedReader(new FileReader(System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Bitacora/"+lista[cual]));    
                 String line;
                 int cuenta=0;
                 String tipo="";
