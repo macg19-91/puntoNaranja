@@ -17,11 +17,14 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.*;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
+import javax.crypto.Cipher;
 import org.w3c.dom.Document;
 
 /**
@@ -37,7 +40,7 @@ public class Utilities {
     public Utilities(String _host, int _port) throws Exception{
         host = _host;
         port = _port;
-        socket = new Socket(host, port);
+        //socket = new Socket(host, port);
     }
     
     public Utilities() throws Exception{
@@ -81,31 +84,89 @@ public class Utilities {
         return result;
     }
     
+    public static void disableCertificateValidation() throws KeyManagementException, NoSuchAlgorithmException {
+        // Create a trust manager that does not validate certificate chains
+        TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+            }
+        };
+ 
+        // Install the all-trusting trust manager
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, trustAllCerts, new java.security.SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+ 
+        // Create all-trusting host name verifier
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+ 
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+      }
+    
     public Map<String, String> SendToServer(String msg) throws Exception{
+        //disableCertificateValidation();
         Map<String, String> result = new HashMap<>();
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         PrintStream out = System.out;
-        SSLSocketFactory f = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        //SSLSocketFactory f = (SSLSocketFactory) SSLSocketFactory.getDefault();
         try {
-           SSLSocket c = (SSLSocket) f.createSocket(host, port);
+           //SSLSocket c = (SSLSocket) f.createSocket(host, port);
+            SSLSocketFactory factory = null;
+            KeyManager[] km = null;
+            TrustManager[] tm = {new RelaxedX509TrustManager()};
+            SSLContext sslContext = SSLContext.getInstance("TLSv1");
+            sslContext.init(null, tm, new java.security.SecureRandom());
+            factory = sslContext.getSocketFactory();
+            SSLSocket c = (SSLSocket)factory.createSocket(host, port);
+            String[] supportedCiphers = factory.getDefaultCipherSuites();
+            System.out.println("Ciphers: " + supportedCiphers.length);
+            for(int i = 0; i < supportedCiphers.length; i++)
+            {
+                System.out.println("  " + supportedCiphers[i]);
+            }
+
+            System.out.println(); 
            printSocketInfo(c);
-           c.startHandshake();
+           //c.startHandshake();
            BufferedWriter w = new BufferedWriter(new OutputStreamWriter(c.getOutputStream()));
-           w.write(msg);
+           SSLSession ss = c.getSession();
+           System.out.println(msg);
+           w.append(msg);
+           System.out.println("send..");
+           w.flush();
+           //w.write(msg);
+           //w.flush();
            BufferedReader r = new BufferedReader(new InputStreamReader(c.getInputStream()));
            String lineread = "";
            String[] parts;
-            while ((lineread = r.readLine()) != null){
-                System.out.println(lineread);
-                if(lineread.equals("</isomsg>")){
-                    break;
-                }
-                if(!lineread.equals("<isomsg>")){
-                    parts = lineread.split("id=\"");
-                    String part1 = parts[1];
-                    result.put(part1.split("\"")[0],part1.split("\"")[2]);
-                }
-            }
+           try{
+                lineread = r.readLine();
+           }
+           catch(Exception e){
+               System.err.println(e.toString());
+           }
+           System.out.println(lineread);
+//            while ((lineread = r.readLine()) != null){
+//                System.out.println(lineread);
+//                if(lineread.equals("</isomsg>")){
+//                    break;
+//                }
+//                if(!lineread.equals("<isomsg>")){
+//                    parts = lineread.split("id=\"");
+//                    String part1 = parts[1];
+//                    result.put(part1.split("\"")[0],part1.split("\"")[2]);
+//                }
+//            }
            w.close();
            r.close();
            c.close();
@@ -140,4 +201,15 @@ public class Utilities {
         System.out.println("   Cipher suite = "+ss.getCipherSuite());
         System.out.println("   Protocol = "+ss.getProtocol());
     }
+}
+
+
+class RelaxedX509TrustManager implements X509TrustManager {
+     public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+          return null;
+     }
+     public void checkClientTrusted(
+          java.security.cert.X509Certificate[] chain, String authType) {}
+     public void checkServerTrusted(
+          java.security.cert.X509Certificate[] chain, String authType) {}
 }
