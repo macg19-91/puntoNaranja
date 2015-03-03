@@ -306,8 +306,8 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             msg.consultaServiciosPublicos(selected.getValue(), identificador, "", "");
             Map<String, String> response = util.SendToServer(msg.buildString());
             msg.setMap(response);
-            String resp = msg.getMsgResponse();
             
+            String resp = msg.getMsgResponse();
              if(resp != null){
                 if(resp.equals("Transacción aprobada en forma exitosa")){
                     new ConfirmaRecarga(response.get("4") ,identificador,selected.getLabel(),"Servicios",response.get("62"),"").setVisible(true);
