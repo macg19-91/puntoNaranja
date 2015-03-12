@@ -22,17 +22,15 @@ public class Login extends javax.swing.JFrame {
      */
     auth file; 
     CambioContraseña change=new CambioContraseña(true);
+    private static void toogleEnable(boolean enable){
+       
+    }
     public Login() {
         file=new auth();
         initComponents();
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
             setLocationRelativeTo(null);
-        if(!file.firstLogin()){
-            JOptionPane.showMessageDialog(null,"No hay usuario registrado, debe ingresar los datos del nuevo Usuario", "Atencion!", JOptionPane.INFORMATION_MESSAGE );
-            this.setFocusable(false);
-            change.setVisible(true);
-        }
         txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
@@ -69,6 +67,11 @@ public class Login extends javax.swing.JFrame {
                 }             
             }
          });
+        if(!file.firstLogin()){
+            JOptionPane.showMessageDialog(null,"No hay usuario registrado, debe ingresar los datos del nuevo Usuario", "Atención!", JOptionPane.INFORMATION_MESSAGE );
+            this.setFocusable(false);
+            change.setVisible(true);
+        }
     }
 
     /**
@@ -220,7 +223,7 @@ public class Login extends javax.swing.JFrame {
     
     private void aceptar(){
         if(!file.firstLogin()){
-            JOptionPane.showMessageDialog(null,"No hay usuario registrado, debe ingresar los datos del nuevo Usuario", "Atencion!", JOptionPane.INFORMATION_MESSAGE );
+            JOptionPane.showMessageDialog(null,"No hay usuario registrado, debe ingresar los datos del nuevo Usuario", "Atención!", JOptionPane.INFORMATION_MESSAGE );
             change.setVisible(true);
         }else{
             if(txtUser.getText().equals(file.leerArchivo("Sesion\\archivoUser.txt"))||txtUser.getText().equals(file.leerArchivo("Sesion/archivoUser.txt"))){

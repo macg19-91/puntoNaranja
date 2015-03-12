@@ -197,7 +197,7 @@ private void keyListeners(){
                 JOptionPane.showMessageDialog(null, "Transaccion Completa");
             }
          } catch (PrinterException ex) {
-                    JOptionPane.showMessageDialog(null, "Revise su conexión a la impresora");
+                    JOptionPane.showMessageDialog(null, "Revise la conexión a la impresora");
         }
         //new home().setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked

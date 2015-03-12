@@ -82,7 +82,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setText("Servicios Publicos");
+        jLabel1.setText("Servicios Públicos");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Servicio");
@@ -397,7 +397,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             reporte.printSelected(total);
             reporte.setVisible(true);
         }else{
-            JOptionPane.showMessageDialog(null,"No hay recibos para imprimir", "Atención!", JOptionPane.WARNING_MESSAGE );
+            JOptionPane.showMessageDialog(null,"No hao hy recibos para imprimir", "Atención!", JOptionPane.WARNING_MESSAGE );
         }
         }
     }//GEN-LAST:event_jButton5MouseClicked

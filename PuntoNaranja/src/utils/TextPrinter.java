@@ -268,7 +268,7 @@ pjob.setJobName("job");
              try {
                   pjob.print();
              } catch (PrinterException ex) {
-              JOptionPane.showMessageDialog(null, "Revise su conexión a la impresora");
+              JOptionPane.showMessageDialog(null, "Revise la conexión a la impresora");
              }
         // }
     }
