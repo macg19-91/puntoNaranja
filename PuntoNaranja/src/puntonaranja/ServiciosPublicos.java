@@ -45,7 +45,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
      */
     public ServiciosPublicos() {
         initComponents();
-        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());
         loadCombo();
         keyListeners();
@@ -298,30 +298,30 @@ public class ServiciosPublicos extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             // TODO add your handling code here:
-//            ComboItem selected = (ComboItem) cmbOperadora.getSelectedItem();
-//            String identificador = txtNumero.getText();
-//            if(!identificador.equals("")){
-//            Utilities util = new Utilities();
-//            Message msg = new Message();
-//            msg.consultaServiciosPublicos(selected.getValue(), identificador, "", "");
-//            Map<String, String> response = util.SendToServer(msg.buildString());
-//            msg.setMap(response);
-//            
-//            String resp = msg.getMsgResponse();
-//             if(resp != null){
-//                if(resp.equals("Transacción aprobada en forma exitosa")){
-//                    new ConfirmaRecarga(response.get("4") ,identificador,selected.getLabel(),"Servicios",response.get("62"),"",response.get("63")).setVisible(true);
-//                }else {
-//                                    JOptionPane.showMessageDialog(null, resp+", intente de nuevo");
-//                                    txtNumero.setText("");
-//                                }
-//            }else{
-//                this.setVisible(false);
-//                JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: "+response.get("39")+", consulte con su proveedor");
-//            }
-            new ConfirmaRecarga("2000" ,"10201","ICE","Servicios","1111","","Numero recibo : 034411410126032034 |Vencimiento : 09/04/2014|Moneda : COL|Monto : 6,330.00;").setVisible(true);
-            //txtNumero.setText("");
-            //}else  JOptionPane.showMessageDialog(null, "Digite un valor para continuar");
+            ComboItem selected = (ComboItem) cmbOperadora.getSelectedItem();
+            String identificador = txtNumero.getText();
+            if(!identificador.equals("")){
+            Utilities util = new Utilities();
+            Message msg = new Message();
+            msg.consultaServiciosPublicos(selected.getValue(), identificador, "", "");
+            Map<String, String> response = util.SendToServer(msg.buildString());
+            msg.setMap(response);
+            
+            String resp = msg.getMsgResponse();
+             if(resp != null){
+                if(resp.equals("Transacción aprobada en forma exitosa")){
+                    new ConfirmaRecarga(response.get("4") ,identificador,selected.getLabel(),"Servicios",response.get("62"),"",response.get("63")).setVisible(true);
+                }else {
+                                    JOptionPane.showMessageDialog(null, resp+", intente de nuevo");
+                                    txtNumero.setText("");
+                                }
+            }else{
+                this.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: "+response.get("39")+", consulte con su proveedor");
+            }
+           // new ConfirmaRecarga("2000" ,"10201","ICE","Servicios","1111","","Numero recibo : 034411410126032034 |Vencimiento : 09/04/2014|Moneda : COL|Monto : 6,330.00;").setVisible(true);
+            txtNumero.setText("");
+            }else  JOptionPane.showMessageDialog(null, "Digite un valor para continuar");
 
             
         } catch (Exception ex) {
@@ -458,10 +458,10 @@ public class ServiciosPublicos extends javax.swing.JFrame {
 
     private void loadCombo() {
         ArrayList<ComboItem> items = new ArrayList<ComboItem>();
-        //Message mg = new Message();
-       // mg.pupulateServiciosMap();
-       // JSONObject json = mg.getServiciosMap();
-        JSONObject json =new JSONObject("{\n" +
+        Message mg = new Message();
+        mg.pupulateServiciosMap();
+        JSONObject json = mg.getServiciosMap();
+        /*JSONObject json =new JSONObject("{\n" +
 "    \"004103\": \"Telecable - Cobro de servicios de cable\",\n" +
 "    \"004003\": \"Cablevision - Cobro de servicios de cable\",\n" +
 "    \"024047\": \"SKY - Cobro de servicios de cable\",\n" +
@@ -475,7 +475,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
 "    \"005001\": \"ESPH - Electricidad\",\n" +
 "    \"005002\": \"ESPH - Agua\",\n" +
 "    \"124137\": \"Recargas Kolbi - PTN\"\n" +
-"}");
+"}");*/
         Set keys = json.keySet();
         Object[] array = keys.toArray();
         String key = "";

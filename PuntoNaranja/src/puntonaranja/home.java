@@ -59,7 +59,7 @@ public class home extends javax.swing.JFrame {
         Static stat=new Static();
         if(!Static.getPass())menuPedir.setText("Pedir Contraseña: NO");
         else menuPedir.setText("Pedir Contraseña: SI");        
-        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());
         files=new int[10];
         ventanaPass= new CambioContraseña(false);
@@ -70,7 +70,7 @@ public class home extends javax.swing.JFrame {
         exportar=new exportaVentas();
         loadNews();
         ConfirmaRecarga.consultaSaldo();
-         if(Integer.parseInt(Static.getSaldo())>0) txtSaldo.setText(Static.getSaldo());
+         if(Float.parseFloat(Static.getSaldo())>0) txtSaldo.setText(Static.getSaldo());
          else{ 
              txtSaldo.setText("0.0");             
             JOptionPane.showMessageDialog(null,ConfirmaRecarga.consultaSaldo()+", no se pudo actualizar el saldo", "Error!", JOptionPane.ERROR_MESSAGE);
@@ -1027,14 +1027,14 @@ public class home extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void loadNews() {
-       // try {
+        try {
             httpCall hc = new httpCall();
-            //json = hc.call("noticias");
-            json =new JSONObject("{\n" +
+            json = hc.call("noticias");
+           /* json =new JSONObject("{\n" +
 "    \"Noticia 1\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non mi rutrum, gravida erat ac, accumsan eros. Cras vehicula erat ac orci mattis cursus non nec felis. Donec at risus quam. Sed vel ultrices leo. Aenean urna turpis, volutpat in aliquam eu, egestas at eros. Proin dictum ultrices lacus, consectetur iaculis ligula suscipit ac. Vivamus tempus semper arcu, nec lacinia metus gravida id. Curabitur lobortis nunc at maximus pellentesque. Nullam nec sollicitudin massa. Nulla metus quam, vestibulum eu sollicitudin a, cursus at eros. Cras hendrerit sapien vitae est elementum, a pulvinar felis sagittis.\",\n" +
 "    \"Noticia 2\": \"Vestibulum elementum leo sed justo tristique porta. Quisque eleifend dolor et cursus aliquam. Proin mollis ultrices iaculis. Aenean porttitor auctor risus, sit amet mattis nibh rhoncus in. Morbi in sem tellus. Nullam dignissim faucibus purus a blandit. Sed id suscipit odio. Sed ut leo luctus, viverra odio non, blandit risus.\",\n" +
 "    \"Noticia 3\": \"Sed rutrum porta faucibus. Suspendisse interdum facilisis eros ac tincidunt. Integer vulputate in orci a commodo. Pellentesque sed nulla tristique, hendrerit urna sodales, porttitor elit. Sed odio purus, dignissim ac lacus at, sagittis ultricies leo. Maecenas at ante malesuada, efficitur nisi quis, volutpat libero. Praesent ut mattis metus. Aliquam erat volutpat. Pellentesque egestas molestie nisl sit amet auctor. Proin vel porttitor lorem, at cursus metus. Vivamus cursus ullamcorper sem, et lobortis libero.\",\n" +
-"}");
+"}");*/
             Set keys = json.keySet();
             Object[] array = keys.toArray();
             String key = "";
@@ -1060,8 +1060,8 @@ public class home extends javax.swing.JFrame {
             Timer timer = new Timer("MyTimer");//create a new Timer
 
             timer.scheduleAtFixedRate(timerTask, 30, 10000);
-       /* } catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }
 }

@@ -31,7 +31,7 @@ public class ventanaReporte extends javax.swing.JFrame {
     boolean caja;
     public ventanaReporte() {
         initComponents();
-        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());
         areaReporte.setText(new TextPrinter().loadFileToArea(false,0));
         selected=false;

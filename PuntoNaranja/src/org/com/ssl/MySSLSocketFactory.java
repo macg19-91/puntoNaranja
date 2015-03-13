@@ -116,7 +116,7 @@ public class MySSLSocketFactory {
 
             KeyStore ks = KeyStore.getInstance("JKS");
             //InputStream fis = new FileInputStream(new File(keyStore));
-            InputStream fis = getClass().getResourceAsStream("/mykeystore.keystore"); 
+            InputStream fis = getClass().getResourceAsStream("/puntonaranja/resurces/mykeystore.keystore"); 
             //BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             
             //InputStream fis = new FileInputStream(new File(getClass().getResourceAsStream("/mykeystore.keystore").toString()));

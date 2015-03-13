@@ -38,7 +38,7 @@ public class cierreCaja extends javax.swing.JFrame {
     String fechaSelected;
     public cierreCaja() {
         initComponents();
-        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());
         jButton1.setVisible(false);
         fechaSelected="";
