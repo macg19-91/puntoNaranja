@@ -51,7 +51,6 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         lblMonto.setText(mont);
         lblNum.setText(num);
         this.tipo=tipo;
-        keyListeners();
         switch (tipo) {
                 case "Recargas":
                     jLabel6.setVisible(true);
@@ -81,6 +80,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                     lblNum.setVisible(true);
                 break;
             }
+        keyListeners();
     }
 
     /**
