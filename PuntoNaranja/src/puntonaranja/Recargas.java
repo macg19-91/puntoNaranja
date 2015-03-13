@@ -319,7 +319,7 @@ private void keyListeners(){
                             JOptionPane.showMessageDialog(null, "Por favor ingrese un número celular válido");
                         }
                         else{
-                            new ConfirmaRecarga(txtMonto.getText(),txtNumero.getText(),selected,"Recargas","","").setVisible(true);
+                            new ConfirmaRecarga(txtMonto.getText(),txtNumero.getText(),selected,"Recargas","","","").setVisible(true);
                             txtMonto.setText("");
                             txtNumero.setText("");
                         }
