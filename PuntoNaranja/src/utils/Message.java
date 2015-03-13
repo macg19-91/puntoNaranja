@@ -276,16 +276,16 @@ public class Message {
     }
     
     public String buildString() throws ParserConfigurationException, SAXException, IOException{
-        String values = "<"+parent+">\r\n";
+        String values = "<"+parent+">\n\r";
         ArrayList<Integer> ordenada= new ArrayList<>();
         for ( String key : map.keySet() ) {
             ordenada.add(Integer.parseInt(key));                
         }
         Collections.sort(ordenada);
         for (Integer ordenada1 : ordenada) {
-            values += "<field id=\"" + Integer.toString(ordenada1) + "\" value=\"" + map.get(Integer.toString(ordenada1)) + "\"/>\r\n";
+            values += "<field id=\"" + Integer.toString(ordenada1) + "\" value=\"" + map.get(Integer.toString(ordenada1)) + "\"/>\n\r";
         }
-        values += "</"+parent+">";
+        values += "</"+parent+">\n\r";
         return values;
     }
     

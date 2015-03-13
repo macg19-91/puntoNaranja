@@ -16,6 +16,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -47,7 +48,7 @@ public class Utilities {
         socket = new Socket(host, port);
     }
     
-    public Map<String, String> SendToServer(String msg) throws Exception{
+    public Map<String, String> SendToServerNoSsl(String msg) throws Exception{
         //create output stream attached to socket
         String serverName = host;
         Map<String, String> result = new HashMap<String, String>();
@@ -174,6 +175,78 @@ public class Utilities {
            System.err.println(e.toString());
         }
         return result;
+    }
+    
+    public  Map<String, String> SendToServer(String msg) {
+        Map<String, String> result = new HashMap<>();
+        try {
+
+            org.com.ssl.MySSLSocketFactory sslsocketfactory = (org.com.ssl.MySSLSocketFactory) getSunJSSESocketFactory();
+            SSLSocket sslsocket = (SSLSocket) sslsocketfactory.createSocket("190.26.241.209", 7009);
+            sslsocket.setSoLinger(true, 0);
+            sslsocket.setSoTimeout(60000);
+
+            printSocketInfo(sslsocket);
+
+            InputStream inputstream = sslsocket.getInputStream();
+            InputStreamReader inputstreamreader = new InputStreamReader(inputstream);
+            BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
+
+            OutputStream outputstream = sslsocket.getOutputStream();
+            OutputStreamWriter outputstreamwriter = new OutputStreamWriter(outputstream);
+            BufferedWriter bufferedwriter = new BufferedWriter(outputstreamwriter);
+            System.out.println(msg);
+            StringBuilder sb = new StringBuilder();
+            sb.append(msg);
+            String request = "<isomsg>\n\r"
+                    + "  <field id=\"0\" value=\"0800\"/>\n\r"
+                    + "  <field id=\"3\" value=\"990000\"/>\n\r"
+                    + "  <field id=\"11\" value=\"123456\"/>\n\r"
+                    + "  <field id=\"41\" value=\"00000002\"/>\n\r"
+                    + "</isomsg>\n\r";
+            bufferedwriter.write(msg);
+            bufferedwriter.flush();
+
+            String lineread = "";
+            String[] parts;
+            while ((lineread = bufferedreader.readLine()) != null){
+                System.out.println(lineread);
+                if(lineread.equals("</isomsg>")){
+                    break;
+                }
+                if(!lineread.equals("<isomsg>")){
+                    parts = lineread.split("id=\"");
+                    String part1 = parts[1];
+                    result.put(part1.split("\"")[0],part1.split("\"")[2]);
+                }
+            }
+
+            outputstream.close();
+            inputstream.close();
+            sslsocket.close();
+
+        } catch (UnknownHostException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+    
+    private static org.com.ssl.MySSLSocketFactory getSunJSSESocketFactory() {
+        try {
+            org.com.ssl.MySSLSocketFactory sf = new org.com.ssl.MySSLSocketFactory();
+            //sf.setKeyStore("/recurso/mykeystore.keystore");
+            //sf.setKeyStore("./keystore/mykeystore.keystore");
+            sf.setKeyPassword("ganicu");
+            sf.setPassword("ganicu1711");
+            sf.setServerAuthNeeded(false);
+            sf.setClientAuthNeeded(false);
+            return sf;
+        } catch (Exception ex) {
+            return null;
+        }
+
     }
     
     
