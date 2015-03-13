@@ -33,21 +33,21 @@ import org.w3c.dom.Document;
  */
 public class Utilities {
     String host = "190.26.241.209";
-    //int port = 7001;
-    int port = 7009;
+    int port = 7001;
+    //int port = 7009;
     Socket socket = null;
     
     public Utilities(String _host, int _port) throws Exception{
         host = _host;
         port = _port;
-        //socket = new Socket(host, port);
+        socket = new Socket(host, port);
     }
     
     public Utilities() throws Exception{
         socket = new Socket(host, port);
     }
     
-    public Map<String, String> SendToServerNoSSL(String msg) throws Exception{
+    public Map<String, String> SendToServer(String msg) throws Exception{
         //create output stream attached to socket
         String serverName = host;
         Map<String, String> result = new HashMap<String, String>();
@@ -113,7 +113,7 @@ public class Utilities {
         HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
       }
     
-    public Map<String, String> SendToServer(String msg) throws Exception{
+    public Map<String, String> SendToServerSSL(String msg) throws Exception{
         //disableCertificateValidation();
         Map<String, String> result = new HashMap<>();
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));

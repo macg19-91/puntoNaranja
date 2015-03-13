@@ -298,30 +298,31 @@ public class ServiciosPublicos extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             // TODO add your handling code here:
-            ComboItem selected = (ComboItem) cmbOperadora.getSelectedItem();
-            String identificador = txtNumero.getText();
-            if(!identificador.equals("")){
-            Utilities util = new Utilities();
-            Message msg = new Message();
-            msg.consultaServiciosPublicos(selected.getValue(), identificador, "", "");
-            Map<String, String> response = util.SendToServer(msg.buildString());
-            msg.setMap(response);
-            
-            String resp = msg.getMsgResponse();
-             if(resp != null){
-                if(resp.equals("Transacción aprobada en forma exitosa")){
-                    new ConfirmaRecarga(response.get("4") ,identificador,selected.getLabel(),"Servicios",response.get("62"),"").setVisible(true);
-                }else {
-                                    JOptionPane.showMessageDialog(null, resp+", intente de nuevo");
-                                    txtNumero.setText("");
-                                }
-            }else{
-                this.setVisible(false);
-                JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: "+response.get("39")+", consulte con su proveedor");
-            }
-            txtNumero.setText("");
-       }else  JOptionPane.showMessageDialog(null, "Digite un valor para continuar");
-                          
+//            ComboItem selected = (ComboItem) cmbOperadora.getSelectedItem();
+//            String identificador = txtNumero.getText();
+//            if(!identificador.equals("")){
+//            Utilities util = new Utilities();
+//            Message msg = new Message();
+//            msg.consultaServiciosPublicos(selected.getValue(), identificador, "", "");
+//            Map<String, String> response = util.SendToServer(msg.buildString());
+//            msg.setMap(response);
+//            
+//            String resp = msg.getMsgResponse();
+//             if(resp != null){
+//                if(resp.equals("Transacción aprobada en forma exitosa")){
+//                    new ConfirmaRecarga(response.get("4") ,identificador,selected.getLabel(),"Servicios",response.get("62"),"",response.get("63")).setVisible(true);
+//                }else {
+//                                    JOptionPane.showMessageDialog(null, resp+", intente de nuevo");
+//                                    txtNumero.setText("");
+//                                }
+//            }else{
+//                this.setVisible(false);
+//                JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: "+response.get("39")+", consulte con su proveedor");
+//            }
+            new ConfirmaRecarga("2000" ,"10201","ICE","Servicios","1111","","Numero recibo : 034411410126032034 |Vencimiento : 09/04/2014|Moneda : COL|Monto : 6,330.00;").setVisible(true);
+            //txtNumero.setText("");
+            //}else  JOptionPane.showMessageDialog(null, "Digite un valor para continuar");
+
             
         } catch (Exception ex) {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);

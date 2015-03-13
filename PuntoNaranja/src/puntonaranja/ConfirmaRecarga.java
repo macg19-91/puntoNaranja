@@ -39,7 +39,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
      * Creates new form ConfirmaRecarga
      */
     String operador,mont,num,tipo,consecutivoRecibo,zonaSoloCabletica;
-    public ConfirmaRecarga(String mont,String num,String operador,String tipo,String consecutivoRecibo,String zonaSoloCabletica) {
+    public ConfirmaRecarga(String mont,String num,String operador,String tipo,String consecutivoRecibo,String zonaSoloCabletica,String adicional) {
         initComponents();
         setLocationRelativeTo(null);
         ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
@@ -54,6 +54,8 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         keyListeners();
         switch (tipo) {
                 case "Recargas":
+                    jLabel6.setVisible(true);
+                    lblMonto1.setVisible(false);
                     jLabel4.setText("Numero:");
                     jLabel4.setVisible(true);
                     lblNum.setVisible(true);
@@ -62,6 +64,8 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                 break;
                     
                 case "Pines":
+                    jLabel6.setVisible(true);
+                    lblMonto1.setVisible(false);
                     jLabel4.setVisible(false);
                     lblNum.setVisible(false);
                     txtPagar.setVisible(false);
@@ -69,6 +73,8 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                 break;
                     
                 case "Servicios":
+                    jLabel6.setVisible(true);
+                    lblMonto1.setText(adicional);
                     jLabel3.setText("Cobro:");
                     jLabel4.setText("Identificador:");
                     jLabel4.setVisible(true);
@@ -97,17 +103,19 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         lblPagar = new javax.swing.JLabel();
         txtPagar = new javax.swing.JTextField();
+        lblMonto1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Confirmación");
         setAlwaysOnTop(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
             }
         });
 
@@ -167,6 +175,11 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
             }
         });
 
+        lblMonto1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel6.setText("Info:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,16 +192,18 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
-                            .addComponent(lblPagar))
-                        .addGap(92, 92, 92)
+                            .addComponent(lblPagar)
+                            .addComponent(jLabel6))
+                        .addGap(105, 105, 105)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(lblNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblMonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 284, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblMonto1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 12, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -202,27 +217,33 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(81, 81, 81))
-                            .addComponent(jLabel4))
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(lblNum, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblNum, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addGap(81, 81, 81))
+                        .addComponent(jLabel4)))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(lblMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPagar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblMonto1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -552,7 +573,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConfirmaRecarga("","","","","","").setVisible(true);
+                new ConfirmaRecarga("","","","","","","").setVisible(true);
             }
         });
     }
@@ -564,7 +585,9 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel lblMonto;
+    private javax.swing.JLabel lblMonto1;
     private javax.swing.JLabel lblNum;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPagar;

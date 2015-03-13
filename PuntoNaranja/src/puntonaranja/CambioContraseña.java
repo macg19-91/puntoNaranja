@@ -6,7 +6,9 @@
 package puntonaranja;
 
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -317,6 +319,18 @@ public class CambioContraseña extends javax.swing.JFrame {
     private void createUser(){
         try {
             // TODO add your handling code here:
+            //Generate keystore
+                Process p = Runtime.getRuntime().exec("");
+                p.waitFor();
+                StringBuilder sb = new StringBuilder();
+                BufferedReader reader = 
+                     new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                String line = "";			
+                while ((line = reader.readLine())!= null) {
+                    sb.append(line + "\n");
+                }
+                System.out.println(sb);
                                 
             //if((txtNew.getText().isEmpty() || txtAgain.getText().isEmpty()) || txtOld.getText().isEmpty()){
                 if(txtNew.getText().equals(txtAgain.getText())){
@@ -350,6 +364,8 @@ public class CambioContraseña extends javax.swing.JFrame {
                 txtAgain.setText("");
             }*/
         } catch (IOException ex) {
+            Logger.getLogger(CambioContraseña.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(CambioContraseña.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
