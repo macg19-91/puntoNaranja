@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utils.Static;
 import utils.TextPrinter;
 import utils.auth;
 
@@ -194,7 +195,11 @@ private void keyListeners(){
                 print.setLineas(areaReporte.getText().split("\n"));
                 print.startPrinter(selected,cual,caja);
                 this.setVisible(false);
+                 int dialogResult=0;
+            dialogResult = JOptionPane.showConfirmDialog (null, "Confirme que se realizó la impresión. ¿Desea cerrar la ventana?","Atención",JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
                 JOptionPane.showMessageDialog(null, "Transaccion Completa");
+            }else this.setVisible(true);
             }
          } catch (PrinterException ex) {
                     JOptionPane.showMessageDialog(null, "Revise la conexión a la impresora");
