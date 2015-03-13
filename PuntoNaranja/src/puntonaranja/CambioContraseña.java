@@ -83,7 +83,7 @@ public class CambioContraseña extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Cambiar Contraseña");
+        setTitle("Nuevo Usuario");
         setAlwaysOnTop(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -283,7 +283,7 @@ public class CambioContraseña extends javax.swing.JFrame {
                         if(!txtOld.getText().equals(txtAgain.getText())){
                             //if(txtNew.getText().equals(txtAgain.getText())&&txtOld.getText().equals(file.leerArchivo())&&!txtOld.getText().equals(txtAgain.getText())){
                             file.escribeFichero(txtNew.getText(),"Sesion/archivoPassword.txt");
-                            JOptionPane.showMessageDialog(null,"La contraseña ha sido cambiada", "Exito!", JOptionPane.INFORMATION_MESSAGE );
+                            JOptionPane.showMessageDialog(null,"La contraseña ha sido cambiada", "Éxito!", JOptionPane.INFORMATION_MESSAGE );
                             txtNew.setText("");
                             txtAgain.setText("");
                             txtOld.setText("");
@@ -340,7 +340,7 @@ public class CambioContraseña extends javax.swing.JFrame {
                             file.escribeFichero(txtId.getText(),"Sesion/archivoId.txt");
                             file.escribeFichero(txtNew.getText(),"Sesion/archivoPassword.txt");
                             this.setVisible(false);
-                            JOptionPane.showMessageDialog(null,"Ha ingresado los datos correctamente", "Exito!", JOptionPane.INFORMATION_MESSAGE );
+                            JOptionPane.showMessageDialog(null,"Ha ingresado los datos correctamente", "Éxito!", JOptionPane.INFORMATION_MESSAGE );
                             
                             txtNew.setText("");
                             txtAgain.setText("");
@@ -376,7 +376,7 @@ public class CambioContraseña extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        this.setVisible(false); 
+        System.exit(0);
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -385,7 +385,7 @@ public class CambioContraseña extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        this.setVisible(false); 
+        System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
     /**

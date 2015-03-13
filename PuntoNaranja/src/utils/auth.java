@@ -59,7 +59,6 @@ public void escribeFichero(String linea,String nombre) throws IOException
     {
         verificaCarpetas();
         String ruta = System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/"+nombre;
-        if(!Static.isWindows()) ruta=System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/"+nombre;
         File archivo = new File(ruta);
         BufferedWriter bw;
         if(verificaFichero(archivo)) {
@@ -220,7 +219,6 @@ public Boolean firstLogin()
         }
         //File folderSesion = new File(System.getProperty("user.home")+"\\Documents\\Puntos Naranja\\Files\\Sesion");
         String ruta = System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Sesion/archivoPassword.txt";        
-        if(!Static.isWindows()) ruta=System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Sesion/archivoPassword.txt";     
         File archivo = new File(ruta);
         if (!archivo.exists()) {
             Sesion.mkdirs();

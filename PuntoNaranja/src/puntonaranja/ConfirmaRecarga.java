@@ -123,7 +123,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         jLabel1.setText("Confirme los datos");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel4.setText("Numero:");
+        jLabel4.setText("Número:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel3.setText("Monto:");
@@ -298,14 +298,14 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
             Map<String, String> response = util.SendToServer(msg.buildString());
             msg.setMap(response);
             resp = msg.getMsgResponse();
-            if(resp.equals("TransacciÃ³n aprobada en forma exitosa")){
+            if(resp.equals("Transacción aprobada en forma exitosa")){
                 Static.setSaldo((Float.parseFloat(msg.getMsgMonto())/100)+"");
                 return (Float.parseFloat(msg.getMsgMonto())/100)+"";
             }
                 Static.setSaldo("0");
         } catch (Exception ex) {
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null,"Error de conexiÃ³n, revise su conexiÃ³n a internet o comunÃ­quese con el proveedor", "Error", JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog(null,"Error de conexión, revise su conexión a internet o comuníquese con el proveedor", "Error", JOptionPane.ERROR_MESSAGE );
                     
         }
             return resp;
@@ -356,7 +356,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                     this.setVisible(false);
                     new ventanaReporte().setVisible(true);
                 }else {
-                    JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transaccion");
+                    JOptionPane.showMessageDialog(null, resp+", se ha cancelado la transacción");
                 }
             }else{
                 this.setVisible(false);
@@ -372,7 +372,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
             
     }
     private void consultaErronea(String cod){
-        JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: "+cod+", consulte con su proveedor");
+        JOptionPane.showMessageDialog(null, "Código de respuesta erronea: "+cod+", consulte con su proveedor");
                             
     }
     private void pines(){
@@ -427,7 +427,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                                     }
                                 break;
 
-                                case "Teletica":
+                                case "Tuyo":
                                     operador = "18";
                                     switch (selected2) {
                                         case "500":

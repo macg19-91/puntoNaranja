@@ -267,8 +267,7 @@ private void keyListeners(){
         }
    }
     catch(Exception e) {
-        e.printStackTrace();JOptionPane.showMessageDialog(null,"Error al exportar", "Error", JOptionPane.INFORMATION_MESSAGE );
-        
+        e.printStackTrace();JOptionPane.showMessageDialog(null,"Error al exportar", "Error", JOptionPane.INFORMATION_MESSAGE );        
     }
     }//GEN-LAST:event_jButton1MouseClicked
 

@@ -191,7 +191,7 @@ private void keyListeners(){
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setText("Numero celular");
+        jLabel4.setText("Número celular");
 
         txtNumero.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         txtNumero.addActionListener(new java.awt.event.ActionListener() {
@@ -312,11 +312,11 @@ private void keyListeners(){
                 }
                 else{
                     if(celular.equals("")){
-                        JOptionPane.showMessageDialog(null, "Por favor ingrese un numero celular");
+                        JOptionPane.showMessageDialog(null, "Por favor ingrese un número celular");
                     }
                     else{
                         if(celular.length() != 8 ){
-                            JOptionPane.showMessageDialog(null, "Por favor ingrese un numero celular valido");
+                            JOptionPane.showMessageDialog(null, "Por favor ingrese un número celular válido");
                         }
                         else{
                             new ConfirmaRecarga(txtMonto.getText(),txtNumero.getText(),selected,"Recargas","","","").setVisible(true);
