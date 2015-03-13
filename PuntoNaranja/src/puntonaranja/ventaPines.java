@@ -31,7 +31,7 @@ public class ventaPines extends javax.swing.JFrame {
      */
     public ventaPines() {
         initComponents(); 
-        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());       
         setComboModel();
         keyListeners();

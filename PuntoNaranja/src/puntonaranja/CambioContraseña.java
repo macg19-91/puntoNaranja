@@ -25,7 +25,7 @@ public class CambioContraseña extends javax.swing.JFrame {
      * Creates new form CambioContraseña
      */
     public CambioContraseña() {
-        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());
         initComponents();
         file=new auth();
@@ -33,7 +33,7 @@ public class CambioContraseña extends javax.swing.JFrame {
         keyListeners();
     }
     public CambioContraseña(boolean firstTime) {
-        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        ImageIcon img = new ImageIcon("/puntonaranja/resurces/naranja.png");
         setIconImage(img.getImage());
         initComponents();
         file=new auth();

@@ -36,7 +36,7 @@ public class exportaVentas extends javax.swing.JFrame {
     
     int[] files;
     public exportaVentas() {
-        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());
         initComponents();
         keyListeners();

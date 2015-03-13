@@ -28,7 +28,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         file=new auth();
         initComponents();
-        ImageIcon img = new ImageIcon("src/puntonaranja/resurces/naranja.png");
+        ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());
             setLocationRelativeTo(null);
         txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
