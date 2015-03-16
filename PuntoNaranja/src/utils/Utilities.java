@@ -182,6 +182,7 @@ public class Utilities {
         try {
 
             org.com.ssl.MySSLSocketFactory sslsocketfactory = (org.com.ssl.MySSLSocketFactory) getSunJSSESocketFactory();
+            //SSLSocket sslsocket = (SSLSocket) sslsocketfactory.createSocket("190.26.241.209", 7009);
             SSLSocket sslsocket = (SSLSocket) sslsocketfactory.createSocket("66.165.180.245", 447);
             sslsocket.setSoLinger(true, 0);
             sslsocket.setSoTimeout(60000);

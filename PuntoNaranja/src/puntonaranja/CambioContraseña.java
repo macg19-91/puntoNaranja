@@ -52,12 +52,13 @@ public class CambioContraseña extends javax.swing.JFrame {
             lblId.setVisible(true);
             lblTitulo.setText("Nuevo Usuario");
         }else{
-            txtOld.setVisible(true);
-            txtUser.setVisible(false);
-            txtId.setVisible(false);            
-            lblOld.setVisible(true);
-            lblUser.setVisible(false);
-            lblId.setVisible(false);            
+            txtOld.setVisible(false);
+            txtUser.setVisible(true);
+            txtId.setVisible(true);            
+            lblOld.setVisible(false);
+            lblUser.setVisible(true);
+            lblId.setVisible(true);
+            lblTitulo.setText("Nuevo Usuario");          
         }
          setLocationRelativeTo(null);
          keyListeners();
@@ -270,11 +271,11 @@ public class CambioContraseña extends javax.swing.JFrame {
     
     
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        if(firstTime){
+        //if(firstTime){
             createUser();
-        }else{
+       /* }else{
             changePass();
-        }
+        }*/
     }//GEN-LAST:event_jButton1MouseClicked
     
     private void changePass(){
@@ -350,6 +351,7 @@ public class CambioContraseña extends javax.swing.JFrame {
                             txtAgain.setText("");
                             txtUser.setText("");
                             txtId.setText("");
+                            if(!firstTime)new Login().setVisible(true);
                             /*}else{
                             JOptionPane.showMessageDialog(null,"Los datos introducidos son incorrectos", "Error!", JOptionPane.ERROR_MESSAGE );
                             txtNew.setText("");
@@ -385,7 +387,12 @@ public class CambioContraseña extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+        if(firstTime){
+            System.exit(0);
+        }else{
+            this.setVisible(false);
+            new home().setVisible(true);
+        }
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -394,7 +401,12 @@ public class CambioContraseña extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        System.exit(0);
+        if(firstTime){
+            System.exit(0);
+        }else{
+            this.setVisible(false);
+            new home().setVisible(true);
+        }
     }//GEN-LAST:event_formWindowClosing
 
     /**
