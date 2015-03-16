@@ -9,10 +9,14 @@ import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utils.Message;
+import utils.Static;
+import utils.Utilities;
 import utils.auth;
 /**
  *
@@ -317,24 +321,24 @@ public class CambioContraseña extends javax.swing.JFrame {
         }
     }
     private void createUser(){
-        try {
             // TODO add your handling code here:
-            //Generate keystore
-                Process p = Runtime.getRuntime().exec("");
-                p.waitFor();
-                StringBuilder sb = new StringBuilder();
-                BufferedReader reader = 
-                     new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-                String line = "";			
-                while ((line = reader.readLine())!= null) {
-                    sb.append(line + "\n");
-                }
-                System.out.println(sb);
-                                
-            //if((txtNew.getText().isEmpty() || txtAgain.getText().isEmpty()) || txtOld.getText().isEmpty()){
+          //if((txtNew.getText().isEmpty() || txtAgain.getText().isEmpty()) || txtOld.getText().isEmpty()){
                 if(txtNew.getText().equals(txtAgain.getText())){
                     
+                    String resp="";
+                    Static.setPassword(txtAgain.getText());                    
+                    Static.setTerminal(txtId.getText());                   
+                    Static.setUsuario(txtUser.getText());
+                    Utilities util;
+                    try {
+                        util = new Utilities();
+                        Message msg = new Message();
+                        msg.consultaSaldo();
+                        Map<String, String> response = util.SendToServer(msg.buildString());
+                        msg.setMap(response);
+                        resp = msg.getMsgResponse();
+                        if(resp.equals("Transacción aprobada en forma exitosa")){
+                            //return Static.getSaldo();
                             //if(txtNew.getText().equals(txtAgain.getText())&&txtOld.getText().equals(file.leerArchivo())&&!txtOld.getText().equals(txtAgain.getText())){
                             file.escribeFichero(txtUser.getText(),"Sesion/archivoUser.txt");
                             file.escribeFichero(txtId.getText(),"Sesion/archivoId.txt");
@@ -352,6 +356,16 @@ public class CambioContraseña extends javax.swing.JFrame {
                             txtAgain.setText("");
                             txtOld.setText("");
                             }*/
+                        }else{
+                            
+                            this.setVisible(false);
+                            JOptionPane.showMessageDialog(null,resp, "Error", JOptionPane.ERROR_MESSAGE );
+                            
+                            this.setVisible(true);
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(CambioContraseña.class.getName()).log(Level.SEVERE, null, ex);
+                    }                            
                         
                 }else{
                     JOptionPane.showMessageDialog(null,"Las contraseñas no coinciden", "Error!", JOptionPane.ERROR_MESSAGE );
@@ -363,11 +377,6 @@ public class CambioContraseña extends javax.swing.JFrame {
                 txtNew.setText("");
                 txtAgain.setText("");
             }*/
-        } catch (IOException ex) {
-            Logger.getLogger(CambioContraseña.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(CambioContraseña.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
