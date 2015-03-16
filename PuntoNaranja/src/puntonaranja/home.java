@@ -69,7 +69,10 @@ public class home extends javax.swing.JFrame {
         caja=new cierreCaja();
         exportar=new exportaVentas();
         loadNews();
-        ConfirmaRecarga.consultaSaldo();
+        if(ConfirmaRecarga.consultaSaldo()==null){
+            this.setVisible(false);
+            new Login().setVisible(true);
+        }
          if(Float.parseFloat(Static.getSaldo())>0) txtSaldo.setText(Static.getSaldo());
          else{ 
              txtSaldo.setText("0.0");             

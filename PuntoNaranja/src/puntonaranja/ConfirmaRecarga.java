@@ -310,6 +310,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null,"Error de conexión, revise su conexión a internet o comuníquese con el proveedor", "Error", JOptionPane.ERROR_MESSAGE );
+           
                     
         }
             return resp;

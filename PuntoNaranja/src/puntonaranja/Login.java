@@ -69,7 +69,6 @@ public class Login extends javax.swing.JFrame {
          });
         if(!file.firstLogin()){
             JOptionPane.showMessageDialog(null,"No hay usuario registrado, debe ingresar los datos del nuevo Usuario", "Atención!", JOptionPane.INFORMATION_MESSAGE );
-            this.setFocusable(false);
             change.setVisible(true);
         }
     }
