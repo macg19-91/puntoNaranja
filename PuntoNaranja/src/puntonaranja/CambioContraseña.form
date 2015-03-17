@@ -58,7 +58,7 @@
               </Group>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="44" max="32767" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
               <Component id="lblTitulo" min="-2" pref="337" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
           </Group>

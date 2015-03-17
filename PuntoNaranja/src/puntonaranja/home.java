@@ -73,7 +73,7 @@ public class home extends javax.swing.JFrame {
             this.setVisible(false);
             new Login().setVisible(true);
         }
-         if(Float.parseFloat(Static.getSaldo())>0) txtSaldo.setText(Static.getSaldo());
+         if(Float.parseFloat(Static.getSaldo())>=0) txtSaldo.setText(Static.getSaldo());
          else{ 
              txtSaldo.setText("0.0");             
             JOptionPane.showMessageDialog(null,ConfirmaRecarga.consultaSaldo()+", no se pudo actualizar el saldo", "Error!", JOptionPane.ERROR_MESSAGE);
@@ -529,7 +529,7 @@ public class home extends javax.swing.JFrame {
         });
         jMenu2.add(menuPedir);
 
-        jMenu3.setText("Cambiar Usuario y Contraseña");
+        jMenu3.setText("Cambiar Usuario y Terminal");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu3MouseClicked(evt);
@@ -969,7 +969,7 @@ public class home extends javax.swing.JFrame {
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         // TODO add your handling code here:
         int dialogResult=0;
-        dialogResult = JOptionPane.showConfirmDialog (null, "La contraseña y usuario solo se deben cambiar bajo ordenes del proveedor ¿Desea continuar?","Atención",JOptionPane.YES_NO_OPTION);
+        dialogResult = JOptionPane.showConfirmDialog (null, "El terminal y usuario solo se deben cambiar bajo ordenes del proveedor ¿Desea continuar?","Atención",JOptionPane.YES_NO_OPTION);
         if(dialogResult == JOptionPane.YES_OPTION){
             String name="";
                 Boolean pass=false;

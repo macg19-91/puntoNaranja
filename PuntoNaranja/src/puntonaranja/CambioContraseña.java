@@ -58,7 +58,11 @@ public class CambioContraseña extends javax.swing.JFrame {
             lblOld.setVisible(false);
             lblUser.setVisible(true);
             lblId.setVisible(true);
-            lblTitulo.setText("Nuevo Usuario");          
+            lblTitulo.setText("Nuevo Usuario");   
+            txtNew.setText(Static.getPassword());            
+            txtAgain.setText(Static.getPassword());
+            txtNew.setEditable(firstTime);
+            txtAgain.setEditable(firstTime);
         }
          setLocationRelativeTo(null);
          keyListeners();
@@ -178,7 +182,7 @@ public class CambioContraseña extends javax.swing.JFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(47, Short.MAX_VALUE)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
