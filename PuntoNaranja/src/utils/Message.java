@@ -168,7 +168,7 @@ public class Message {
             mac = "02-50-F2-CE-82-01";
         }
         String recarga = operador + ","+producto+","+celular+","+usuario+","+dispersion(usuario,clave)+","+tienda;
-        String extraInfo = "H2H"+"|"+ip+"|"+mac+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
+        String extraInfo = "PC"+"|"+ip+"|"+mac+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
         map.put("3",proceso);
@@ -185,7 +185,7 @@ public class Message {
     public void ventaPines(String monto,String operador,String producto) throws UnknownHostException, SocketException{
         NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
         String recarga = operador + ","+producto+","+usuario+","+dispersion(usuario,clave)+","+tienda;
-        String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
+        String extraInfo = "PC"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
         map.put("3","000500");
@@ -206,7 +206,7 @@ public class Message {
             datos += ","+zonaSoloCabletica+","+tipoSoloCabletica;
         }
         datos += ",NA,NA,NA,NA";
-        String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client "+System.getProperty("os.name").toLowerCase()+"|NA";
+        String extraInfo = "PC"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client "+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0100");
         map.put("3","000004");
@@ -226,7 +226,7 @@ public class Message {
             datos += ","+zonaSoloCabletica;
         }
         
-        String extraInfo = "H2H"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
+        String extraInfo = "PC"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
         map.put("3","000006");
