@@ -349,8 +349,7 @@ public class CambioContraseña extends javax.swing.JFrame {
                             file.escribeFichero(txtId.getText(),"Sesion/archivoId.txt");
                             file.escribeFichero(txtNew.getText(),"Sesion/archivoPassword.txt");
                             this.setVisible(false);
-                            JOptionPane.showMessageDialog(null,"Ha ingresado los datos correctamente", "Éxito!", JOptionPane.INFORMATION_MESSAGE );
-                            
+                            JOptionPane.showMessageDialog(null,"Ha ingresado los datos correctamente", "Éxito!", JOptionPane.INFORMATION_MESSAGE );                            
                             txtNew.setText("");
                             txtAgain.setText("");
                             txtUser.setText("");
@@ -365,8 +364,7 @@ public class CambioContraseña extends javax.swing.JFrame {
                         }else{
                             
                             this.setVisible(false);
-                            JOptionPane.showMessageDialog(null,resp, "Error", JOptionPane.ERROR_MESSAGE );
-                            
+                            JOptionPane.showMessageDialog(null,resp, "Error", JOptionPane.ERROR_MESSAGE );                            
                             this.setVisible(true);
                         }
                     } catch (Exception ex) {
@@ -394,8 +392,8 @@ public class CambioContraseña extends javax.swing.JFrame {
         if(firstTime){
             System.exit(0);
         }else{
-            this.setVisible(false);
             new home().setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_jButton2MouseClicked
 
@@ -408,8 +406,8 @@ public class CambioContraseña extends javax.swing.JFrame {
         if(firstTime){
             System.exit(0);
         }else{
-            this.setVisible(false);
             new home().setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_formWindowClosing
 
