@@ -227,8 +227,8 @@ public class Login extends javax.swing.JFrame {
         }else{
             if(txtUser.getText().equals(file.leerArchivo("Sesion\\archivoUser.txt"))||txtUser.getText().equals(file.leerArchivo("Sesion/archivoUser.txt"))){
                     if(txtPass.getText().equals(file.leerArchivo("Sesion\\archivoPassword.txt"))||txtPass.getText().equals(file.leerArchivo("Sesion/archivoPassword.txt"))){
-                        this.setVisible(false);
                         new home().setVisible(true);
+                        this.setVisible(false);
                         Static.setUsuario(txtUser.getText());
                         Static.setPassword(txtPass.getText());
                         if(Static.isWindows())Static.setTerminal(file.leerArchivo("Sesion\\archivoId.txt"));
