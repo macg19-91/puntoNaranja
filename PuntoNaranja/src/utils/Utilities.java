@@ -34,7 +34,7 @@ import org.w3c.dom.Document;
  */
 public class Utilities {
     String host = "190.26.241.209";
-    int port = 7001;
+    int port = 7011;
     //int port = 7009;
     Socket socket = null;
     
@@ -48,7 +48,7 @@ public class Utilities {
         socket = new Socket(host, port);
     }
     
-    public Map<String, String> SendToServerNoSsl(String msg) throws Exception{
+    public Map<String, String> SendToServerNoSSL(String msg) throws Exception{
         //create output stream attached to socket
         String serverName = host;
         Map<String, String> result = new HashMap<String, String>();
