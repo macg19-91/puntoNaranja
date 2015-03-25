@@ -266,7 +266,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
-                   jButton3MouseClicked(null);
+                   jButton3ActionPerformed(null);
                 }             
             }
          });
