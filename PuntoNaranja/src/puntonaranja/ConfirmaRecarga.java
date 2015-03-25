@@ -42,13 +42,15 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
     public ConfirmaRecarga(String mont,String num,String operador,String tipo,String consecutivoRecibo,String zonaSoloCabletica,String adicional) {
         initComponents();
         setLocationRelativeTo(null);
+        this.consecutivoRecibo = consecutivoRecibo;
+        this.zonaSoloCabletica = zonaSoloCabletica;
         ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());
         this.operador=operador;
-        this.mont=mont;
+        this.mont = mont;
         this.num=num;
         lblOperador.setText(operador);
-        lblMonto.setText(mont);
+        lblMonto.setText(this.mont);
         lblNum.setText(num);
         this.tipo=tipo;
         switch (tipo) {
@@ -72,6 +74,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                 break;
                     
                 case "Servicios":
+                    this.mont = mont.substring(0, mont.length() - 2);
                     jLabel6.setVisible(true);
                     lblMonto1.setText(adicional);
                     jLabel3.setText("Cobro:");
@@ -605,13 +608,13 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
             if(Integer.parseInt(txtPagar.getText())>=Integer.parseInt(mont)){
                 Utilities util = new Utilities();
                 Message msg = new Message();
-                msg.pagarServiciosPublicos(mont,consecutivoRecibo, zonaSoloCabletica);
+                msg.pagarServiciosPublicos(txtPagar.getText(),this.consecutivoRecibo, this.zonaSoloCabletica);
                 Map<String, String> response = util.SendToServer(msg.buildString());
                 msg.setMap(response);
                 String resp = msg.getMsgResponse();
              if(resp!=null){   
                 if(resp.equals("Transacción aprobada en forma exitosa")){
-                    new auth().escribeFicheroPrint(mont,num,operador,"Servicios");
+                    new auth().escribeFicheroPrint(txtPagar.getText(),num,operador,"Servicios");
                     consultaSaldo();
                     this.setVisible(false);
                     new ventanaReporte().setVisible(true);
