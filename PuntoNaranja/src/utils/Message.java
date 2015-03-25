@@ -168,7 +168,7 @@ public class Message {
             mac = "02-50-F2-CE-82-01";
         }
         String recarga = operador + ","+producto+","+celular+","+usuario+","+dispersion(usuario,clave)+","+tienda;
-        String extraInfo = "PC"+"|"+ip+"|"+mac+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
+        String extraInfo = "PC"+"|"+ip+"|"+mac+"|NA|Hardware id client "+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
         map.put("3",proceso);
@@ -206,7 +206,7 @@ public class Message {
             datos += ","+zonaSoloCabletica+","+tipoSoloCabletica;
         }
         datos += ",NA,NA,NA,NA";
-        String extraInfo = "PC"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client "+System.getProperty("os.name").toLowerCase()+"|NA";
+        String extraInfo = "PC"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA||"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0100");
         map.put("3","000004");
@@ -322,12 +322,18 @@ public class Message {
 
     private String getFecha() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-        return addCero(Integer.toString(cal.get(Calendar.MONTH))+1,2) + addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)-1),2) + Integer.toString(cal.get(Calendar.YEAR));
+        return addCero(Integer.toString(cal.get(Calendar.MONTH)+1),2) + addCero(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)),2) +  Integer.toString(cal.get(Calendar.YEAR));
     }
 
     private String getReferencia() {
         auth file = new auth();
-        String secuencia = file.leerArchivo("Sesion\\archivoReferencia.txt");
+        String secuencia = "";
+        if(Static.isWindows()){            
+         secuencia = file.leerArchivo("Sesion\\archivoReferencia.txt");
+        }
+        else {
+            secuencia = file.leerArchivo("Sesion/archivoReferencia.txt");
+        }
         
         long sec = Long.parseLong(secuencia) + 1;
         long max = Long.parseLong("999999999999");

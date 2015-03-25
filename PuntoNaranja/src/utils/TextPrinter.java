@@ -55,7 +55,7 @@ public class TextPrinter implements Printable {
          */
         Graphics2D g2d = (Graphics2D)g;
         g2d.translate(pf.getImageableX(), pf.getImageableY());
-        int place=30;
+        int place=50;
         /* Now we perform our rendering */
         if(!caja){
         BufferedReader br;
@@ -88,6 +88,14 @@ public class TextPrinter implements Printable {
         int cuenta=0;
         String tipo="";
         try {
+            g.drawString("Puntos Naranja",0, 30);
+        if(tipo.equals("Recargas")){
+            g.drawString("Recarga automática (Tiempo Aire)",0, place);
+        }
+        if(tipo.equals("Servicios")){
+            g.drawString("Servicios Públicos",0, place);
+            
+        }
         while((line = br.readLine()) != null) {   
             if(cuenta==0)g.drawString("Punto de venta: "+line, 0, place); 
             if(cuenta==1)g.drawString("Fecha: "+line, 0, place); 
@@ -95,7 +103,7 @@ public class TextPrinter implements Printable {
             if(cuenta==3){tipo=line;place-=20;}
             switch (tipo) {
                 case "Recargas":
-                    if(cuenta==4)g.drawString("Recarga automática (Tiempo Aire) Teléfono: "+line, 0, place); 
+                    if(cuenta==4)g.drawString("Teléfono: "+line, 0, place); 
                     if(cuenta==5)g.drawString("Transacción: "+line, 0, place); 
                     if(cuenta==6)g.drawString("Monto: "+line, 0, place); 
                 break;
@@ -174,6 +182,7 @@ public class TextPrinter implements Printable {
         int cuenta=0;
         String tipo="";
         try {
+            reporte+="Puntos Naranja \n";
         while((line = br.readLine()) != null) {   
             if(cuenta==0)reporte+="Punto de venta: "+line+"\n";
             if(cuenta==1)reporte+="Fecha: "+line+"\n";
@@ -181,7 +190,7 @@ public class TextPrinter implements Printable {
             if(cuenta==3)tipo=line;
             switch (tipo) {
                 case "Recargas":
-                    if(cuenta==4)reporte+="Recarga automática (Tiempo Aire) Teléfono: "+line+"\n";
+                    if(cuenta==4)reporte+="Recarga automática (Tiempo Aire) \n Teléfono: "+line+"\n";
                     if(cuenta==5)reporte+="Transacción: "+line+", ";
                     if(cuenta==6)reporte+="Monto: "+line+"\n";
                 break;
@@ -193,7 +202,7 @@ public class TextPrinter implements Printable {
                 break;
                     
                 case "Servicios":
-                    if(cuenta==4)reporte+="Identificador: "+line+"\n";
+                    if(cuenta==4)reporte+="Servicios Públicos \n Identificador: "+line+"\n";
                     if(cuenta==5)reporte+="Servicio: "+line+"\n";
                     if(cuenta==6)reporte+="Monto: "+line+"\n";
                 break;

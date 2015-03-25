@@ -202,6 +202,7 @@ private void keyListeners(){
             }else this.setVisible(true);
             }
          } catch (PrinterException ex) {
+                    this.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Revise la conexión a la impresora");
         }
         //new home().setVisible(true);
