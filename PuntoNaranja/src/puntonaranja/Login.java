@@ -21,6 +21,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     auth file; 
+    boolean opened=false;
     CambioContraseña change=new CambioContraseña(true);
     private static void toogleEnable(boolean enable){
        
@@ -221,10 +222,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptarMouseClicked
     
     private void aceptar(){
+        btnAceptar.setEnabled(false);
         if(!file.firstLogin()){
             JOptionPane.showMessageDialog(null,"No hay usuario registrado, debe ingresar los datos del nuevo Usuario", "Atención!", JOptionPane.INFORMATION_MESSAGE );
             change.setVisible(true);
         }else{
+            if(!opened){
+                opened=true;
             if(txtUser.getText().equals(file.leerArchivo("Sesion\\archivoUser.txt"))||txtUser.getText().equals(file.leerArchivo("Sesion/archivoUser.txt"))){
                     if(txtPass.getText().equals(file.leerArchivo("Sesion\\archivoPassword.txt"))||txtPass.getText().equals(file.leerArchivo("Sesion/archivoPassword.txt"))){
                         new home().setVisible(true);
@@ -233,15 +237,20 @@ public class Login extends javax.swing.JFrame {
                         Static.setPassword(txtPass.getText());
                         if(Static.isWindows())Static.setTerminal(file.leerArchivo("Sesion\\archivoId.txt"));
                         else Static.setTerminal(file.leerArchivo("Sesion/archivoId.txt"));
+                        
                     }else{
                         JOptionPane.showMessageDialog(null,"La contraseña introducida es incorrecta", "Error!", JOptionPane.ERROR_MESSAGE );
                         txtPass.setText("");
+                        opened=false;
                     }
                 }else{
                     JOptionPane.showMessageDialog(null,"El usuario introducido es incorrecto", "Error!", JOptionPane.ERROR_MESSAGE );
                     txtUser.setText("");
+                        opened=false;
                 }
         }
+        }
+        btnAceptar.setEnabled(true);
         
     }
     
