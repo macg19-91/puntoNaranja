@@ -175,21 +175,18 @@ private void keyListeners(){
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
         boolean sigue=false;
-        try {
+        //try {
             
         String ruta = System.getProperty("user.home")+"/Documents/Puntos Naranja/Files/Sesion/defaultPrinter.txt";
         File archivo = new File(ruta);
             if(archivo.exists()){
-                TextPrinter.test();
-                sigue=true;
+                //TextPrinter.test();
+                //sigue=true;
             }
-            else{
+           // else{
             try {
                 sigue=new TextPrinter().setPrinter();
-            } catch (IOException ex) {
-                Logger.getLogger(ventanaReporte.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            }
+            //}
             if(sigue){
                 TextPrinter print=new TextPrinter();
                 print.setLineas(areaReporte.getText().split("\n"));
@@ -201,10 +198,14 @@ private void keyListeners(){
                 JOptionPane.showMessageDialog(null, "Transaccion Completa");
             }else this.setVisible(true);
             }
-         } catch (PrinterException ex) {
+            
+            } catch (IOException ex) {
+                Logger.getLogger(ventanaReporte.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         /*} catch (PrinterException ex) {
                     this.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Revise la conexión a la impresora");
-        }
+        }*/
         //new home().setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked
 

@@ -19,7 +19,6 @@ import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintServiceAttributeSet;
 import javax.print.attribute.PrintServiceAttributeSet;
 import javax.print.attribute.standard.PrinterName;
-
 /**
 * Utility class to print some lines of text to
 * the default printer.  Uses some default
@@ -46,7 +45,8 @@ public class TextPrinter implements Printable {
     public int print(Graphics g, PageFormat pf, int page) throws
                                                         PrinterException {
 
-        if (page > 0) { /* We have only one page, and 'page' is zero-based */
+        if (page > 0) { 
+            
             return NO_SUCH_PAGE;
         }
 
@@ -56,7 +56,7 @@ public class TextPrinter implements Printable {
         Graphics2D g2d = (Graphics2D)g;
         g2d.translate(pf.getImageableX(), pf.getImageableY());
         int place=50;
-        /* Now we perform our rendering */
+        
         if(!caja){
         BufferedReader br;
         File Bitacora;
@@ -78,13 +78,7 @@ public class TextPrinter implements Printable {
                 }
             }
             String line;
-        /*int cuenta=0;
-        try {
-        while ((line = br.readLine()) != null) {      
-                g.drawString(line, 0, place); 
-                place+=20;
-           cuenta++;
-        }*/
+            
         int cuenta=0;
         String tipo="";
         try {
@@ -137,7 +131,7 @@ public class TextPrinter implements Printable {
                 place+=20; 
             }
         }
-        /* tell the caller that this page is part of the printed document */
+        
         return PAGE_EXISTS;
     }
     public void setLineas(String[] lineas){
@@ -264,7 +258,7 @@ pjob.setJobName("job");
          }
          return false;
     }
-    public void startPrinter(Boolean selected, int cual,Boolean caja) {
+    public void startPrinter(Boolean selected, int cual,Boolean caja) throws IOException{
  
                   //PrinterJob job = PrinterJob.getPrinterJob();
          pjob.setPrintable(this);
@@ -274,11 +268,13 @@ pjob.setJobName("job");
             this.selected=selected;
             this.cual=cual;
             this.caja=caja;
-             try {
+            try {
                   pjob.print();
              } catch (PrinterException ex) {
               JOptionPane.showMessageDialog(null, "Revise la conexión a la impresora");
              }
         // }
     }
+    
 }
+    
