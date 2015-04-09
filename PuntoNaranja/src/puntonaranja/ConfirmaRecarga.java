@@ -47,7 +47,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         this.consecutivoRecibo = consecutivoRecibo;
         this.zonaSoloCabletica = zonaSoloCabletica;
         this.adicional = adicional;
-        ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/Movistar_Logo.png"));
+        ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());
         this.operador=operador;
         this.mont = mont;
