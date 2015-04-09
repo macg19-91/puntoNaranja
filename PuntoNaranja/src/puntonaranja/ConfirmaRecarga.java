@@ -47,7 +47,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());
         this.operador=operador;
-        this.mont = (Integer.parseInt(mont)/100)+"";
+        this.mont = mont;
         this.num=num;
         lblOperador.setText(operador);
         lblMonto.setText(this.mont);
@@ -80,6 +80,8 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                     jLabel4.setText("Identificador:");
                     jLabel4.setVisible(true);
                     lblNum.setVisible(true);
+                    this.mont = (Integer.parseInt(mont)/100)+"";
+                    lblMonto.setText(this.mont);
                 break;
             }
         keyListeners();

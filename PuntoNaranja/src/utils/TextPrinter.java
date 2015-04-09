@@ -13,9 +13,13 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.jnlp.PrintService;
+import javax.print.Doc;
+import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintServiceAttributeSet;
 import javax.print.attribute.PrintServiceAttributeSet;
 import javax.print.attribute.standard.PrinterName;
@@ -44,18 +48,18 @@ public class TextPrinter implements Printable {
     String[] lineas;
     public int print(Graphics g, PageFormat pf, int page) throws
                                                         PrinterException {
+        return 1;
+    }
+    public int printFactura() throws
+                                                        PrinterException {
 
-        if (page > 0) { 
-            
-            return NO_SUCH_PAGE;
-        }
 
         /* User (0,0) is typically outside the imageable area, so we must
          * translate by the X and Y values in the PageFormat to avoid clipping
          */
-        Graphics2D g2d = (Graphics2D)g;
-        g2d.translate(pf.getImageableX(), pf.getImageableY());
-        int place=50;
+//        Graphics2D g2d = (Graphics2D)g;
+//        g2d.translate(pf.getImageableX(), pf.getImageableY());
+//        int place=50;
         
         if(!caja){
         BufferedReader br;
@@ -81,44 +85,59 @@ public class TextPrinter implements Printable {
             
         int cuenta=0;
         String tipo="";
+        String cadena = "";
         try {
-            g.drawString("Puntos Naranja",0, 30);
+            cadena += "Puntos Naranja \n";
         if(tipo.equals("Recargas")){
-            g.drawString("Recarga automática (Tiempo Aire)",0, place);
+            cadena += "Recarga automática (Tiempo Aire) \n";
         }
         if(tipo.equals("Servicios")){
-            g.drawString("Servicios Públicos",0, place);
+            cadena += "Servicios Públicos \n";
             
         }
         while((line = br.readLine()) != null) {   
-            if(cuenta==0)g.drawString("Punto de venta: "+line, 0, place); 
-            if(cuenta==1)g.drawString("Fecha: "+line, 0, place); 
-            if(cuenta==2)g.drawString("Hora: "+line, 0, place); 
-            if(cuenta==3){tipo=line;place-=20;}
+            if(cuenta==0)cadena += "Punto de venta: "+line + "\n"; 
+            if(cuenta==1)cadena += "Fecha: "+line+ "\n";
+            if(cuenta==2)cadena += "Hora: "+line + "\n";
+            if(cuenta==3){tipo=line;}
             switch (tipo) {
                 case "Recargas":
-                    if(cuenta==4)g.drawString("Teléfono: "+line, 0, place); 
-                    if(cuenta==5)g.drawString("Transacción: "+line, 0, place); 
-                    if(cuenta==6)g.drawString("Monto: "+line, 0, place); 
+                    if(cuenta==4)cadena += "Teléfono: "+line + "\n";
+                    if(cuenta==5)cadena += "Transacción: "+line + "\n";
+                    if(cuenta==6)cadena += "Monto: "+line + "\n";
                 break;
                     
                 case "Pines":
-                    if(cuenta==4)g.drawString("Numero Pin: "+line, 0, place); 
-                    if(cuenta==5)g.drawString("Venta Pin: "+line, 0, place); 
-                    if(cuenta==6)g.drawString("Monto: "+line, 0, place); 
+                    if(cuenta==4)cadena += "Numero Pin: "+line + "\n";
+                    if(cuenta==5)cadena += "Venta Pin: "+line + "\n";
+                    if(cuenta==6)cadena += "Monto: "+line + "\n";
                 break;
                     
                 case "Servicios":
-                    if(cuenta==4)g.drawString("Identificador: "+line, 0, place); 
-                    if(cuenta==5)g.drawString("Servicio: "+line, 0, place); 
-                    if(cuenta==6)g.drawString("Monto: "+line, 0, place); 
+                    if(cuenta==4)cadena += "Identificador: "+line + "\n";
+                    if(cuenta==5)cadena += "Servicio: "+line + "\n";
+                    if(cuenta==6)cadena += "Monto: "+line + "\n";
                 break;
             }              
-           place+=20;      
            cuenta++;
         }
-        g.drawString("Gracias...", 0, place); 
+        cadena += "Gracias..." + "\n";
         br.close();
+        //JOptionPane.showMessageDialog(null, cadena);
+        DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
+        //Aqui selecciona tu impresora, el ejemplo tomará la impresora predeterminada.
+                PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+                DocPrintJob pj = service.createPrintJob();
+                byte[] bytes = cadena.getBytes();
+                Doc doc = new SimpleDoc(bytes, flavor, null);
+                try {
+                    pj.print(doc, null);
+
+                } catch (PrintException e) {
+                    //System.out.println("cadena"+e.getMessage());
+                    //JOptionPane.showMessageDialog(null, e.getMessage());
+           
+                }
         } catch (IOException ex) {
             Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -126,10 +145,10 @@ public class TextPrinter implements Printable {
             Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
         }
         }else{
-            for (String linea : lineas) {
-                g.drawString(linea, 0, place);
-                place+=20; 
-            }
+//            for (String linea : lineas) {
+//                g.drawString(linea, 0, place);
+//                place+=20; 
+//            }
         }
         
         return PAGE_EXISTS;
