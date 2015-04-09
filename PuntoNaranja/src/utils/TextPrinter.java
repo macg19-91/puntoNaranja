@@ -126,18 +126,30 @@ public class TextPrinter implements Printable {
         //JOptionPane.showMessageDialog(null, cadena);
         DocFlavor flavor = DocFlavor.BYTE_ARRAY.AUTOSENSE;
         //Aqui selecciona tu impresora, el ejemplo tomará la impresora predeterminada.
-                PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-                DocPrintJob pj = service.createPrintJob();
+        DocPrintJob docPrintJob=null;
+        String printerNameDesired;
+        if(Static.isWindows())printerNameDesired = new auth().leerArchivo("Sesion\\defaultPrinter.txt");
+        else printerNameDesired = new auth().leerArchivo("Sesion/defaultPrinter.txt");
+        javax.print.PrintService[] service = PrinterJob.lookupPrintServices(); // list of printers
+
+    int count = service.length;
+
                 byte[] bytes = cadena.getBytes();
-                Doc doc = new SimpleDoc(bytes, flavor, null);
+    for (int i = 0; i < count; i++) {
+        if (service[i].getName().equalsIgnoreCase(printerNameDesired )) {
+            docPrintJob = service[i].createPrintJob();
+            Doc doc = new SimpleDoc(bytes, flavor, null);
                 try {
-                    pj.print(doc, null);
+                    docPrintJob.print(doc, null);
 
                 } catch (PrintException e) {
                     //System.out.println("cadena"+e.getMessage());
                     //JOptionPane.showMessageDialog(null, e.getMessage());
            
                 }
+            i = count;
+        }
+    }
         } catch (IOException ex) {
             Logger.getLogger(TextPrinter.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -288,7 +300,7 @@ pjob.setJobName("job");
             this.cual=cual;
             this.caja=caja;
             try {
-                  pjob.print();
+                  printFactura();
              } catch (PrinterException ex) {
               JOptionPane.showMessageDialog(null, "Revise la conexión a la impresora");
              }
