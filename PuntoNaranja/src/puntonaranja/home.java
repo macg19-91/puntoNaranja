@@ -50,6 +50,7 @@ public class home extends javax.swing.JFrame {
     ServiciosPublicos servP;   
     exportaVentas exportar;
     int[] files;
+    ventanaReporte reporte;
     static int counter = 0;
     static JSONObject json = new JSONObject();
     static ArrayList<ComboItem> elements = new ArrayList<>();
@@ -68,6 +69,7 @@ public class home extends javax.swing.JFrame {
         servP=new ServiciosPublicos();
         caja=new cierreCaja();
         exportar=new exportaVentas();
+        reporte=new ventanaReporte();
         loadNews();
         if(ConfirmaRecarga.consultaSaldo()==null){
             this.setVisible(false);
