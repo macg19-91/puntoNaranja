@@ -221,7 +221,7 @@ public class Utilities {
                     result.put(part1.split("\"")[0],part1.split("\"")[2]);
                 }
             }
-
+            
             outputstream.close();
             inputstream.close();
             sslsocket.close();
