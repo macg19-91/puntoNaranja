@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package puntonaranja;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
+import javax.naming.ldap.ManageReferralControl;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utils.auth;
@@ -23,6 +25,7 @@ public class Login extends javax.swing.JFrame {
     auth file; 
     boolean opened=false;
     CambioContraseña change=new CambioContraseña(true);
+         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
     private static void toogleEnable(boolean enable){
        
     }
@@ -42,7 +45,7 @@ public class Login extends javax.swing.JFrame {
         txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
-                 aceptar();
+                   manager.focusNextComponent();
                 }             
             }
          });
@@ -71,6 +74,10 @@ public class Login extends javax.swing.JFrame {
         if(!file.firstLogin()){
             JOptionPane.showMessageDialog(null,"No hay usuario registrado, debe ingresar los datos del nuevo Usuario", "Atención!", JOptionPane.INFORMATION_MESSAGE );
             change.setVisible(true);
+        }else{
+            txtUser.setText(file.leerArchivo("Sesion\\archivoUser.txt"));
+                   txtPass.requestFocusInWindow();
+                   
         }
     }
 

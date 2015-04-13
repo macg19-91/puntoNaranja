@@ -5,6 +5,7 @@
  */
 package puntonaranja;
 
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import static java.lang.Integer.parseInt;
 import java.util.logging.Level;
@@ -26,6 +27,7 @@ public class ventaPines extends javax.swing.JFrame {
 
     ImageIcon kolbiIcon;
     ImageIcon viajeraIcon;
+    KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
     /**
      * Creates new form ventaPines
      */
@@ -55,14 +57,14 @@ private void keyListeners(){
         cmbOperadora.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                   jButton3MouseClicked(null);
+                   manager.focusNextComponent();
                 }             
             }
          });
         cmpMonto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                   jButton3MouseClicked(null);
+                   jButton3ActionPerformed(null);
                 }             
             }
          });

@@ -5,6 +5,7 @@
  */
 package puntonaranja;
 
+import java.awt.KeyboardFocusManager;
 import java.awt.Menu;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -50,7 +51,7 @@ public class Recargas extends javax.swing.JFrame {
     ImageIcon tuyoIcon;
     ImageIcon fullIcon;
     private int limite  = 8;
- 
+    KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 
 
     public Recargas() {
@@ -76,10 +77,17 @@ private void keyListeners(){
                 }             
             }
          });
+        cmbOperadora.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   manager.focusNextComponent();
+                }             
+            }
+         });
         txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
-                   jButton3ActionPerformed(null);
+                   manager.focusNextComponent();
                 }             
             }
          });
