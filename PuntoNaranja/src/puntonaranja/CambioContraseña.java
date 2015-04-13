@@ -5,6 +5,7 @@
  */
 package puntonaranja;
 
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -34,6 +35,8 @@ import utils.auth;
 public class CambioContraseña extends javax.swing.JFrame {
     auth file;
     boolean firstTime;
+    
+         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
     /**
      * Creates new form CambioContraseña
      */
@@ -234,7 +237,7 @@ public class CambioContraseña extends javax.swing.JFrame {
         txtAgain.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
-                   jButton1MouseClicked(null);
+                   manager.focusNextComponent();
                 }             
             }
          });
@@ -248,21 +251,21 @@ public class CambioContraseña extends javax.swing.JFrame {
         txtNew.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                   jButton1MouseClicked(null);
+                   manager.focusNextComponent();
                 }             
             }
          });
         txtOld.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
-                   jButton1MouseClicked(null);
+                   manager.focusNextComponent();
                 }             
             }
          });
         txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
-                   jButton1MouseClicked(null);
+                   manager.focusNextComponent();
                 }             
             }
          });

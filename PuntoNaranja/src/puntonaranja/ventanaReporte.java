@@ -38,6 +38,7 @@ public class ventanaReporte extends javax.swing.JFrame {
         caja=false;
         cual=0;
         setLocationRelativeTo(null);
+        jButton4.requestFocusInWindow();
         keyListeners();
     }
 
@@ -122,6 +123,7 @@ private void keyListeners(){
         areaReporte.setColumns(20);
         areaReporte.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
         areaReporte.setRows(5);
+        areaReporte.setFocusable(false);
         jScrollPane2.setViewportView(areaReporte);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -5,6 +5,7 @@
  */
 package puntonaranja;
 
+import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,7 +40,7 @@ import utils.httpCall;
  * @author rlobo
  */
 public class ServiciosPublicos extends javax.swing.JFrame {
-
+    KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
     /**
      * Creates new form ServiciosPublicos
      */
@@ -256,6 +257,13 @@ public class ServiciosPublicos extends javax.swing.JFrame {
                 }             
             }
          });
+        cmbOperadora.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
+                   manager.focusNextComponent();
+                }             
+            }
+         });
         jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent e) {
                if(e.getKeyCode() == KeyEvent.VK_ENTER){ 
@@ -290,6 +298,8 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             cmbOperadora.setSelectedIndex(i+1);              
          }   
      }
+     
+     txtNumero.requestFocusInWindow();
     }
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
