@@ -872,7 +872,6 @@ public class home extends javax.swing.JFrame {
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
-        ventanaReporte reporte=new ventanaReporte();
         if(tblBitacora.getSelectedRow()>=0){
             reporte.printSelected(files[tblBitacora.getSelectedRow()]);
             reporte.setVisible(true);
