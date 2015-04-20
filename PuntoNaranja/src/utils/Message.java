@@ -440,6 +440,7 @@ public class Message {
         codigosMap.put("92","Reverso: Estado de la transacción original REVERSADA.");
         codigosMap.put("93","Reverso: Estado de la transacción original ANULADA.");
         codigosMap.put("70","No existen PINES en el inventario");
+        codigosMap.put("71","Número de referencia inválido");
         codigosMap.put("77","Error interno de plataforma. Falta secuenciador de operador.");
     }
 

@@ -41,6 +41,8 @@ import utils.httpCall;
  */
 public class ServiciosPublicos extends javax.swing.JFrame {
     KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+    
+    boolean opened=false;
     /**
      * Creates new form ServiciosPublicos
      */
@@ -306,6 +308,9 @@ public class ServiciosPublicos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+            if(!opened){
+                opened=true;
         try {
             // TODO add your handling code here:
             ComboItem selected = (ComboItem) cmbOperadora.getSelectedItem();
@@ -324,18 +329,25 @@ public class ServiciosPublicos extends javax.swing.JFrame {
                 }else {
                                     JOptionPane.showMessageDialog(null, resp+", intente de nuevo");
                                     txtNumero.setText("");
+                                    opened=false;
                                 }
             }else{
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: "+response.get("39")+", consulte con su proveedor");
+                                    opened=false;
             }
            // new ConfirmaRecarga("2000" ,"10201","ICE","Servicios","1111","","Numero recibo : 034411410126032034 |Vencimiento : 09/04/2014|Moneda : COL|Monto : 6,330.00;").setVisible(true);
             txtNumero.setText("");
-            }else  JOptionPane.showMessageDialog(null, "Digite un valor para continuar");
+            }else{
+                JOptionPane.showMessageDialog(null, "Digite un valor para continuar");
+                                    opened=false;
+            }
 
             
         } catch (Exception ex) {
+                                    opened=false;
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
