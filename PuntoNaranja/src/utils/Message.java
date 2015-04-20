@@ -183,9 +183,25 @@ public class Message {
     }  
     
     public void ventaPines(String monto,String operador,String producto) throws UnknownHostException, SocketException{
-        NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+        //NetworkInterface ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+        String mac = "";
+        String ip = "";
+        NetworkInterface ni = null;
+        try{
+            ip = InetAddress.getLocalHost().getHostAddress();
+        }
+        catch(Exception e){
+            ip = "127.0.0.1";
+        }
+        try{
+            ni = NetworkInterface.getByInetAddress(InetAddress.getLocalHost());
+            mac = ni.getHardwareAddress().toString();
+        }
+        catch(Exception e){
+            mac = "02-50-F2-CE-82-01";
+        }
         String recarga = operador + ","+producto+","+usuario+","+dispersion(usuario,clave)+","+tienda;
-        String extraInfo = "PC"+"|"+InetAddress.getLocalHost()+"|"+ni.getHardwareAddress()+"|NA|Hardware id client"+System.getProperty("os.name").toLowerCase()+"|NA";
+        String extraInfo = "PC"+"|"+ip+"|"+mac+"|NA||"+System.getProperty("os.name").toLowerCase()+"|NA";
         map = new HashMap<String, String>();
         map.put("0","0200");
         map.put("3","000500");
