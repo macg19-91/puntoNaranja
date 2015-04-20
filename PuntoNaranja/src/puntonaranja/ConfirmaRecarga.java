@@ -50,7 +50,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon(getClass().getResource("/puntonaranja/resurces/naranja.png"));
         setIconImage(img.getImage());
         this.operador=operador;
-        this.mont = mont;
+        this.mont = mont.replaceAll("\\s","");
         this.num=num;
         lblOperador.setText(operador);
         lblMonto.setText(this.mont);
@@ -59,7 +59,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         switch (tipo) {
                 case "Recargas":
                     jLabel6.setVisible(false);
-                    lblMonto1.setVisible(false);
+                    areaMonto.setVisible(false);
                     jLabel4.setText("Numero:");
                     jLabel4.setVisible(true);
                     lblNum.setVisible(true);
@@ -69,7 +69,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                     
                 case "Pines":
                     jLabel6.setVisible(false);
-                    lblMonto1.setVisible(false);
+                    areaMonto.setVisible(false);
                     jLabel4.setVisible(false);
                     lblNum.setVisible(false);
                     txtPagar.setVisible(false);
@@ -78,12 +78,12 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                     
                 case "Servicios":
                     jLabel6.setVisible(true);
-                    lblMonto1.setText(adicional);
+                    areaMonto.setText(adicional);
                     jLabel3.setText("Cobro:");
                     jLabel4.setText("Identificador:");
                     jLabel4.setVisible(true);
                     lblNum.setVisible(true);
-                    this.mont = (Integer.parseInt(mont)/100)+"";
+                    this.mont = (Integer.parseInt(this.mont)/100)+"";
                     lblMonto.setText(this.mont);
                 break;
             }
@@ -110,8 +110,9 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         lblPagar = new javax.swing.JLabel();
         txtPagar = new javax.swing.JTextField();
-        lblMonto1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        areaMonto = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Confirmación");
@@ -182,10 +183,15 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
             }
         });
 
-        lblMonto1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel6.setText("Info:");
+
+        areaMonto.setEditable(false);
+        areaMonto.setColumns(20);
+        areaMonto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        areaMonto.setLineWrap(true);
+        areaMonto.setRows(5);
+        jScrollPane1.setViewportView(areaMonto);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,25 +206,24 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(lblPagar))
-                                .addGap(105, 105, 105)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(lblNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblMonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(70, 70, 70)
-                                .addComponent(lblMonto1, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 12, Short.MAX_VALUE)))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(lblPagar))
+                        .addGap(105, 105, 105)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblMonto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 271, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1)
+                        .addGap(19, 19, 19)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -247,8 +252,8 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblMonto1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -512,11 +517,11 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
                 JPasswordField psw = new JPasswordField(10);
                 panel.add(label);
                 panel.add(psw);
-                String[] options = new String[]{"Aceptar", "Cancelar"};
+                String[] options = new String[]{"Cancelar", "Aceptar"};
                 int option = JOptionPane.showOptionDialog(null, panel, "Digite la contraseña",
                 JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, options[1]);
-                if(option == 0) // pressing OK button
+                if(option == 1) // pressing OK button
                 {
                     char[] password = psw.getPassword();
                     name=new String(password);
@@ -600,6 +605,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areaMonto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -607,8 +613,8 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblMonto;
-    private javax.swing.JLabel lblMonto1;
     private javax.swing.JLabel lblNum;
     private javax.swing.JLabel lblOperador;
     private javax.swing.JLabel lblPagar;
