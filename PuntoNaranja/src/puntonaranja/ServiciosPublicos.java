@@ -294,7 +294,8 @@ public class ServiciosPublicos extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbOperadoraItemStateChanged
     
  void cambioOperadora(String operadora){
-            cmbOperadora.setSelectedIndex(0);       
+            cmbOperadora.setSelectedIndex(0); 
+            
      for(int i=0;i<cmbOperadora.getItemCount()-1;i++){
          if(!cmbOperadora.getSelectedItem().toString().equals(operadora)){
             cmbOperadora.setSelectedIndex(i+1);              
@@ -349,16 +350,19 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
+     txtNumero.requestFocusInWindow();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         //txtMonto.setText("");
         txtNumero.setText("");
+     txtNumero.requestFocusInWindow();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
+     txtNumero.requestFocusInWindow();
         this.setVisible(false);
         //new home().setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked
@@ -370,6 +374,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
         this.setVisible(false);
+     txtNumero.requestFocusInWindow();
     }//GEN-LAST:event_formWindowClosing
 
     private void txtNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroActionPerformed
@@ -423,6 +428,7 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"No hay recibos para imprimir", "Atención!", JOptionPane.WARNING_MESSAGE );
         }
         }
+     txtNumero.requestFocusInWindow();
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

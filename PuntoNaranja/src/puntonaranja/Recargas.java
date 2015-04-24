@@ -65,9 +65,12 @@ public class Recargas extends javax.swing.JFrame {
         keyListeners();
     }
  void cambioOperadora(String operadora,Icon ic){
+     if(operadora!=""){
         this.operadora=operadora;
         this.ic=ic;
-        cmbOperadora.setSelectedItem(operadora);    
+        cmbOperadora.setSelectedItem(operadora); 
+     }
+        txtNumero.requestFocus();  
     }
 private void keyListeners(){
         txtMonto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -313,18 +316,24 @@ private void keyListeners(){
             String celular = txtNumero.getText();
             if(monto.equals("")){
                 JOptionPane.showMessageDialog(null, "Por favor ingrese un monto");
+                            txtMonto.setText("");
+                    txtMonto.requestFocus();
             }
             else{
                 if((parseInt(monto) < 100 )||(parseInt(monto) > 25000 )){
                     JOptionPane.showMessageDialog(null, "Por favor ingrese un monto entre los 100 y los 25000 colones");
+                            txtMonto.setText("");
+                    txtMonto.requestFocus();
                 }
                 else{
                     if(celular.equals("")){
                         JOptionPane.showMessageDialog(null, "Por favor ingrese un número celular");
+                            txtNumero.setText("");
                     }
                     else{
                         if(celular.length() != 8 ){
                             JOptionPane.showMessageDialog(null, "Por favor ingrese un número celular válido");
+                            txtNumero.setText("");
                         }
                         else{
                             new ConfirmaRecarga(txtMonto.getText(),txtNumero.getText(),selected,"Recargas","","","").setVisible(true);
@@ -332,6 +341,7 @@ private void keyListeners(){
                             txtNumero.setText("");
                         }
                     }
+                   txtNumero.requestFocus();
                 }
             }
         } catch (Exception ex) {
@@ -355,6 +365,7 @@ private void keyListeners(){
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
+        txtNumero.requestFocus();
         this.setVisible(false);
         //new home().setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked
@@ -365,6 +376,7 @@ private void keyListeners(){
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
+     txtNumero.requestFocusInWindow();
         this.setVisible(false);
        // new home().setVisible(true);
     }//GEN-LAST:event_formWindowClosing
@@ -384,12 +396,14 @@ private void keyListeners(){
                                     lblImg.setIcon(fullIcon);
                                      break;
                             }
+                   txtNumero.requestFocus();
     }//GEN-LAST:event_cmbOperadoraItemStateChanged
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         txtMonto.setText("");
         txtNumero.setText("");
+                   txtNumero.requestFocus();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

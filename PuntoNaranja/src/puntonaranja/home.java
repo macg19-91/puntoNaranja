@@ -688,6 +688,7 @@ public class home extends javax.swing.JFrame {
         // TODO add your handling code here:
         //JOptionPane.showMessageDialog(null, "Going out");
         
+        recargas.cambioOperadora("",lblKolbi.getIcon());
         recargas.setVisible(true);
     }//GEN-LAST:event_btnRecargasMouseClicked
 
@@ -774,6 +775,7 @@ public class home extends javax.swing.JFrame {
 
     private void btnServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnServiciosMouseClicked
         // TODO add your handling code here:
+        servP.cambioOperadora("");
         servP.setVisible(true);
     }//GEN-LAST:event_btnServiciosMouseClicked
 
