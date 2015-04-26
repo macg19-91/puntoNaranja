@@ -326,22 +326,27 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             String resp = msg.getMsgResponse();
              if(resp != null){
                 if(resp.equals("Transacción aprobada en forma exitosa")){
-                    new ConfirmaRecarga(response.get("4") ,identificador,selected.getLabel(),"Servicios",response.get("62"),"",response.get("63")).setVisible(true);
-                }else {
-                                    JOptionPane.showMessageDialog(null, resp+", intente de nuevo");
-                                    txtNumero.setText("");
-                                    opened=false;
-                                }
-            }else{
-                this.setVisible(false);
-                JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: "+response.get("39")+", consulte con su proveedor");
-                                    opened=false;
-            }
-           // new ConfirmaRecarga("2000" ,"10201","ICE","Servicios","1111","","Numero recibo : 034411410126032034 |Vencimiento : 09/04/2014|Moneda : COL|Monto : 6,330.00;").setVisible(true);
-            txtNumero.setText("");
-            }else{
+                        txtNumero.requestFocusInWindow();
+                        new ConfirmaRecarga(response.get("4"), identificador, selected.getLabel(), "Servicios", response.get("62"), "", response.get("63")).setVisible(true);
+                        opened = false;
+                    } else {
+                        JOptionPane.showMessageDialog(null, resp + ", intente de nuevo");
+                        txtNumero.setText("");
+                        txtNumero.requestFocusInWindow();
+                        opened = false;
+                    }
+                } else {
+                    this.setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Codigo de respuesta erronea: " + response.get("39") + ", consulte con su proveedor");
+                    opened = false;
+                    txtNumero.requestFocusInWindow();
+                }
+                // new ConfirmaRecarga("2000" ,"10201","ICE","Servicios","1111","","Numero recibo : 034411410126032034 |Vencimiento : 09/04/2014|Moneda : COL|Monto : 6,330.00;").setVisible(true);
+                txtNumero.setText("");
+            } else {
                 JOptionPane.showMessageDialog(null, "Digite un valor para continuar");
-                                    opened=false;
+                opened = false;
+                txtNumero.requestFocusInWindow();
             }
 
             
@@ -350,7 +355,6 @@ public class ServiciosPublicos extends javax.swing.JFrame {
             Logger.getLogger(Recargas.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
-     txtNumero.requestFocusInWindow();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked

@@ -329,19 +329,21 @@ private void keyListeners(){
                     if(celular.equals("")){
                         JOptionPane.showMessageDialog(null, "Por favor ingrese un número celular");
                             txtNumero.setText("");
+                            txtNumero.requestFocus();
                     }
                     else{
                         if(celular.length() != 8 ){
                             JOptionPane.showMessageDialog(null, "Por favor ingrese un número celular válido");
                             txtNumero.setText("");
+                            txtNumero.requestFocus();
                         }
                         else{
+                            txtNumero.requestFocus();
                             new ConfirmaRecarga(txtMonto.getText(),txtNumero.getText(),selected,"Recargas","","","").setVisible(true);
                             txtMonto.setText("");
                             txtNumero.setText("");
                         }
                     }
-                   txtNumero.requestFocus();
                 }
             }
         } catch (Exception ex) {

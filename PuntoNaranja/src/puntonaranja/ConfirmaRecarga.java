@@ -191,6 +191,7 @@ public class ConfirmaRecarga extends javax.swing.JFrame {
         areaMonto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         areaMonto.setLineWrap(true);
         areaMonto.setRows(5);
+        areaMonto.setFocusable(false);
         jScrollPane1.setViewportView(areaMonto);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
