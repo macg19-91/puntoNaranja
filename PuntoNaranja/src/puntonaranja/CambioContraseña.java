@@ -120,7 +120,7 @@ public class CambioContraseña extends javax.swing.JFrame {
         jLabel2.setText("Contraseña:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Repetir contraseña:");
+        jLabel3.setText("請重新輸入密碼");
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jButton1.setText("Aceptar");
